@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Morph
- * @author Jonathan Moss <jonathan.moss@tangentlabs.co.uk>
+ * @author Jonathan Moss <xirisr@gmail.com>
  * @copyright Jonathan Moss 2009
  */
 
@@ -51,27 +51,13 @@ class Morph_Storage
      *
      * @param Morph_Object $object
      * @param array $Ids
-     * @return Morph_Collection
+     * @return Morph_Iterator
      */
     public function fetchByIds(Morph_Object $object, array $ids)
     {
-        $objects = new Morph_Collection();
-        $query = array(
-            '_id' => array(
-                '$in'=>$ids
-        )
-        );
-        $data = $this->Db->selectCollection($object->collection())->find($query);
-        if (count($data) > 0) {
-            $className = get_class($object);
-            foreach ($data as $item) {
-                $newObject = new $className;
-                $newObject->__setData($item);
-                $newObject->__setStorage($this);
-                $objects->append($newObject);
-            }
-        }
-        return $data;
+        $query = new Morph_Query();
+        $query->property('_id')->in($ids);
+        return $this->findByQuery($object, $query);
     }
 
     /**

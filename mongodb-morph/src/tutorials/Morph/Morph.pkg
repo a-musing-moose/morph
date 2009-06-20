@@ -21,7 +21,7 @@
 			MongoDB. It
 			provides an infrastructure to translate seemlessly
 			between hierarchies of PHP
-			objects and {@link http://www.mongodb.com
+			objects and {@link http://www.mongodb.org
 			MongoDB}. 
         </para>
 	</refsynopsisdiv>
@@ -32,12 +32,12 @@
 			This package comprises a suite of objects and object primitives
 			that are
 			designed
-			to make working with {@link http://www.mongodb.com
+			to make working with {@link http://www.mongodb.org
 			MongoDB} in PHP a
 			breeze. 
         </para>
 		<para>
-			With Morph, working with {@link http://www.mongodb.com MongoDB}
+			With Morph, working with {@link http://www.mongodb.org MongoDB}
 			is no more
 			difficult
 			that working with object oriented PHP.
@@ -48,7 +48,7 @@
 		<title>Basic Usage</title>
 		<para>
 		  In the following section we go over the basics of Morph. How we create objects
-		  suitable for storage in {@link http://www.mongodb.com MongoDB} and how we
+		  suitable for storage in {@link http://www.mongodb.org MongoDB} and how we
 		  can store and retrieve those object.
 		</para>
 		<refsect2 id="{@id basic_usage_morph_object}">
@@ -56,13 +56,13 @@
 			<para>
 				Morph_Object provides a flexible base for defining object hierarchies which can
 				be
-				stored in {@link http://www.mongodb.com MongoDB}.
+				stored in {@link http://www.mongodb.org MongoDB}.
             </para>
 			<para>
 				{@example MinimalObject.php}
 
 				The example above show all you really need to know to start building
-				php objects that can be stored in {@link http://www.mongodb.com
+				php objects that can be stored in {@link http://www.mongodb.org
 				MongoDB}.
 				As you can see the only real requirements are that you extend
 				Morph_Object

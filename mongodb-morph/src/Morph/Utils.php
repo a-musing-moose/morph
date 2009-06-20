@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Morph
- * @author Jonathan Moss <jonathan.moss@tangentlabs.co.uk>
+ * @author Jonathan Moss <xirisr@gmail.com>
  * @copyright Jonathan Moss 2009
  */
 

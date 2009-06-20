@@ -2,8 +2,8 @@
 /**
  * @package Morph
  * @subpackage Property
- * @author Jonathan Moss <jonathan.moss@tangentlabs.co.uk>
- * @copyright 2009 Tangent Labs
+ * @author Jonathan Moss <xirisr@gmail.com>
+ * @copyright 2009 Jonathan Moss
  * @version SVN: $Id$
  */
 
