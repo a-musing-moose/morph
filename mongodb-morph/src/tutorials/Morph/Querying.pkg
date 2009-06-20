@@ -1,0 +1,60 @@
+<refentry id="{@id}">
+	<refnamediv>
+		<refname>
+			Querying with Morph
+        </refname>
+		<refpurpose>
+			An introduction to querying MongoDB with Morph
+		</refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<author>
+			<authorblurb>
+				{@link mailto:jonathan.moss@tangentlabs.co.uk Jonathan
+				Moss}
+            </authorblurb>
+		</author>
+		<para>
+			The Morph package features a flexible, object oriented
+			approach to querying
+        </para>
+	</refsynopsisdiv>
+	{@toc}
+	<refsect1 id="{@id query}">
+		<title>Basic Querying</title>
+		<para>
+			In the following section we go over the basics of querying with
+			Morph.
+		</para>
+		<refsect2 id="{@id basic_usage_morph_query}">
+			<title>Morph_Query</title>
+			<para>
+				Morph_Query provides a nifty interface to the database and the following
+				example shows you the basics.
+				{@example BasicQuerying.php}
+            </para>
+		</refsect2>
+		<refsect2 id="{@id query_limit}">
+            <title>Adding limits and skips</title>
+            <para>
+                You can also limit the maximum number of items that are returned
+                by a query as well as defining the number of results to skip. This
+                is ideal for implementing pagination of results
+                {@example LimitSkipQuerying.php}
+            </para>
+        </refsect2>
+        <refsect2 id="{@id query_chaining}">
+            <title>Chaining</title>
+            <para>
+                Note that you can chain criteria together to make up super complex
+                queries like the one below
+                {@example UberQuery.php}
+                I know it looks like a lot of typing but with autocomplete it becomes
+                super easy
+            </para>
+        </refsect2>
+	</refsect1>
+
+
+</refentry>

@@ -1,0 +1,97 @@
+<refentry id="{@id}">
+	<refnamediv>
+		<refname>
+			The Morph Package
+        </refname>
+		<refpurpose>
+			An introductory tutorial to Morph
+        </refpurpose>
+	</refnamediv>
+
+	<refsynopsisdiv>
+		<author>
+			<authorblurb>
+				{@link mailto:jonathan.moss@tangentlabs.co.uk Jonathan
+				Moss}
+            </authorblurb>
+		</author>
+		<para>
+			The Morph package provides a high level framework for working
+			with
+			MongoDB. It
+			provides an infrastructure to translate seemlessly
+			between hierarchies of PHP
+			objects and {@link http://www.mongodb.com
+			MongoDB}. 
+        </para>
+	</refsynopsisdiv>
+	{@toc}
+	<refsect1 id="{@id intro}">
+		<title>Overview</title>
+		<para>
+			This package comprises a suite of objects and object primitives
+			that are
+			designed
+			to make working with {@link http://www.mongodb.com
+			MongoDB} in PHP a
+			breeze. 
+        </para>
+		<para>
+			With Morph, working with {@link http://www.mongodb.com MongoDB}
+			is no more
+			difficult
+			that working with object oriented PHP.
+        </para>
+	</refsect1>
+
+	<refsect1 id="{@id basic_usage}">
+		<title>Basic Usage</title>
+		<para>
+		  In the following section we go over the basics of Morph. How we create objects
+		  suitable for storage in {@link http://www.mongodb.com MongoDB} and how we
+		  can store and retrieve those object.
+		</para>
+		<refsect2 id="{@id basic_usage_morph_object}">
+		   <title>Morph_Object</title>
+			<para>
+				Morph_Object provides a flexible base for defining object hierarchies which can
+				be
+				stored in {@link http://www.mongodb.com MongoDB}.
+            </para>
+			<para>
+				{@example MinimalObject.php}
+
+				The example above show all you really need to know to start building
+				php objects that can be stored in {@link http://www.mongodb.com
+				MongoDB}.
+				As you can see the only real requirements are that you extend
+				Morph_Object
+				and the the properties you wish to store as part of the object are
+				added
+				using the Morph_Object::addProperty(). 
+        </para>
+		</refsect2>
+		<refsect2 id="{@id basic_usage_storage}">
+			<title>Storage &amp; Retrieval</title>
+			<para>
+				The next step in our journey is how to store and retrieve
+				object from the database. For this we need to use the
+				Morph_Storage object which represents our interface to the
+				database
+			</para>
+			<para>
+			    The following example illustrates how you can store an object
+			    in the database
+				{@example BasicUsageStorage.php}
+            </para>
+			<para>
+			    This example shows that how we can get an object back from the database
+			    by it's id
+				{@example BasicUsageRetrieval.php}
+            </para>
+		</refsect2>
+
+	</refsect1>
+
+
+</refentry>
