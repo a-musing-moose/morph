@@ -11,7 +11,7 @@
  *
  * @package Morph
  */
-class Morph_Iterator implements Traversable
+class Morph_Iterator implements Iterator
 {
 
     /**
@@ -20,16 +20,18 @@ class Morph_Iterator implements Traversable
     private $type;
 
     /**
-     * @var Mongo_Cursor
+     * @var MongoCursor
      */
     private $cursor;
 
     /**
+     * Creates a new Morph_Iterator from the passed in cursor
      *
-     * @param Mongo_Cursor $cursor
+     * @param Morph_Object $object
+     * @param MongoCursor $cursor
      * @return Morph_Iterator
      */
-    public function __construct(Morph_Object $object, Mongo_Cursor $cursor)
+    public function __construct(Morph_Object $object, MongoCursor $cursor)
     {
         $this->type = $object;
         $this->cursor = $cursor;

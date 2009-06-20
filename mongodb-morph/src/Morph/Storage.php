@@ -150,13 +150,11 @@ class Morph_Storage
      */
     public function findByQuery(Morph_Object $object, Morph_Query $query = null)
     {
-        $objects = new Morph_Collection();
         $class = get_class($object);
-        $objects->setPermissableType($class);
 
         $query = (is_null($query)) ? new Morph_Query() : $query;
         $cursor = $this->Db->selectCollection($object->collection())->find($query->getRawQuery());
-
+        echo $object->collection() . "\n";
         if (!is_null($query->getLimit())) {
             $results->limit($query->getLimit());
         }
@@ -165,7 +163,7 @@ class Morph_Storage
             $results->skip($query->getSkip());
         }
 
-        $iterator = new Morph_Iterator($cursor);
+        $iterator = new Morph_Iterator($object, $cursor);
 
         return $iterator;
     }
