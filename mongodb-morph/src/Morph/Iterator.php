@@ -134,7 +134,7 @@ class Morph_Iterator implements Iterator
      */
     public function valid()
     {
-
+        return $this->cursor->valid();
     }
 
 }
