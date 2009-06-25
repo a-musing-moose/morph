@@ -140,7 +140,6 @@ class Morph_Storage
 
         $query = (is_null($query)) ? new Morph_Query() : $query;
         $cursor = $this->Db->selectCollection($object->collection())->find($query->getRawQuery());
-        echo $object->collection() . "\n";
         if (!is_null($query->getLimit())) {
             $results->limit($query->getLimit());
         }
