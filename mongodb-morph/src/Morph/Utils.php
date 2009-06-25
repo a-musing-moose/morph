@@ -21,7 +21,7 @@ class Morph_Utils
      */
     public static function collectionName(Morph_Object $object)
     {
-        return str_replace('_', '.', get_class($object));
+        return str_replace(array('_','\\'), '.', get_class($object));
     }
 
     /**
