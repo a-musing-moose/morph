@@ -189,6 +189,19 @@ class Morph_Query_Property
         return $this;
     }
 
+
+    /**
+     * Adds a regular expression constraint
+     *
+     * @param string $regex
+     * @return Morph_Query_Property
+     */
+    public function regex($regex)
+    {
+        $this->setSingularConstraint(new MongoRegex($regex));
+        return $this;
+    }
+
     /**
      * Adds a constraint that this property must have $value entries
      *
@@ -200,6 +213,7 @@ class Morph_Query_Property
     public function size($value)
     {
         $this->addCompoundConstraint('$size', (int) $value);
+        return $this;
     }
 
     /**

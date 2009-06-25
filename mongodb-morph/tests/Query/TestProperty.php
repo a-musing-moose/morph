@@ -87,6 +87,14 @@ class TestProperty  extends PHPUnit_Framework_TestCase
         $this->assertTrue($newField instanceof Morph_Query_Property);
     }
 
+    public function testRegexConstraint()
+    {
+        $property = new Morph_Query_Property($this->getMockQuery(false));
+        $property->regex('/abc.*/');
+        $this->assertTrue(($property->getConstraints() instanceof MongoRegex));
+
+    }
+
     private function getMockQuery($willCallField = false)
     {
         $query = $this->getMock('Morph_Query', array('property'));
