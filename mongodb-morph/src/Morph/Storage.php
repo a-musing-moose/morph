@@ -148,7 +148,7 @@ class Morph_Storage
             $results->skip($query->getSkip());
         }
 
-        $iterator = new Morph_Iterator($object, $cursor);
+        $iterator = new Morph_Iterator($object, $this, $cursor);
 
         return $iterator;
     }
