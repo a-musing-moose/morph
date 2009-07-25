@@ -3,7 +3,7 @@
 
     <taskdef classname="phar.PharPackageTask" name="pharpackage"/>
 
-	<fileset dir="tests" id="tests">
+	<fileset dir="unit-tests" id="unittests">
 		<include name="**/Test*.php" />
 	</fileset>
 	
@@ -30,13 +30,13 @@
 		<echo msg="API Documentation Creation Complete" />
 	</target>
 
-	<target name="test" description="Runs Morph unit tests">
+	<target name="unittest" description="Runs Morph unit tests">
         <echo msg="Starting Test Suite" />
 
         <phpunit2 haltonfailure="false" haltonerror="false">
             <formatter type="xml" outfile="test-report.xml" />
             <batchtest>
-                <fileset refid="tests" />
+                <fileset refid="unittests" />
             </batchtest>
         </phpunit2>
 
@@ -71,6 +71,6 @@
         </pharpackage>
     </target>
     
-    <target name="all" description="builds everything" depends="test, coverage, doc, package" />
+    <target name="all" description="builds everything" depends="unittest, coverage, doc, package" />
 
 </project>
