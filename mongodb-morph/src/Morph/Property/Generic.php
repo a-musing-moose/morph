@@ -120,4 +120,3 @@ class  Morph_Property_Generic
         return $this->getName() . ": " . $this->getValue();
     }
 }
-?>

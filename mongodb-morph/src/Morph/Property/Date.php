@@ -81,4 +81,3 @@ class Morph_Property_Date extends Morph_Property_Generic
     }
 
 }
-?>

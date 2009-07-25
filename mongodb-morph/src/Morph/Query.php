@@ -151,4 +151,3 @@ class Morph_Query
 	    return $query;
 	}
 }
-?>

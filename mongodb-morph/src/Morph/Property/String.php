@@ -55,4 +55,3 @@ class Morph_Property_String extends Morph_Property_Generic
     }
 
 }
-?>

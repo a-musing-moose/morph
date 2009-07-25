@@ -152,5 +152,33 @@ class Morph_Storage
 
         return $iterator;
     }
+
+    /**
+     * Fetches a object representing a file in MongoDB
+     *
+     * @param mixed $id
+     * @return MongoGridFSFile
+     */
+    public function fetchFile($id)
+    {
+        $query = array('_id' => $id);
+        return $this->Db->getGridFS()->findOne($query);
+    }
+
+    /**
+     * Saves a file to MongoDB
+     *
+     * @param string $filePath
+     * @return mixed The id of the stored file
+     */
+    public function saveFile($filePath)
+    {
+        $id = null;
+        if (file_exists($filePath)) {
+            $id = $this->Db->getGridFS()->storeFile($filePath);
+        } else {
+            throw new InvalidArgumentException("The file $filePath does not exist");
+        }
+        return $id;
+    }
 }
-?>

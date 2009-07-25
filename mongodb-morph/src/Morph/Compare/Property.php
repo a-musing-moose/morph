@@ -50,4 +50,3 @@ class  Morph_Compare_Property implements Morph_ICompare
     }
 
 }
-?>

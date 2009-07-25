@@ -98,4 +98,3 @@ class  Morph_Property_ComposeMany extends Morph_Property_Generic
     }
 
 }
-?>

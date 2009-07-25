@@ -52,4 +52,3 @@ class  Morph_Compare_NumericProperty implements Morph_ICompare
     }
 
 }
-?>

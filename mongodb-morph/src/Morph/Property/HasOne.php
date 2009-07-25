@@ -128,4 +128,3 @@ class Morph_Property_HasOne extends Morph_Property_Generic
     }
 
 }
-?>

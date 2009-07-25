@@ -130,4 +130,3 @@ class  Morph_PropertySet extends ArrayObject
     }
 
 }
-?>

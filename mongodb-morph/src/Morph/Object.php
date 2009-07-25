@@ -188,7 +188,7 @@ class Morph_Object
         if (array_key_exists($propertyName, $this->propertySet)) {
             $value = $this->propertySet[$propertyName]->getValue();
         }else{
-            trigger_error("The property $propertyName was not found in object of class " . get_class($this), E_WARNING);
+            trigger_error("The property $propertyName was not found in object of class " . get_class($this), E_USER_WARNING);
         }
         return $value;
     }
@@ -212,7 +212,7 @@ class Morph_Object
              * MongoDB is schemaless after all. I could trigger an error as well
              * giving devs a chance to see that they are doing something wrong.
              */
-            trigger_error("The property $propertyName was not found in object of class " . get_class($this), E_WARNING);
+            trigger_error("The property $propertyName was not found in object of class " . get_class($this), E_USER_WARNING);
         }
         return $this;
     }
@@ -277,4 +277,3 @@ class Morph_Object
         return $content;
     }
 }
-?>

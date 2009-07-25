@@ -71,4 +71,3 @@ class  Morph_Property_Enum extends Morph_Property_Generic
     }
 
 }
-?>

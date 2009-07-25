@@ -67,4 +67,3 @@ class Morph_Property_Float extends Morph_Property_Generic
     }
 
 }
-?>

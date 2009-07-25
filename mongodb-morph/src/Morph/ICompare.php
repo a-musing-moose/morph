@@ -25,4 +25,3 @@ interface Morph_ICompare
     public function compare(Morph_Object $objectA, Morph_Object $objectB);
 
 }
-?>

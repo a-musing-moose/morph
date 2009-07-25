@@ -100,4 +100,3 @@ class  Morph_Property_ComposeOne extends Morph_Property_Generic
     }
 
 }
-?>

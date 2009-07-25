@@ -67,4 +67,3 @@ class Morph_Property_Integer extends Morph_Property_Generic
 	}
 
 }
-?>

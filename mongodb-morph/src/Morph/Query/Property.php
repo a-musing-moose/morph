@@ -283,4 +283,3 @@ class Morph_Query_Property
     }
 
 }
-?>
