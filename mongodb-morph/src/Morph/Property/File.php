@@ -81,7 +81,7 @@ class Morph_Property_File extends Morph_Property_Generic
     public function __getRawValue()
     {
         if (!is_null($this->FilePath)) {
-            $this->Reference = $this->Storage->saveFile($this->FilePath);
+            $this->Reference = $this->Storage->saveFile($this->FilePath, $this->Reference);
         }
         return $this->Reference;
     }
