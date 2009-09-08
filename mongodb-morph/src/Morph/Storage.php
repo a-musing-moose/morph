@@ -169,13 +169,17 @@ class Morph_Storage
      * Saves a file to MongoDB
      *
      * @param string $filePath
+     * @param array $oldReference
      * @return mixed The id of the stored file
      */
-    public function saveFile($filePath)
+    public function saveFile($filePath, $oldReference = null)
     {
         $id = null;
         if (file_exists($filePath)) {
             $id = $this->Db->getGridFS()->storeFile($filePath);
+            if (!empty($oldReference)) {
+                $this->Db->getGridFS()->remove(array('_id'=>$oldReference), true); //remove existing file
+            }
         } else {
             throw new InvalidArgumentException("The file $filePath does not exist");
         }
