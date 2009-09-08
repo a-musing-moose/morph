@@ -176,10 +176,10 @@ class Morph_Storage
     {
         $id = null;
         if (file_exists($filePath)) {
-            $id = $this->Db->getGridFS()->storeFile($filePath);
             if (!empty($oldReference)) {
                 $this->Db->getGridFS()->remove(array('_id'=>$oldReference), true); //remove existing file
             }
+            $id = $this->Db->getGridFS()->storeFile($filePath);
         } else {
             throw new InvalidArgumentException("The file $filePath does not exist");
         }
