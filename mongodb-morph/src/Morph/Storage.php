@@ -91,7 +91,7 @@ class Morph_Storage
         //set an id if we do not have one
         if(!array_key_exists('_id', $data)){
             $id = array(
-                '_id'=> md5(uniqid(rand(), true))
+                '_id' => md5(uniqid(rand(), true))
             );
             $data = array_merge($id, $data);
         }
