@@ -57,6 +57,7 @@ class Morph_Property_File extends Morph_Property_Generic
     {
         if (file_exists($value)) {
             $this->FilePath = realpath($value);
+            unset($this->Value);
         } else {
             throw new InvalidArgumentException("The file $value does not exist");
         }
@@ -92,6 +93,8 @@ class Morph_Property_File extends Morph_Property_Generic
      */
     public function __setRawValue($value)
     {
+        unset($this->Value);
+        unset($this->FilePath);
         $this->Reference = $value;
     }
 
