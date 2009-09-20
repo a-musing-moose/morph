@@ -50,7 +50,7 @@
     </target>
     
     <target name="coverage" description="generates unit test coverage report">
-        <exec command="phpunit --coverage-html doc/coverage/ tests/MorphTests.php" checkreturn="false" /> 
+        <exec command="phpunit --coverage-html doc/coverage/ unit-tests/MorphTests.php" checkreturn="false" /> 
     </target> 
     
     <target name="package" description="builds Morph.phar">
