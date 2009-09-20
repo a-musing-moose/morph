@@ -50,6 +50,7 @@ class TestObject extends PHPUnit_Framework_TestCase
     public function testGetData()
     {
         $data = array(
+            '_ns'           => 'Morph_ForTesting',
             'TestField'     => 'value1',
             'instanceOf'    => 'Morph_ForTesting'
         );
