@@ -144,8 +144,8 @@ class Morph_Object
             $this->Id = $data['_id'];
             unset($data['_id']);
         }
-        if (array_key_exists('instanceOf', $data)) {
-            unset($data['instanceOf']);
+        if (array_key_exists('_ns', $data)) {
+            unset($data['_ns']);
         }
         foreach ($data as $propertyName => $value) {
             $this->propertySet->__setRawPropertyValue($propertyName, $value);
@@ -165,7 +165,7 @@ class Morph_Object
         if (!is_null($this->Id)) {
             $data['_id'] = $this->Id;
         }
-        $data['instanceOf'] = get_class($this);
+        $data['_ns'] = get_class($this);
         foreach($this->propertySet as $property) {
             $data[$property->getName()] = $property->__getRawValue();
             $data = array_filter($data);
