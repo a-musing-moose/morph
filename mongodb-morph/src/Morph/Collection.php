@@ -18,7 +18,7 @@
  *
  * @package Morph
  */
-class Morph_Collection
+class Morph_Collection extends ArrayObject
 {
 
     /**
@@ -120,7 +120,7 @@ class Morph_Collection
     }
 
     /**
-     * Sorts this collection using the specified model_ICompare object
+     * Sorts this collection using the specified Morph_ICompare object
      *
      * @param Morph_ICompare $comparator
      * @return boolean
@@ -134,7 +134,7 @@ class Morph_Collection
     }
 
     /**
-     * Sorts this collection using the specified collectionl_ICompare object
+     * Sorts this collection using the specified Morph_ICompare object
      *
      * Preserves keys
      *
@@ -210,7 +210,7 @@ class Morph_Collection
     }
 
     /**
-     * Checks that $object is an instance of ar_Base
+     * Checks that $object is an instance of the permissable type
      *
      * Throws a RuntimeException if not
      *
