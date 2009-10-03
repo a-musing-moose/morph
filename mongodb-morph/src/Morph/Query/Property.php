@@ -57,7 +57,7 @@ class Morph_Query_Property
     }
 
     ///////////////////////////////////////
-    // WRAPPER FOR Morph_QUERY FUNCTIONS //
+    // WRAPPER FOR Morph_Query FUNCTIONS //
     ///////////////////////////////////////
 
     /**
