@@ -59,6 +59,24 @@ class Morph_Query
 	 */
 	private $numberToSkip;
 
+	/**
+	 * Static function to create and instance of Morph_Query
+	 *
+	 * This just makes it easier to chain both creation and the
+	 * actual criteria:
+	 * <code>
+	 * $query = Morph_Query::instance()
+	 *   ->limit(10)
+     *   ->property('name')
+     *   ->equals('jon');
+	 * </code>
+	 *
+	 * @return Morph_Query
+	 */
+	public static function instance()
+	{
+	    return new self;
+	}
 
 	/**
 	 * Creates a new Morph query object
