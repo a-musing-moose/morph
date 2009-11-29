@@ -43,9 +43,9 @@ class  Morph_Property_HasMany extends Morph_Property_Generic implements ArrayAcc
     public function __construct($name, $type)
     {
         $this->Type = $type;
-        $this->Value = new Morph_Collection();
-        $this->Value->setPermissableType($type);
-        parent::__construct($name);
+        $default = new Morph_Collection();
+        $default->setPermissableType($type);
+        parent::__construct($name, $default);
     }
 
     /**

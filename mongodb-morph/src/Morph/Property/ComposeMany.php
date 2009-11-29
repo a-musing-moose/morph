@@ -29,9 +29,9 @@ class  Morph_Property_ComposeMany extends Morph_Property_Generic
     public function __construct($name, $type)
     {
         $this->Type = $type;
-        $this->Value = new Morph_Collection();
-        $this->Value->setPermissableType($type);
-        parent::__construct($name);
+        $default = new Morph_Collection();
+        $default->setPermissableType($type);
+        parent::__construct($name, $default);
     }
 
     /**
@@ -80,7 +80,10 @@ class  Morph_Property_ComposeMany extends Morph_Property_Generic
     {
         $rawValue = array();
         if($this->Value->count() > 0){
-            $rawValue = $this->Value->getArrayCopy();
+            //$rawValue = $this->Value->getArrayCopy();
+            foreach ($this->Value as $value) {
+                $rawValue[] = $value->__getData();
+            }
         }
         return $rawValue;
     }
