@@ -28,7 +28,7 @@ class Morph_Property_Date extends Morph_Property_Generic
     public function __construct($name, $default = null)
     {
         $this->Name = $name;
-        $this->Value = $default;
+        $this->Value = (int)$default;
     }
 
     /**
@@ -49,7 +49,7 @@ class Morph_Property_Date extends Morph_Property_Generic
      */
     public function setValue($value)
     {
-        $this->Value = (int) $value;
+        $this->Value = (int)$value;
     }
 
     /**
