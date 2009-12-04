@@ -42,7 +42,7 @@ class Morph_Storage
         $query = array('_id' => $id);
         $data = $this->Db->selectCollection($object->collection())->findOne($query);
         $object->__setData($data, Morph_Object::STATE_CLEAN);
-        $object->storage($this);
+        $object->__setStorage($this);
         return $object;
     }
 
