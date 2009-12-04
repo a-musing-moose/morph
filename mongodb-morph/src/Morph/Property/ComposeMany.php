@@ -70,6 +70,7 @@ class  Morph_Property_ComposeMany extends Morph_Property_Generic
                 $collection->append($object);
             }
         }
+        $this->Value = $collection;
     }
 
     /**
