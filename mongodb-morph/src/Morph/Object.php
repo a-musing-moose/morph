@@ -217,12 +217,8 @@ class Morph_Object
                 $this->State = self::STATE_DIRTY;
             }
         }else{
-            /*
-             * @todo Should I just create an instance of Morph_Property_Generic?
-             * MongoDB is schemaless after all. I could trigger an error as well
-             * giving devs a chance to see that they are doing something wrong.
-             */
-            trigger_error("The property $propertyName was not found in object of class " . get_class($this), E_USER_WARNING);
+            $this->addProperty(new Morph_Property_Generic($propertyName, $propertyValue));
+            trigger_error("The property $propertyName was not found in object of class " . get_class($this) . ' but I have added it as a generic property type', E_USER_WARNING);
         }
         return $this;
     }
@@ -286,7 +282,6 @@ class Morph_Object
             }
 
         }
-
         return $content;
     }
 }
