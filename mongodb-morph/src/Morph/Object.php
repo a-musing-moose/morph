@@ -173,6 +173,16 @@ class Morph_Object
         return $data;
     }
 
+    /**
+     * Get the property set associated with this object
+     *
+     * @return Morph_PropertySet
+     */
+    public function getPropertySet()
+    {
+        return $this->propertySet;
+    }
+
     // ********************** //
     // MAGIC ACCESS FUNCTIONS //
     // ********************** //
@@ -248,6 +258,9 @@ class Morph_Object
     public function __toArray($depth = 1)
     {
         $content = array();
+        if (!empty($this->Id)) {
+            $content['_id'] = $this->Id;
+        }
         --$depth;
         foreach ($this->propertySet as $property) {
             $value = $property->getValue();
@@ -264,7 +277,7 @@ class Morph_Object
                         foreach ($value as $object) {
                             $valueContents[] = $object->__toArray($depth);
                         }
-                        $content[$value->getName()] = $valueContents;
+                        $content[$property->getName()] = $valueContents;
                     }
                     break;
                 default:
