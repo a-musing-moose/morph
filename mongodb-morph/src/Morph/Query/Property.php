@@ -203,6 +203,26 @@ class Morph_Query_Property
     }
 
     /**
+     * Adds a like constraint
+     *
+     * Convenience wrapper for regex. Adds a wild card to the
+     * start and end of the query $value.
+     *
+     * e.g. 'bob' is turned into  '.*bob.*'
+     *
+     * This is probably really in-efficient so I would recommend
+     * using regex directly with a custom written pattern.
+     *
+     * @param string $value
+     * @return Morph_Query_Property
+     */
+    public function like($value)
+    {
+        $term = '.*' . $value . '.*';
+        return $this->regex($value);
+    }
+
+    /**
      * Adds a constraint that this property must have $value entries
      *
      * This property must be an array
