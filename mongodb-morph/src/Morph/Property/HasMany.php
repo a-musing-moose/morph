@@ -15,7 +15,7 @@
  * @package Morph
  * @subpackage Property
  */
-class  Morph_Property_HasMany extends Morph_Property_Generic implements ArrayAccess
+class  Morph_Property_HasMany extends Morph_Property_Generic
 {
 
     /**
@@ -108,17 +108,21 @@ class  Morph_Property_HasMany extends Morph_Property_Generic implements ArrayAcc
     private function loadFromReferences()
     {
         $ids = array();
-        foreach ($this->References as $reference){
-            $ids[] = $reference['$id'];
+        if (count($this->References) > 0) {
+            foreach ($this->References as $reference){
+                $ids[] = $reference['$id'];
+            }
+
+            $query = new Morph_Query();
+            $query->property('_id')->in($ids);
+
+            $object = new $this->Type;
+
+            //@todo this could get nasty with large collections!
+            $this->Value = $this->Storage->findByQuery($object, $query)->toCollection();
+        } else {
+            $this->Value = new Morph_Collection();
         }
-
-        $query = new Morph_Query();
-        $query->property('_id')->in($ids);
-
-        $object = new $this->Type;
-
-        //@todo this could get nasty with large collections!
-        $this->Value = $this->Storage->findByQuery($object, $query)->toCollection();
         $this->Loaded = true;
     }
 }
