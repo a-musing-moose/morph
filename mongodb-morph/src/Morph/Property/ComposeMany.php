@@ -26,6 +26,10 @@ class  Morph_Property_ComposeMany extends Morph_Property_Generic
     protected $Type;
 
 
+    /**
+     * @param string $name
+     * @param string $type
+     */
     public function __construct($name, $type)
     {
         $this->Type = $type;
