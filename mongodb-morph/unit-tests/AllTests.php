@@ -8,7 +8,7 @@ require_once dirname(__FILE__).'/Query/TestProperty.php';
 require_once dirname(__FILE__).'/TestQuery.php';
 require_once dirname(__FILE__).'/TestObject.php';
 
-class MorphTests
+class AllTests
 {
     public static function suite()
     {
