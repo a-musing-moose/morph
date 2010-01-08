@@ -75,19 +75,6 @@ class  Morph_PropertySet extends ArrayObject
         $this[$name]->__setRawValue($value);
     }
 
-    /**
-     * Sets the storage class for to use
-     *
-     * @param $storage
-     * @return void
-     */
-    public function setStorage(Morph_Storage $storage)
-    {
-        foreach ($this as $property) {
-            $property->setStorage($storage);
-        }
-    }
-
     // ARRAY ACCESS FUNCTIONS
 
     /**

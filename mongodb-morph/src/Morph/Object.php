@@ -18,11 +18,6 @@ class Morph_Object
     const STATE_DIRTY = 'Dirty';
 
     /**
-     * @var Morph_Storage
-     */
-    protected $Storage;
-
-    /**
      * The name of the collection this object is stored within
      * @var string
      */
@@ -106,17 +101,6 @@ class Morph_Object
     public function state()
     {
         return $this->State;
-    }
-
-    /**
-     * Sets the storage object for this object
-     * @param Morph_Storage $storage
-     * @return void
-     */
-    public function __setStorage(Morph_Storage $storage)
-    {
-        $this->Storage = $storage;
-        $this->propertySet->setStorage($storage);
     }
 
     /**
@@ -222,6 +206,54 @@ class Morph_Object
         }
         return $this;
     }
+
+    // ********************* //
+    // PERSISTANCE FUNCTIONS //
+    // ********************* //
+
+    /**
+     * Saves this object
+     *
+     * @return Morph_Object
+     */
+    public function save()
+    {
+        return Morph_Storage::instance()->save($this);
+    }
+
+    /**
+     * Attempts to load the current object with data from the document id specified
+     *
+     * @param mixed $id
+     * @return Morph_Object
+     */
+    public function loadById($id)
+    {
+        return Morph_Storage::instance()->fetchById($this, $id);
+    }
+
+    /**
+     * Fetch multiple objects by their ids
+     *
+     * @param array $ids
+     * @return Morph_Collection
+     */
+    public function fetchByIds(array $ids)
+    {
+        return Morph_Storage::instance()->fetchByIds($this, $id);
+    }
+
+    /**
+     * Find objects by query
+     *
+     * @param Morph_Query $query
+     * @return Morph_Collection
+     */
+    public function findByQuery(Morph_Query $query)
+    {
+        return Morph_Storage::instance()->findByQuery($this, $query);
+    }
+
 
     // ***************** //
     // UTILITY FUNCTIONS //

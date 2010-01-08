@@ -15,16 +15,55 @@ class Morph_Storage
 {
 
     /**
+     * @var Morph_Storage
+     */
+    private static $instance;
+
+    /**
      * @var MongoDB
      */
     private $Db;
+
+    /**
+     * Returns the singleton instance of this class
+     * @return Morph_Storage
+     */
+    public static function instance()
+    {
+        if (!isset(self::$instance)) {
+            throw new RuntimeException("Morph_Storage has not been inituialised");
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Initialises the storage object
+     *
+     * @param MongoDB $db
+     * @return Morph_Storage
+     */
+    public static function init(MongoDB $db)
+    {
+        self::$instance = new self($db);
+        return self::$instance;
+    }
+
+    /**
+     * De-initilises the storage object
+     *
+     * @return void
+     */
+    public static function deInit()
+    {
+        self::$instance = null;
+    }
 
     /**
      *
      * @param MongoDB $db
      * @return Morph_Mapper
      */
-    public function __construct(MongoDB $db)
+    private function __construct(MongoDB $db)
     {
         $this->Db = $db;
     }
@@ -42,7 +81,6 @@ class Morph_Storage
         $query = array('_id' => $id);
         $data = $this->Db->selectCollection($object->collection())->findOne($query);
         $object->__setData($data, Morph_Object::STATE_CLEAN);
-        $object->__setStorage($this);
         return $object;
     }
 
@@ -69,7 +107,6 @@ class Morph_Storage
     public function save(Morph_Object $object)
     {
         $response = $object;
-        $object->__setStorage($this); //ensure that the storage object is set
         if ($object->state() == Morph_Object::STATE_DIRTY){
             $response = $this->update($object);
         } elseif ($object->state() == Morph_Object::STATE_NEW) {
@@ -148,7 +185,7 @@ class Morph_Storage
             $results->skip($query->getSkip());
         }
 
-        $iterator = new Morph_Iterator($object, $this, $cursor);
+        $iterator = new Morph_Iterator($object, $cursor);
 
         return $iterator;
     }

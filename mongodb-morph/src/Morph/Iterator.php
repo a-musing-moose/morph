@@ -37,10 +37,9 @@ class Morph_Iterator implements Iterator
      * @param MongoCursor $cursor
      * @return Morph_Iterator
      */
-    public function __construct(Morph_Object $object, Morph_Storage $storage, MongoCursor $cursor)
+    public function __construct(Morph_Object $object, MongoCursor $cursor)
     {
         $this->type = $object;
-        $this->storage = $storage;
         $this->cursor = $cursor;
     }
 
@@ -88,7 +87,6 @@ class Morph_Iterator implements Iterator
         $class = get_class($this->type);
         $object = new $class;
         $object->__setData($item, Morph_Object::STATE_CLEAN);
-        $object->__setStorage($this->storage);
         return $object;
     }
 
