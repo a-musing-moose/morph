@@ -4,9 +4,9 @@
  * @copyright 2010 Jonathan Moss
  */
 
-require_once 'MongoTestCase.php';
-require_once 'test-objects/ComposeOneParent.php';
-require_once 'test-objects/Child.php';
+require_once dirname(__FILE__).'/MongoTestCase.php';
+require_once dirname(__FILE__).'/test-objects/ComposeOneParent.php';
+require_once dirname(__FILE__).'/test-objects/Child.php';
 
 class TestComposeOne extends MongoTestCase
 {
