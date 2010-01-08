@@ -11,16 +11,17 @@ require_once dirname(__FILE__).'/test-objects/Child.php';
 class TestComposeOne extends MongoTestCase
 {
 
-    /**
-     * @var Morph_Storage
-     */
-    private $storage;
-
     public function setUp()
     {
         parent::setUp();
         $mongo = new Mongo();
-        $this->storage = new Morph_Storage($mongo->selectDB(self::TEST_DB_NAME));
+        Morph_Storage::init($mongo->selectDB(self::TEST_DB_NAME));
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+        Morph_Storage::deInit();
     }
 
     public function testStoresParentAndChild()
@@ -33,7 +34,7 @@ class TestComposeOne extends MongoTestCase
 
         $parent->Child = $child;
 
-        $this->storage->save($parent);
+        $parent->save();
         sleep(1); //MongoDB can take a sec to allocate the collection files
         $this->assertCollectionExists('ComposeOneParent');
         $this->assertCollectionDoesNotExist('Child');
