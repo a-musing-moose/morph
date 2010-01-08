@@ -73,7 +73,7 @@ class  Morph_Property_HasMany extends Morph_Property_Generic
             }
             $this->References = $refs;
         }
-        return $this->Reference;
+        return $this->References;
     }
 
     /**
