@@ -24,7 +24,7 @@ class TestFileProperty extends MongoTestCase
     public function tearDown()
     {
         parent::tearDown();
-        unlink(dirname(__FILE__).'/test.png');
+        unlink('test.png');
     }
 
     public function testStoresUserAndFile()
