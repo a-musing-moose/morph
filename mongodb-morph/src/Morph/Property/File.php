@@ -69,7 +69,7 @@ class Morph_Property_File extends Morph_Property_Generic
      * @return MongoGridFSFile
      */
     public function getValue(){
-        if(is_null($this->Value) && !is_null($this->Reference)){
+        if(!isset($this->Value) && !is_null($this->Reference)){
             $this->Value = $this->Storage->fetchFile($this->Reference);
         }
         return $this->Value;
