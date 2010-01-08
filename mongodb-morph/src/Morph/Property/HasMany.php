@@ -67,7 +67,7 @@ class  Morph_Property_HasMany extends Morph_Property_Generic
             $refs = array();
             foreach ($this->Value as $object){
                 if($object->state() != Morph_Object::STATE_CLEAN){
-                    $this->Storage->save($object);
+                    Morph_Storage::instance()->save($object);
                 }
                 $refs[] = Morph_Utils::objectReference($object);
             }
@@ -119,7 +119,7 @@ class  Morph_Property_HasMany extends Morph_Property_Generic
             $object = new $this->Type;
 
             //@todo this could get nasty with large collections!
-            $this->Value = $this->Storage->findByQuery($object, $query)->toCollection();
+            $this->Value = Morph_Storage::instance()->findByQuery($object, $query)->toCollection();
         } else {
             $this->Value = new Morph_Collection();
         }

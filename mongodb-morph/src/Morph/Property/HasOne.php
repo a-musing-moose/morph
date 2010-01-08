@@ -70,7 +70,7 @@ class Morph_Property_HasOne extends Morph_Property_Generic
     public function getValue(){
         if(is_null($this->Value) && !is_null($this->Reference)){
             $this->Value = new $this->Type;
-            $this->Value = $this->Storage->fetchById($this->Reference['$id']);
+            $this->Value = Morph_Storage::instance()->fetchById($this->Reference['$id']);
         }
         return $this->Value;
     }
@@ -84,7 +84,7 @@ class Morph_Property_HasOne extends Morph_Property_Generic
         if(!is_null($this->Value) && is_null($this->Reference)){
             if($this->Value->state() != Morph_Object::STATE_CLEAN){
                 //save value
-                $this->Storage->save($this->Value);
+                Morph_Storage::instance()->save($this->Value);
             }
             $this->Reference = Morph_Utils::objectReference($this->Value);
         }

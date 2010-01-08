@@ -70,7 +70,7 @@ class Morph_Property_File extends Morph_Property_Generic
      */
     public function getValue(){
         if(!isset($this->Value) && !is_null($this->Reference)){
-            $this->Value = $this->Storage->fetchFile($this->Reference);
+            $this->Value = Morph_Storage::instance()->fetchFile($this->Reference);
         }
         return $this->Value;
     }
@@ -82,7 +82,7 @@ class Morph_Property_File extends Morph_Property_Generic
     public function __getRawValue()
     {
         if (!is_null($this->FilePath)) {
-            $this->Reference = $this->Storage->saveFile($this->FilePath, $this->Reference);
+            $this->Reference = Morph_Storage::instance()->saveFile($this->FilePath, $this->Reference);
         }
         return $this->Reference;
     }

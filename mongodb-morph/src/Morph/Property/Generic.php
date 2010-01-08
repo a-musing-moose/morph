@@ -33,8 +33,6 @@ class  Morph_Property_Generic
      */
     protected $Value;
 
-    protected $Storage;
-
     /**
      *
      * @param $name
@@ -60,7 +58,7 @@ class  Morph_Property_Generic
     /**
      * Sets the value of this property
      * @param $Value
-     * @return ar_Field
+     * @return void
      */
     public function setValue($value)
     {
@@ -98,17 +96,6 @@ class  Morph_Property_Generic
     public final function getName()
     {
         return $this->Name;
-    }
-
-    /**
-     * Sets the storage object for this property
-     *
-     * @param Morph_Storage $storage
-     * @return void
-     */
-    public function setStorage(Morph_Storage $storage)
-    {
-        $this->Storage = $storage;
     }
 
     /**
