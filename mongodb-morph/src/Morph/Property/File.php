@@ -1,4 +1,4 @@
- <?php
+<?php
 /**
  * @package Morph
  * @subpackage Property
@@ -112,5 +112,4 @@ class Morph_Property_File extends Morph_Property_Generic
         }
         return $this->getName() . ": {File: $id}";
     }
-
 }
