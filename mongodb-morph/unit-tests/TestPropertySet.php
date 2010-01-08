@@ -75,14 +75,6 @@ class TestPropertySet extends PHPUnit_Framework_TestCase
         $propertySet->setPropertyValue('P1', $expected);
     }
 
-    public function testSetStorage()
-    {
-        $storage = $this->getMock('Morph_Storage');
-        $propertySet = new Morph_PropertySet();
-        $propertySet['P1'] = $this->getMockPropertyForSetStorage();
-        $propertySet->setStorage($storage);
-    }
-
     public function testGetRawPropertyValue()
     {
         $expected = 'AValue';
