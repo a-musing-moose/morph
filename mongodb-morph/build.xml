@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Mongo Object" default="doc" basedir=".">
 
-    <taskdef classname="phar.PharPackageTask" name="pharpackage"/>
+    <taskdef classname="phar.PharPackageTask2" name="pharpackage2"/>
 
-	<fileset dir="unit-tests" id="unittests">
+	<fileset dir="unit-tests" id="unit-tests">
 		<include name="**/Test*.php" />
 	</fileset>
+	
+	<fileset dir="integration-tests" id="integration-tests">
+	        <include name="**/Test*.php" />
+	        <exclude name="MongoTestCase.php" />
+	    </fileset>
 	
 	<fileset dir="src/Morph" id="classes">
 	   <include name="**/*.php" />
@@ -30,28 +35,40 @@
 		<echo msg="API Documentation Creation Complete" />
 	</target>
 
-	<target name="unittest" description="Runs Morph unit tests">
-        <echo msg="Starting Test Suite" />
+	<target name="unit-test" description="Runs Morph unit tests">
+        <echo msg="Starting Unit Test Suite" />
 
-        <phpunit2 haltonfailure="false" haltonerror="false">
+        <phpunit haltonfailure="false" haltonerror="false">
             <formatter type="xml" outfile="test-report.xml" />
             <batchtest>
-                <fileset refid="unittests" />
+                <fileset refid="unit-tests" />
             </batchtest>
-        </phpunit2>
+        </phpunit>
 
         <delete dir="doc/test_report" quiet="true" includeemptydirs="true"
             verbose="false" failonerror="false" />
         <mkdir dir="doc/test_report" />
-        <phpunit2report infile="test-report.xml" format="frames"
+        <phpunitreport infile="test-report.xml" format="frames"
             todir="doc/test_report" />
         <delete file="test-report.xml" />
-        <echo msg="Test Suite Complete" />
+        <echo msg="Unit Test Suite Complete" />
     </target>
     
     <target name="coverage" description="generates unit test coverage report">
-        <exec command="phpunit --coverage-html doc/coverage/ unit-tests/MorphTests.php" checkreturn="false" /> 
-    </target> 
+        <exec command="phpunit --coverage-html doc/coverage/ unit-tests/AllTests.php" checkreturn="false" /> 
+    </target>
+	
+	<target name="integration-test" description="Runs Morph integration tests">
+	        <echo msg="Starting Integration Test Suite" />
+		 
+	        <phpunit haltonfailure="false" haltonerror="false" printsummary="true">
+	            <batchtest>
+	                <fileset refid="integration-tests" />
+	            </batchtest>
+	        </phpunit>
+		
+	        <echo msg="Integration Test Suite Complete" />
+	    </target>
     
     <target name="package" description="builds Morph.phar">
         <tstamp>
@@ -60,17 +77,17 @@
             <format property="date.build" pattern="%s" />
         </tstamp>
     
-        <pharpackage basedir="./src/Morph" destfile="Morph.phar"
-            compression="gzip" customStub="./src/MorphStub.php" alias="Morph">
+        <pharpackage2 basedir="./src/Morph" destfile="Morph.phar"
+            compression="gzip" customStub="./src/Bootstrap.php" alias="Morph">
             <fileset refid="classes" />
             <metadata>
                 <element name="Created Date" value="${date.created}" />
                 <element name="Copyright" value="Jonathan Moss (c) 2008-${date.year}" />
                 <element name="Build" value="${date.build}" />
             </metadata>
-        </pharpackage>
+        </pharpackage2>
     </target>
     
-    <target name="all" description="builds everything" depends="unittest, coverage, doc, package" />
+    <target name="all" description="builds everything" depends="unit-test, coverage, doc, package" />
 
 </project>
