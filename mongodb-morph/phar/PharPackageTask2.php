@@ -20,8 +20,8 @@
  */
 
 require_once 'phing/tasks/system/MatchingTask.php';
-require_once 'phar/IterableFileSet.php';
-require_once 'phar/PharMetadata.php';
+//require_once 'phar/IterableFileSet.php';
+//require_once 'phar/PharMetadata.php';
 
 /**
  * Package task for {@link http://ru.php.net/manual/en/book.phar.php Phar technology}.
@@ -30,7 +30,7 @@ require_once 'phar/PharMetadata.php';
  * @author Alexey Shockov <alexey@shockov.com>
  * @since 2.4.0
  */
-class PharPackageTask
+class PharPackageTask2
 extends MatchingTask
 {
     /**
