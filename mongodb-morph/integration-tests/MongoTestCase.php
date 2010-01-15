@@ -20,7 +20,7 @@ require_once dirname(__FILE__).'/MongoConstraint/DocumentPropertyEquals.php';
 class MongoTestCase extends PHPUnit_Framework_TestCase
 {
 
-    const TEST_DB_NAME = 'TestDB';
+    const TEST_DB_NAME = 'MongoTestDB';
 
     protected $db;
 

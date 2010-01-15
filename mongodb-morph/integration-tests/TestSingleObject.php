@@ -15,8 +15,7 @@ class TestSingleObject extends MongoTestCase
     public function setUp()
     {
         parent::setUp();
-        $mongo = new Mongo();
-        Morph_Storage::init($mongo->selectDB(self::TEST_DB_NAME));
+        Morph_Storage::init($this->db);
     }
 
     public function tearDown()
@@ -30,7 +29,6 @@ class TestSingleObject extends MongoTestCase
         $child = new Child();
         $child->Name = 'Child';
         $child->save();
-        sleep(1); //MongoDB can take a sec to allocate the collection files
         $this->assertCollectionExists('Child');
         $this->assertDocumentExists('Child', $child->id());
     }
@@ -40,7 +38,6 @@ class TestSingleObject extends MongoTestCase
         $child = new Child();
         $child->Name = 'Child';
         $child->save();
-        sleep(1); //MongoDB can take a sec to allocate the collection files
 
         $expected = 'Child with edit';
         $id = $child->id();
@@ -48,7 +45,7 @@ class TestSingleObject extends MongoTestCase
         $childFetched->loadById($id);
         $childFetched->Name = $expected;
         $childFetched->save();
-        sleep(1); //MongoDB can take a sec to allocate the collection files
+
         $this->assertDocumentPropertyEquals($expected, 'Child', 'Name', $id);
     }
 

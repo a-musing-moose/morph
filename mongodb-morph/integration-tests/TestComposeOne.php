@@ -15,8 +15,7 @@ class TestComposeOne extends MongoTestCase
     public function setUp()
     {
         parent::setUp();
-        $mongo = new Mongo();
-        Morph_Storage::init($mongo->selectDB(self::TEST_DB_NAME));
+        Morph_Storage::init($this->db);
     }
 
     public function tearDown()
@@ -36,7 +35,6 @@ class TestComposeOne extends MongoTestCase
         $parent->Child = $child;
 
         $parent->save();
-        sleep(1); //MongoDB can take a sec to allocate the collection files
         $this->assertCollectionExists('ComposeOneParent');
         $this->assertCollectionDoesNotExist('Child');
 

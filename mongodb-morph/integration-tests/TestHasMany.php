@@ -15,8 +15,7 @@ class TestHasMany extends MongoTestCase
     public function setUp()
     {
         parent::setUp();
-        $mongo = new Mongo();
-        Morph_Storage::init($mongo->selectDB(self::TEST_DB_NAME));
+        Morph_Storage::init($this->db);
     }
 
     public function tearDown()
@@ -41,7 +40,6 @@ class TestHasMany extends MongoTestCase
         $parent->Children[] = $child2;
 
         $parent->save();
-        sleep(1); //MongoDB can take a sec to allocate the collection files
         $this->assertCollectionExists('HasManyParent');
         $this->assertCollectionExists('Child');
 

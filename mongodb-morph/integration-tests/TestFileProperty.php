@@ -14,8 +14,7 @@ class TestFileProperty extends MongoTestCase
      public function setUp()
     {
         parent::setUp();
-        $mongo = new Mongo();
-        Morph_Storage::init($mongo->selectDB(self::TEST_DB_NAME));
+        Morph_Storage::init($this->db);
     }
 
     public function tearDown()
@@ -31,7 +30,6 @@ class TestFileProperty extends MongoTestCase
         $user->Username = 'a_musing_moose';
         $user->Avatar = dirname(__FILE__).'/resources/flask.png';
         $user->save();
-        sleep(1); //MongoDB can take a sec to allocate the collection files
         $this->assertCollectionExists('User');
         $this->assertDocumentExists('User', $user->id());
         $user->Avatar->write("test.png");
