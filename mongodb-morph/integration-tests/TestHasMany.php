@@ -3,6 +3,8 @@
  * @author Jonathan Moss <xirisr@gmail.com>
  * @copyright 2010 Jonathan Moss
  */
+
+require_once dirname(__FILE__).'/../Morph.phar';
 require_once dirname(__FILE__).'/MongoTestCase.php';
 require_once dirname(__FILE__).'/test-objects/HasManyParent.php';
 require_once dirname(__FILE__).'/test-objects/Child.php';
