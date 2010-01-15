@@ -25,7 +25,7 @@ class TestSingleObject extends MongoTestCase
         Morph_Storage::deInit();
     }
 
-    public function testStoresParentAndChild()
+    public function testStoresObject()
     {
         $child = new Child();
         $child->Name = 'Child';
@@ -33,6 +33,23 @@ class TestSingleObject extends MongoTestCase
         sleep(1); //MongoDB can take a sec to allocate the collection files
         $this->assertCollectionExists('Child');
         $this->assertDocumentExists('Child', $child->id());
+    }
+
+    public function testEditStoredObject()
+    {
+        $child = new Child();
+        $child->Name = 'Child';
+        $child->save();
+        sleep(1); //MongoDB can take a sec to allocate the collection files
+
+        $expected = 'Child with edit';
+        $id = $child->id();
+        $childFetched = new Child;
+        $childFetched->loadById($id);
+        $childFetched->Name = $expected;
+        $childFetched->save();
+        sleep(1); //MongoDB can take a sec to allocate the collection files
+        $this->assertDocumentPropertyEquals($expected, 'Child', 'Name', $id);
     }
 
 }
