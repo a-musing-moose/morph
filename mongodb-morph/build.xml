@@ -33,7 +33,7 @@
 		<echo msg="API Documentation Creation Complete" />
 	</target>
 
-	<target name="unit-test" description="Runs Morph unit tests">
+	<target name="test-report" description="Runs Morph unit tests">
         <echo msg="Starting Unit Test Suite" />
 
         <phpunit haltonfailure="false" haltonerror="false" printsummary="true">
@@ -74,18 +74,32 @@
             <format property="date.year" pattern="%Y" />
             <format property="date.build" pattern="%s" />
         </tstamp>
-    
-        <pharpackage basedir="./src/Morph" destfile="Morph.phar"
-            compression="gzip" stub="./src/bootstrap.php" alias="Morph">
+    	
+    	<echo message="Creating comment free classes export" />
+        <mkdir dir="./export" />
+        <copy todir="./export">
             <fileset refid="classes" />
+            <filterchain>
+                <stripphpcomments />
+            </filterchain>
+        </copy>
+
+        <echo message="Building Morph.phar" />
+        <delete file="Morph.phar" quiet="true" />
+
+        <pharpackage basedir="./export" destfile="Morph.phar" compression="gzip" stub="./src/bootstrap.php" alias="Morph">
+            <fileset dir="./export">
+            	<include name="**/*.php" />	
+            </fileset>
             <metadata>
                 <element name="Created Date" value="${date.created}" />
                 <element name="Copyright" value="Jonathan Moss (c) 2008-${date.year}" />
                 <element name="Build" value="${date.build}" />
             </metadata>
         </pharpackage>
+    	
+    	<echo message="Cleaning temporary files" />
+    	<delete dir="./export" quiet="true" includeemptydirs="true" />
     </target>
-    
-    <target name="all" description="builds everything" depends="unit-test, coverage, doc, package" />
 
 </project>
