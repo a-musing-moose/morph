@@ -45,17 +45,14 @@ class Morph_Collection extends ArrayObject
     /**
      * Gets the total count
      *
-     * Id $totalCount is set then it will set the total count first
+     * Sets the total count
      *
      * @param int $totalCount
      * @return void
      */
-    public function setTotalCount($totalCount = null)
+    public function setTotalCount($totalCount)
     {
-        if (!is_null($totalCount)) {
-            $this->totalCount = (int) $totalCount;
-        }
-        return $this->totalCount;
+        $this->totalCount = (int) $totalCount;
     }
 
     /**
