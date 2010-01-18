@@ -8,7 +8,7 @@
 	<fileset dir="integration-tests" id="integration-tests">
 	       <include name="**/Test*.php" />
 	       <exclude name="MongoTestCase.php" />
-		   <exclude name="MongoTestCase.php" />
+		   <exclude name="IntegrationsTests.php" />
 	</fileset>
 	
 	<fileset dir="src/Morph" id="classes">
@@ -57,7 +57,7 @@
         <exec command="phpunit --coverage-html doc/coverage/ unit-tests/AllTests.php" checkreturn="false" /> 
     </target>
 	
-	<target name="integration-test" description="Runs Morph integration tests">
+	<target name="test-integration" description="Runs Morph integration tests">
 	        <echo msg="Starting Integration Test Suite" />
 		 
 	        <phpunit haltonfailure="false" haltonerror="false" printsummary="false">
