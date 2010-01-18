@@ -6,9 +6,10 @@
 	</fileset>
 	
 	<fileset dir="integration-tests" id="integration-tests">
-	        <include name="**/Test*.php" />
-	        <exclude name="MongoTestCase.php" />
-	    </fileset>
+	       <include name="**/Test*.php" />
+	       <exclude name="MongoTestCase.php" />
+		   <exclude name="MongoTestCase.php" />
+	</fileset>
 	
 	<fileset dir="src/Morph" id="classes">
 	   <include name="**/*.php" />
@@ -59,7 +60,8 @@
 	<target name="integration-test" description="Runs Morph integration tests">
 	        <echo msg="Starting Integration Test Suite" />
 		 
-	        <phpunit haltonfailure="false" haltonerror="false" printsummary="true">
+	        <phpunit haltonfailure="false" haltonerror="false" printsummary="false">
+	        	<formatter type="plain" usefile="false" />
 	            <batchtest>
 	                <fileset refid="integration-tests" />
 	            </batchtest>
