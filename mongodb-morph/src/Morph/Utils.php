@@ -32,14 +32,6 @@ class Morph_Utils
      */
     public static function objectReference(Morph_Object $object)
     {
-        $reference = array(
-            '$ref' => $object->collection(),
-            '$id'  => $object->id()
-        );
-
-        //causes a fatal error in PHP at present. Will try again later
-        //$reference = MorphDBRef::create($object->collection(), $object->id());
-
-        return $reference;
+        return MongoDBRef::create($object->collection(), $object->id());
     }
 }
