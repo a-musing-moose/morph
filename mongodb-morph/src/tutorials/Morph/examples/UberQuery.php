@@ -1,7 +1,7 @@
 <?php
-//Create and instance of Morph_Storage passing in the appropriate database
+//Initialise Morph_Storage passing in the appropriate database
 $mongo = new Mongo();
-$storage = new Morph_Storage($mongo->selectDb('myDB'));
+Morph_Storage::init($mongo->selectDb('myDB'));
 
 $query = new Morph_Query();
 $query->property('createdDate')
@@ -19,6 +19,6 @@ $query->property('createdDate')
  * AND `cost` >= 12.99
  * AND `publisher` in ('publisherA', 'publisherB', 'publisherC');
  */
-
-$users = $storage->findByQuery(new A_Book(), $query);
+$book = new A_Book();
+$books = $book->findByQuery($query);
 ?>

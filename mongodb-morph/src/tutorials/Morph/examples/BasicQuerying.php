@@ -1,10 +1,11 @@
 <?php
-//Create and instance of Morph_Storage passing in the appropriate database
+//Initialise Morph_Storage passing in the appropriate database
 $mongo = new Mongo();
-$storage = new Morph_Storage($mongo->selectDb('myDB'));
+Morph_Storage::init($mongo->selectDb('myDB'));;
 
 //Find users with the userName = j.d.moss
+$user = new User();
 $query = new Morph_Query();
 $query->property('userName')->equals('j.d.moss');
-$users = $storage->findByQuery(new User(), $query);
+$users = $user->findByQuery($query);
 ?>

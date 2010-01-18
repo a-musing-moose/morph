@@ -1,8 +1,8 @@
 <?php
 
-//Create and instance of Morph_Storage passing in the appropriate database
+//Initiliase Morph_Storage passing in the appropriate database
 $mongo = new Mongo();
-$storage = new Morph_Storage($mongo->selectDb('myDB'));
+Morph_Storage::init($mongo->selectDb('myDB'));
 
 //Create and instance of our user class
 $user = new User();
