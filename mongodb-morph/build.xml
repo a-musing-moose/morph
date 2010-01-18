@@ -86,8 +86,7 @@
             </filterchain>
         </copy>
 
-        <echo message="Building Morph.phar" />
-        <delete file="Morph.phar" quiet="true" />
+    	<delete file="Morph.phar" quiet="true" />
 
         <pharpackage basedir="./export" destfile="Morph.phar" compression="gzip" stub="./src/bootstrap.php" alias="Morph">
             <fileset dir="./export">
@@ -100,7 +99,6 @@
             </metadata>
         </pharpackage>
     	
-    	<echo message="Cleaning temporary files" />
     	<delete dir="./export" quiet="true" includeemptydirs="true" />
     </target>
 
