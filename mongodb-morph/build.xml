@@ -31,7 +31,7 @@
 			</fileset>
 		</phpdoc>
 
-		<echo msg="API Documentation Creation Complete" />
+		<echo msg="API Documentation Complete" />
 	</target>
 
 	<target name="test-report" description="Runs Morph unit tests">
@@ -71,6 +71,7 @@
 	    </target>
     
     <target name="package" description="builds Morph.phar">
+    	<echo message="Building Morph.phar" />
         <tstamp>
             <format property="date.created" pattern="%Y-%m-%d %H:%I:%S" />
             <format property="date.year" pattern="%Y" />
