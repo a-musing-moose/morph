@@ -40,7 +40,7 @@
             <para>
                 You can also limit the maximum number of items that are returned
                 by a query as well as defining the number of results to skip. This
-                is ideal for implementing pagination of results
+                is ideal for implementing pagination of results.
                 {@example LimitSkipQuerying.php}
             </para>
         </refsect2>
