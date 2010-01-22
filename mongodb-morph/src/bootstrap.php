@@ -40,7 +40,7 @@ class MorphAutoloader
     );
 
     /**
-     * Loader function
+     * autoload function
      *
      * @param string $className
      * @return boolean
