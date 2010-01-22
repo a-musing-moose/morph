@@ -17,7 +17,6 @@
 
 	<target name="api-docs" description="Creates Morph documentation">
 		<echo msg="Starting Creation of API Documentation" />
-		<echo msg="Cleaning out old documentation" />
 		<delete dir="doc/api" quiet="true" includeemptydirs="true" verbose="false"
 			failonerror="false" />
 
