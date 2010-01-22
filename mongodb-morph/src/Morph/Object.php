@@ -294,6 +294,16 @@ class Morph_Object
             $value = $property->getValue();
 
             switch (true) {
+                case ($property instanceof Morph_Property_ComposeOne):
+                    $content[$value->getName()] = $value->__toArray($depth);
+                    break;
+                case ($property instanceof Morph_Property_ComposeMany):
+                    $valueContents = array();
+                    foreach ($value as $object) {
+                        $valueContents[] = $object->__toArray($depth);
+                    }
+                    $content[$property->getName()] = $valueContents;
+                    break;
                 case ($value instanceof Morph_Object):
                     if ($depth > 0) {
                         $content[$value->getName()] = $value->__toArray($depth);
