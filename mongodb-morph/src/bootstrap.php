@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Jonathan Moss <xirisr@gmail.com>
+ * @copyright Jonathan Moss 2010
+ */
 Phar::mapPhar();
 
 /**
