@@ -69,6 +69,16 @@ class Morph_Storage
     }
 
     /**
+     * Returns the associated MongoDB object
+     *
+     * @return MongoDB
+     */
+    public function getDatabase()
+    {
+        return $this->Db;
+    }
+
+    /**
      * Retrieves the contents of the specified $id
      * and assigns them into $object
      *
@@ -80,7 +90,7 @@ class Morph_Storage
     {
         $query = array('_id' => $id);
         $data = $this->Db->selectCollection($object->collection())->findOne($query);
-        $object->__setData($data, Morph_Object::STATE_CLEAN);
+        $object->__setData($data, Morph_Enum::STATE_CLEAN);
         return $object;
     }
 
@@ -107,9 +117,9 @@ class Morph_Storage
     public function save(Morph_Object $object)
     {
         $response = $object;
-        if ($object->state() == Morph_Object::STATE_DIRTY){
+        if ($object->state() == Morph_Enum::STATE_DIRTY){
             $response = $this->update($object);
-        } elseif ($object->state() == Morph_Object::STATE_NEW) {
+        } elseif ($object->state() == Morph_Enum::STATE_NEW) {
             $response = $this->insert($object);
         }
         return $response;
@@ -134,7 +144,7 @@ class Morph_Storage
         }
         $savedOk = $this->Db->selectCollection($object->collection())->save($data);
         if($savedOk){
-            $object->__setData($data, Morph_Object::STATE_CLEAN);
+            $object->__setData($data, Morph_Enum::STATE_CLEAN);
         }
         return $object;
     }
