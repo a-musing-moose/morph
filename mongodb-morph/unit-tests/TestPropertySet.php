@@ -6,7 +6,7 @@
  * @version SVN: $Id$
  */
 require_once 'PHPUnit/Framework/TestCase.php';
-
+require_once dirname(__FILE__).'/../src/Morph/Property/Generic.php';
 require_once dirname(__FILE__).'/../src/Morph/PropertySet.php';
 /**
  *

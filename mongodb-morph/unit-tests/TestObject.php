@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Framework/TestCase.php';
 
-
+require_once dirname(__FILE__).'/../src/Morph/Enum.php';
 require_once dirname(__FILE__).'/../src/Morph/Object.php';
 require_once dirname(__FILE__).'/../src/Morph/PropertySet.php';
 require_once dirname(__FILE__).'/../src/Morph/Utils.php';
@@ -43,7 +43,7 @@ class TestObject extends PHPUnit_Framework_TestCase
         $obj = new Morph_ForTesting();
         $obj->__setData($data);
         $this->assertEquals($data['TestField'], $obj->TestField);
-        $this->assertEquals(Morph_Object::STATE_DIRTY, $obj->state());
+        $this->assertEquals(Morph_Enum::STATE_DIRTY, $obj->state());
 
     }
 
@@ -57,7 +57,7 @@ class TestObject extends PHPUnit_Framework_TestCase
         $obj = new Morph_ForTesting();
         $obj->__setData($data);
         $this->assertEquals($data, $obj->__getData());
-        $this->assertEquals(Morph_Object::STATE_DIRTY, $obj->state());
+        $this->assertEquals(Morph_Enum::STATE_DIRTY, $obj->state());
     }
 
     public function test__toArray()
