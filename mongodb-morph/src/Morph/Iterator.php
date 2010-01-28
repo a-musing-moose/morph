@@ -86,7 +86,7 @@ class Morph_Iterator implements Iterator
     {
         $class = get_class($this->type);
         $object = new $class;
-        $object->__setData($item, Morph_Object::STATE_CLEAN);
+        $object->__setData($item, Morph_Enum::STATE_CLEAN);
         return $object;
     }
 

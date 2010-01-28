@@ -89,7 +89,7 @@ class Morph_Object
     /**
      * Returns the state of this object
      *
-     * Will be one of Morph_Object::STATE_*
+     * Will be one of Morph_Enum::STATE_*
      *
      * @return string
      */
