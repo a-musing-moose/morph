@@ -115,5 +115,4 @@ class  Morph_PropertySet extends ArrayObject
             throw new InvalidArgumentException('object of type' . get_class($object) . ' does not extend Morph_Property_Generic');
         }
     }
-
 }
