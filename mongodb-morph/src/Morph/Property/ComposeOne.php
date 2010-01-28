@@ -62,7 +62,7 @@ class  Morph_Property_ComposeOne extends Morph_Property_Generic
     public function __setRawValue($value)
     {
         $this->Value = new $this->Type;
-        $this->Value->__setData($value, Morph_Object::STATE_CLEAN);
+        $this->Value->__setData($value, Morph_Enum::STATE_CLEAN);
     }
 
     /**

@@ -70,7 +70,7 @@ class  Morph_Property_ComposeMany extends Morph_Property_Generic
         if (count($value) > 0) {
             foreach ($value as $item) {
                 $object = new $this->Type;
-                $object->__setData($item, Morph_Object::STATE_CLEAN);
+                $object->__setData($item, Morph_Enum::STATE_CLEAN);
                 $collection->append($object);
             }
         }
