@@ -12,11 +12,6 @@
  */
 class Morph_Object
 {
-
-    const STATE_NEW   = 'New';
-    const STATE_CLEAN = 'Clean';
-    const STATE_DIRTY = 'Dirty';
-
     /**
      * The name of the collection this object is stored within
      * @var string
@@ -32,7 +27,7 @@ class Morph_Object
     /**
      * The current state of this object
      *
-     * one of Morph_Object::STATE_*
+     * one of Morph_Enum::STATE_*
      * @var string
      */
     protected $State;
@@ -55,7 +50,7 @@ class Morph_Object
      */
     public function __construct($id = null)
     {
-        $this->State = self::STATE_NEW;
+        $this->State = Morph_Enum::STATE_NEW;
         $this->Id = $id;
         $this->propertySet = new Morph_PropertySet();
         $this->Validators = array();
@@ -122,7 +117,7 @@ class Morph_Object
      * @param $state
      * @return Morph_Object
      */
-    public function __setData(array $data, $state = self::STATE_DIRTY)
+    public function __setData(array $data, $state = Morph_Enum::STATE_DIRTY)
     {
         if (array_key_exists('_id', $data)) {
             $this->Id = $data['_id'];
@@ -157,16 +152,6 @@ class Morph_Object
         return $data;
     }
 
-    /**
-     * Get the property set associated with this object
-     *
-     * @return Morph_PropertySet
-     */
-    public function getPropertySet()
-    {
-        return $this->propertySet;
-    }
-
     // ********************** //
     // MAGIC ACCESS FUNCTIONS //
     // ********************** //
@@ -197,8 +182,8 @@ class Morph_Object
     {
         if (array_key_exists($propertyName, $this->propertySet)) {
             $this->propertySet[$propertyName]->setValue($propertyValue);
-            if ($this->State == self::STATE_CLEAN) {
-                $this->State = self::STATE_DIRTY;
+            if ($this->State == Morph_Enum::STATE_CLEAN) {
+                $this->State = Morph_Enum::STATE_DIRTY;
             }
         }else{
             $this->addProperty(new Morph_Property_Generic($propertyName, $propertyValue));
@@ -238,7 +223,7 @@ class Morph_Object
      * @param array $ids
      * @return Morph_Collection
      */
-    public function fetchByIds(array $ids)
+    public function findByIds(array $ids)
     {
         return Morph_Storage::instance()->fetchByIds($this, $id);
     }
