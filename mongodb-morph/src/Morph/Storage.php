@@ -31,7 +31,7 @@ class Morph_Storage
     public static function instance()
     {
         if (!isset(self::$instance)) {
-            throw new RuntimeException("Morph_Storage has not been inituialised");
+            throw new RuntimeException("Morph_Storage has not been initialised");
         }
         return self::$instance;
     }
