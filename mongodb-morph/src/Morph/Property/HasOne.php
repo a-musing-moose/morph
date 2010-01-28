@@ -82,7 +82,7 @@ class Morph_Property_HasOne extends Morph_Property_Generic
     public function __getRawValue()
     {
         if(!is_null($this->Value) && is_null($this->Reference)){
-            if($this->Value->state() != Morph_Object::STATE_CLEAN){
+            if($this->Value->state() != Morph_Enum::STATE_CLEAN){
                 //save value
                 Morph_Storage::instance()->save($this->Value);
             }
@@ -126,5 +126,4 @@ class Morph_Property_HasOne extends Morph_Property_Generic
         }
         return $this->getName() . ": {" . $this->Type . ": $id}";
     }
-
 }
