@@ -32,9 +32,9 @@ class TestQuery extends PHPUnit_Framework_TestCase
 
     public function testProperty()
     {
-        $expected = array('bob' => array());
+        $expected = array('bob' => 'hoskins');
         $query = new Morph_Query();
-        $query->property('bob');
+        $query->property('bob')->equals('hoskins');
         $this->assertEquals($expected, $query->getRawQuery());
 
     }
