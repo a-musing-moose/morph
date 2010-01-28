@@ -247,7 +247,7 @@ class Morph_Query_Property
      * @param $direction
      * @return unknown_type
      */
-    public function sort($direction)
+    public function sort($direction = Morph_Enum::DIRECTION_ASC)
     {
         switch ($direction) {
             case Morph_Enum::DIRECTION_ASC:
