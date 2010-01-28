@@ -45,6 +45,11 @@ class Morph_Query_Property
     private $mode;
 
     /**
+     * @var int
+     */
+    private $sortDirection;
+
+    /**
      * Create a new property object
      *
      * @param $query
@@ -237,6 +242,27 @@ class Morph_Query_Property
     }
 
     /**
+     * Sets the sort direction if needed
+     *
+     * @param $direction
+     * @return unknown_type
+     */
+    public function sort($direction)
+    {
+        switch ($direction) {
+            case Morph_Enum::DIRECTION_ASC:
+                $this->sortDirection = Morph_Enum::DIRECTION_ASC;
+                break;
+            case Morph_Enum::DIRECTION_DESC:
+                $this->sortDirection = Morph_Enum::DIRECTION_DESC;
+                break;
+            default:
+                throw new InvalidArgumentException("Sort direction should be -1 or 1");
+        }
+        return $this;
+    }
+
+    /**
      * Returns an array of all associated constraints
      *
      * @return array
@@ -244,6 +270,16 @@ class Morph_Query_Property
     public function getConstraints()
     {
         return $this->constraints;
+    }
+
+    /**
+     * Returns the sort direction of this property
+     *
+     * @return int
+     */
+    public function getSort()
+    {
+        return $this->sortDirection;
     }
 
     //////////////////////////////////////////

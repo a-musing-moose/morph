@@ -187,12 +187,20 @@ class Morph_Storage
 
         $query = (is_null($query)) ? new Morph_Query() : $query;
         $cursor = $this->Db->selectCollection($object->collection())->find($query->getRawQuery());
-        if (!is_null($query->getLimit())) {
-            $cursor->limit($query->getLimit());
+
+        $limit = $query->getLimit();
+        if (!is_null($limit)) {
+            $cursor->limit($limit);
         }
 
-        if (!is_null($query->getSkip())) {
-            $cursor->skip($query->getSkip());
+        $skip = $query->getSkip();
+        if (!is_null($skip)) {
+            $cursor->skip($skip);
+        }
+
+        $sort = $query->getRawSort();
+        if (!is_null($sort)) {
+            $cursor->sort($sort);
         }
 
         $iterator = new Morph_Iterator($object, $cursor);

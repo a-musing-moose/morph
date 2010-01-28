@@ -162,10 +162,35 @@ class Morph_Query
 
 	    if (count($this->criteria) > 0) {
             foreach ($this->criteria as $propertyName => $criteria) {
-                $query[$propertyName] = $criteria->getConstraints();
+                $constraints = $criteria->getConstraints();
+                if (!empty($constraints)) {
+                    $query[$propertyName] = $constraints;
+                }
             }
 	    }
 
 	    return $query;
+	}
+
+	/**
+	 * Returns sorting details suitable for passing to MongoDB
+	 *
+	 * @return array
+	 */
+	public function getRawSort()
+	{
+	    $sort = array();
+	    if (count($this->criteria) > 0) {
+            foreach ($this->criteria as $propertyName => $criteria) {
+                $direction = $criteria->getSort();
+                if (null !== $direction) {
+                    $sort[$propertyName] = $direction;
+                }
+            }
+        }
+        if (empty($sort)) {
+            $sort = null;
+        }
+	    return $sort;
 	}
 }
