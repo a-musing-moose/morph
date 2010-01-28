@@ -66,7 +66,7 @@ class  Morph_Property_HasMany extends Morph_Property_Generic
         if(count($this->Value) > 0){
             $refs = array();
             foreach ($this->Value as $object){
-                if($object->state() != Morph_Object::STATE_CLEAN){
+                if($object->state() != Morph_Enum::STATE_CLEAN){
                     Morph_Storage::instance()->save($object);
                 }
                 $refs[] = Morph_Utils::objectReference($object);
