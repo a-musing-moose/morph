@@ -245,7 +245,7 @@ class Morph_Query_Property
      * Sets the sort direction if needed
      *
      * @param $direction
-     * @return unknown_type
+     * @return Morph_Query_Property
      */
     public function sort($direction = Morph_Enum::DIRECTION_ASC)
     {
