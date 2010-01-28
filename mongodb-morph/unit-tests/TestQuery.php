@@ -66,12 +66,13 @@ class TestQuery extends PHPUnit_Framework_TestCase
         $query->limit(10)->skip(12)
         ->property('bob')
         ->equals('hoskins')
+        ->sort(1)
         ->property('abc')
         ->equals(12);
         $this->assertEquals($expected, $query->getRawQuery());
         $this->assertEquals(10, $query->getLimit());
         $this->assertEquals(12, $query->getSkip());
+        $this->assertEquals(array('bob'=>1), $query->getRawSort());
     }
-
 }
 ?>

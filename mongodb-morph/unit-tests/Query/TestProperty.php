@@ -95,6 +95,14 @@ class TestProperty  extends PHPUnit_Framework_TestCase
 
     }
 
+    public function testSort()
+    {
+        $property = new Morph_Query_Property($this->getMockQuery(false));
+        $property->sort(1);
+        $this->assertEquals(1, $property->getSort());
+
+    }
+
     private function getMockQuery($willCallField = false)
     {
         $query = $this->getMock('Morph_Query', array('property'));
