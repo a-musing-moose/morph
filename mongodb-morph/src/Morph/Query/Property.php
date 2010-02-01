@@ -224,7 +224,7 @@ class Morph_Query_Property
     public function like($value)
     {
         $term = '/.*' . $value . '.*/i';
-        return $this->regex($value);
+        return $this->regex($term);
     }
 
     /**
