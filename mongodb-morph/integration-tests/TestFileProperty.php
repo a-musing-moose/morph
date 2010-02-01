@@ -28,13 +28,13 @@ class TestFileProperty extends MongoUnit_TestCase
     {
         $user = new User();
         $user->Username = 'a_musing_moose';
-        $user->Avatar = dirname(__FILE__).'/resources/flask.png';
+        $user->Avatar = dirname(__FILE__).'/fixtures/flask.png';
         $user->save();
         $this->assertCollectionExists('User');
         $this->assertDocumentExists('User', $user->id());
         $user->Avatar->write("test.png");
         $this->assertFileExists('test.png');
-        $originalFileHash = md5_file(dirname(__FILE__).'/resources/flask.png');
+        $originalFileHash = md5_file(dirname(__FILE__).'/fixtures/flask.png');
         $retrievedFileHash = md5_file('test.png');
         $this->assertEquals($originalFileHash, $retrievedFileHash);
     }
