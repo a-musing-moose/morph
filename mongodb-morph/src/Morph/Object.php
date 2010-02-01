@@ -232,7 +232,7 @@ class Morph_Object
      * Find objects by query
      *
      * @param Morph_Query $query
-     * @return Morph_Collection
+     * @return Morph_Iterator
      */
     public function findByQuery(Morph_Query $query)
     {
