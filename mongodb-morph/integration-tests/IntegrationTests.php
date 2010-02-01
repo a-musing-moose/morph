@@ -20,7 +20,7 @@ class IntegrationTests
 {
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Integration Tests');
+        $suite = new PHPUnit_Framework_TestSuite('Morph Integration Tests');
         $suite->addTestSuite('TestComposeMany');
         $suite->addTestSuite('TestComposeOne');
         $suite->addTestSuite('TestFileProperty');
