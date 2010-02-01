@@ -8,7 +8,7 @@ require_once dirname(__FILE__).'/../Morph.phar';
 require_once dirname(__FILE__).'/MongoUnit/TestCase.php';
 require_once dirname(__FILE__).'/test-objects/Child.php';
 
-class TestSingleObject extends MongoUnit_TestCase
+class TestQuery extends MongoUnit_TestCase
 {
 
     public function setup()

@@ -10,6 +10,7 @@ require_once dirname(__FILE__).'/TestComposeOne.php';
 require_once dirname(__FILE__).'/TestFileProperty.php';
 require_once dirname(__FILE__).'/TestHasMany.php';
 require_once dirname(__FILE__).'/TestHasOne.php';
+require_once dirname(__FILE__).'/TestQuery.php';
 require_once dirname(__FILE__).'/TestSingleObject.php';
 
 /**
@@ -25,6 +26,7 @@ class IntegrationTests
         $suite->addTestSuite('TestFileProperty');
         $suite->addTestSuite('TestHasMany');
         $suite->addTestSuite('TestHasOne');
+        $suite->addTestSuite('Testquery');
         $suite->addTestSuite('TestSingleObject');
 
         return $suite;
