@@ -6,7 +6,7 @@
  */
 
 require_once 'PHPUnit/Framework/TestCase.php';
-
+require_once dirname(__FILE__).'/JsonLoader.php';
 require_once dirname(__FILE__).'/Constraint/CollectionExists.php';
 require_once dirname(__FILE__).'/Constraint/CollectionDoesNotExist.php';
 require_once dirname(__FILE__).'/Constraint/DocumentExists.php';
@@ -190,6 +190,42 @@ class MongoUnit_TestCase extends PHPUnit_Framework_TestCase
     {
         $constraint = new MongoUnit_Constraint_DocumentPropertyEquals($this->getDatabase(), $collection, $property, $expected);
         self::assertThat($id, $constraint, $message);
+    }
+
+    //////////////////////////////////
+    // Collection Content Functions //
+    //////////////////////////////////
+
+    /**
+     * Clear the specified collection and populates it with the content of $filePath
+     *
+     * The specified file should contain a JSON encoded array of documents
+     *
+     * @param string $collectionName
+     * @param string $filePath
+     * @return boolean
+     */
+    public function loadJsonFileDatasetIntoCollection($collectionName, $filePath)
+    {
+        $collection = $this->getDatabase()->selectCollection($collectionName);
+        $loader = new MongoUnit_JsonLoader($collection);
+        return $loader->loadFromJsonFile($filePath);
+    }
+
+    /**
+     * Clear the specified collection and populates it with the $json
+     *
+     * $json should be a JSON encoded array of documents
+     *
+     * @param string $collectionName
+     * @param string $json
+     * @return boolean
+     */
+    public function loadJsonStringDatasetIntoCollection($collectionName, $json)
+    {
+        $collection = $this->getDatabase()->selectCollection($collectionName);
+        $loader = new MongoUnit_JsonLoader($collection);
+        return $loader->loadJsonFromString($json);
     }
 
 }
