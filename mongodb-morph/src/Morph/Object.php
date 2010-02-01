@@ -221,7 +221,7 @@ class Morph_Object
      * Fetch multiple objects by their ids
      *
      * @param array $ids
-     * @return Morph_Collection
+     * @return Morph_Iterator
      */
     public function findByIds(array $ids)
     {
