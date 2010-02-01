@@ -11,4 +11,3 @@ $query->limit(10)
       ->property('numberOfPosts')
       ->greaterThan(15);
 $users = $user->findByQuery($query);
-?>

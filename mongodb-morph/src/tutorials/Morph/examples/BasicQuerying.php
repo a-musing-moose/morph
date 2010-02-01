@@ -8,4 +8,3 @@ $user = new User();
 $query = new Morph_Query();
 $query->property('userName')->equals('j.d.moss');
 $users = $user->findByQuery($query);
-?>

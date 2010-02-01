@@ -22,4 +22,3 @@ class User extends Morph_Object
 	}
 
 }
-?>

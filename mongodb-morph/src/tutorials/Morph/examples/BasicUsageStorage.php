@@ -12,6 +12,4 @@ $user->userName = 'j.d.moss';
 $user->dateOfBirth = strtotime('1978-09-12');
 
 //Store that baby!
-$storage->save($user);
-
-?>
+$user->save($user);

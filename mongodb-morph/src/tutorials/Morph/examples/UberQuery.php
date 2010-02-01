@@ -9,6 +9,7 @@ $query->property('createdDate')
       ->lessThan(new MondoDate(time())) //today
       ->property('cost')
       ->greaterThanOrEqualTo(12.99)
+      ->sort(Morph_Enum::DIRECTION_ASC)
       ->property('publisher')
       ->in(array('publisherA', 'publisherB', 'publisherC'));
 /**
@@ -17,8 +18,8 @@ $query->property('createdDate')
  *     `createdDate` > DATE_SUB(now(), INTERVAL 1 WEEK)
  * AND `createdDate` < now()
  * AND `cost` >= 12.99
- * AND `publisher` in ('publisherA', 'publisherB', 'publisherC');
+ * AND `publisher` in ('publisherA', 'publisherB', 'publisherC')
+ * ORDER BY `cost`;
  */
 $book = new A_Book();
 $books = $book->findByQuery($query);
-?>
