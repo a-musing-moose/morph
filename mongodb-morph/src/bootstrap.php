@@ -18,10 +18,12 @@ class MorphAutoloader
      * @var array
      */
     private static $classes = array(
+        'Morph_Collection'              => 'phar://Morph/Collection.php',
         'Morph_Utils'                   => 'phar://Morph/Utils.php',
         'Morph_Iterator'                => 'phar://Morph/Iterator.php',
         'Morph_Compare_NumericProperty' => 'phar://Morph/Compare/NumericProperty.php',
         'Morph_Compare_Property'        => 'phar://Morph/Compare/Property.php',
+        'Morph_PropertySet'             => 'phar://Morph/PropertySet.php',
         'Morph_Query'                   => 'phar://Morph/Query.php',
         'Morph_Object'                  => 'phar://Morph/Object.php',
         'Morph_ICompare'                => 'phar://Morph/ICompare.php',
@@ -36,9 +38,7 @@ class MorphAutoloader
         'Morph_Property_ComposeOne'     => 'phar://Morph/Property/ComposeOne.php',
         'Morph_Property_String'         => 'phar://Morph/Property/String.php',
         'Morph_Property_Generic'        => 'phar://Morph/Property/Generic.php',
-        'Morph_Collection'              => 'phar://Morph/Collection.php',
         'Morph_Query_Property'          => 'phar://Morph/Query/Property.php',
-        'Morph_PropertySet'             => 'phar://Morph/PropertySet.php',
         'Morph_Storage'                 => 'phar://Morph/Storage.php',
         'Morph_Format_Collection'       => 'phar://Morph/Format/Collection.php',
         'Morph_Enum'                    => 'phar://Morph/Enum.php'
