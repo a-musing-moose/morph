@@ -2,6 +2,7 @@
 /**
  * @author Jonathan Moss <xirisr@gmail.com>
  * @copyright 2010 Jonathan Moss
+ * @package Morph
  */
 
 require_once dirname(__FILE__).'/../Morph.phar';
@@ -9,6 +10,9 @@ require_once dirname(__FILE__).'/MongoUnit/TestCase.php';
 require_once dirname(__FILE__).'/test-objects/ComposeOneParent.php';
 require_once dirname(__FILE__).'/test-objects/Child.php';
 
+/**
+ * @package Morph
+ */
 class TestComposeOne extends MongoUnit_TestCase
 {
 
