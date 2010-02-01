@@ -2,7 +2,8 @@
 /**
  * @author Jonathan Moss
  * @copyright 2010 Jonathan Moss <xirisr@gmail.com>
- * @package MongoConstraint
+ * @package MongoUnit
+ * @subpackage Constraint
  */
 
 require_once 'PHPUnit/Framework.php';
@@ -12,12 +13,12 @@ require_once 'PHPUnit/Util/Type.php';
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
 /**
- * A PHP Unit constraint that checks to ensure a specific document property
- * equals an expected value
+ * A PHP Unit constraint that checks if a collection exists
  *
- * @package MongoConstraint
+ * @package MongoUnit
+ * @subpackage Constraint
  */
-class MongoConstraint_DocumentPropertyEquals extends PHPUnit_Framework_Constraint
+class MongoUnit_Constraint_CollectionExists extends PHPUnit_Framework_Constraint
 {
     /**
      * @var MongoDB
@@ -25,26 +26,11 @@ class MongoConstraint_DocumentPropertyEquals extends PHPUnit_Framework_Constrain
     private $db;
 
     /**
-     * @var string
-     */
-    private $collection;
-
-    /**
-     * @var string
-     */
-    private $property;
-
-    private $expected;
-
-    /**
      * @param integer|string $key
      */
-    public function __construct($db, $collection, $property, $expected)
+    public function __construct($db)
     {
         $this->db = $db;
-        $this->collection = $collection;
-        $this->property = $property;
-        $this->expected = $expected;
     }
 
     /**
@@ -56,9 +42,13 @@ class MongoConstraint_DocumentPropertyEquals extends PHPUnit_Framework_Constrain
      */
     public function evaluate($other)
     {
-        $query = array('_id' => $other);
-        $data = $this->db->selectCollection($this->collection)->findOne($query);
-        return ($data[$this->property] == $this->expected);
+        $exists = false;
+        $collections = $this->db->listCollections();
+        $collectionNames = array();
+        foreach ($collections as $collection) {
+            $collectionNames[] = $collection->getName();
+        }
+        return in_array($other, $collectionNames);
     }
 
     /**
@@ -68,7 +58,7 @@ class MongoConstraint_DocumentPropertyEquals extends PHPUnit_Framework_Constrain
      */
     public function toString()
     {
-        return "equals: " . print_r($this->expected, true);
+        return 'collection exists';
     }
 
     /**
@@ -79,8 +69,7 @@ class MongoConstraint_DocumentPropertyEquals extends PHPUnit_Framework_Constrain
     protected function customFailureDescription($other, $description, $not)
     {
         return sprintf(
-          'Failed asserting that the property %s in document %s %s',
-           $this->property,
+          'Failed asserting that the %s %s',
            $other,
            $this->toString()
         );

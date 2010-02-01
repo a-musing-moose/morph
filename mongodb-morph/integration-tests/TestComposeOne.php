@@ -5,17 +5,17 @@
  */
 
 require_once dirname(__FILE__).'/../Morph.phar';
-require_once dirname(__FILE__).'/MongoTestCase.php';
+require_once dirname(__FILE__).'/MongoUnit/TestCase.php';
 require_once dirname(__FILE__).'/test-objects/ComposeOneParent.php';
 require_once dirname(__FILE__).'/test-objects/Child.php';
 
-class TestComposeOne extends MongoTestCase
+class TestComposeOne extends MongoUnit_TestCase
 {
 
-    public function setUp()
+    public function setup()
     {
-        parent::setUp();
-        Morph_Storage::init($this->db);
+        parent::setup();
+        Morph_Storage::init($this->getDatabase());
     }
 
     public function tearDown()

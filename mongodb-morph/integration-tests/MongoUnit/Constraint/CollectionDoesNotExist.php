@@ -2,7 +2,8 @@
 /**
  * @author Jonathan Moss
  * @copyright 2010 Jonathan Moss <xirisr@gmail.com>
- * @package MongoConstraint
+ * @package MongoUnit
+ * @subpackage Constraint
  */
 
 require_once 'PHPUnit/Framework.php';
@@ -14,9 +15,10 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 /**
  * A PHP Unit constraint that checks a collection does not exist
  *
- * @package MongoConstraint
+ * @package MongoUnit
+ * @subpackage Constraint
  */
-class MongoConstraint_CollectionDoesNotExist extends PHPUnit_Framework_Constraint
+class MongoUnit_Constraint_CollectionDoesNotExist extends PHPUnit_Framework_Constraint
 {
     /**
      * @var MongoDB

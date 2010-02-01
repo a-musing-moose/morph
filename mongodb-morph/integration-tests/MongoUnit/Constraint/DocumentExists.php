@@ -2,7 +2,8 @@
 /**
  * @author Jonathan Moss
  * @copyright 2010 Jonathan Moss <xirisr@gmail.com>
- * @package MongoConstraint
+ * @package MongoUnit
+ * @subpackage Constraint
  */
 
 require_once 'PHPUnit/Framework.php';
@@ -12,23 +13,27 @@ require_once 'PHPUnit/Util/Type.php';
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
 /**
- * A PHP Unit constraint that checks if a collection exists
+ * A PHP Unit constraint that checks to ensure a specific document exists
  *
- * @package MongoConstraint
+ * @package MongoUnit
+ * @subpackage Constraint
  */
-class MongoConstraint_CollectionExists extends PHPUnit_Framework_Constraint
+class MongoUnit_Constraint_DocumentExists extends PHPUnit_Framework_Constraint
 {
     /**
      * @var MongoDB
      */
     private $db;
 
+    private $collection;
+
     /**
      * @param integer|string $key
      */
-    public function __construct($db)
+    public function __construct($db, $collection)
     {
         $this->db = $db;
+        $this->collection = $collection;
     }
 
     /**
@@ -40,13 +45,13 @@ class MongoConstraint_CollectionExists extends PHPUnit_Framework_Constraint
      */
     public function evaluate($other)
     {
-        $exists = false;
-        $collections = $this->db->listCollections();
-        $collectionNames = array();
-        foreach ($collections as $collection) {
-            $collectionNames[] = $collection->getName();
+        $documentExists = false;
+        $query = array('_id' => $other);
+        $data = $this->db->selectCollection($this->collection)->findOne($query);
+        if (!empty($data)) {
+            $documentExists = true;
         }
-        return in_array($other, $collectionNames);
+        return $documentExists;
     }
 
     /**
@@ -56,7 +61,7 @@ class MongoConstraint_CollectionExists extends PHPUnit_Framework_Constraint
      */
     public function toString()
     {
-        return 'collection exists';
+        return "exists in the collection {$this->collection}";
     }
 
     /**
@@ -67,7 +72,7 @@ class MongoConstraint_CollectionExists extends PHPUnit_Framework_Constraint
     protected function customFailureDescription($other, $description, $not)
     {
         return sprintf(
-          'Failed asserting that the %s %s',
+          'Failed asserting that the document %s %s',
            $other,
            $this->toString()
         );
