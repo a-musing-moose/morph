@@ -76,8 +76,6 @@ class Morph_Query_Property
         return $this->query->property($propertyName);
     }
 
-
-
     //////////////////////////
     // CONSTRAINT FUNCTIONS //
     //////////////////////////
@@ -238,6 +236,18 @@ class Morph_Query_Property
     public function size($value)
     {
         $this->addCompoundConstraint('$size', (int) $value);
+        return $this;
+    }
+
+    /**
+     * Adds a constraint that a property must exist or not
+     *
+     * @param boolean $exists
+     * @return Morph_Query_Property
+     */
+    public function exists($exists = true)
+    {
+        $this->addCompoundConstraint('$exists', (bool)$exists);
         return $this;
     }
 
