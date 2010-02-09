@@ -94,9 +94,12 @@
             	<include name="**/*.php" />	
             </fileset>
             <metadata>
+            	<element name="Title" value="Morph" />
+                <element name="Author" value="Jonathan Moss &lt;xirisr@gmail.com&gt;" />
+                <element name="Description" value="The Morph package provides a high level framework for working with MongoDB" />
+            	<element name="Copyright" value="Jonathan Moss (c) 2008-${date.year}" />
+            	<element name="Build" value="${date.build}" />
                 <element name="Created Date" value="${date.created}" />
-                <element name="Copyright" value="Jonathan Moss (c) 2008-${date.year}" />
-                <element name="Build" value="${date.build}" />
             </metadata>
         </pharpackage>
     	
