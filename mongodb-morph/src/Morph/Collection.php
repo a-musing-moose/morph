@@ -218,4 +218,11 @@ class Morph_Collection extends ArrayObject
             throw new RuntimeException('object of type' . get_class($object) . ' does not extend ' . $this->PermissableType);
         }
     }
+
+    public function __toString()
+    {
+        $class = $this->PermissableType;
+        $count = $this->count();
+        return "Morph_Collection($class) Count: $count";
+    }
 }

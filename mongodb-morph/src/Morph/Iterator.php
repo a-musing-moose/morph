@@ -65,7 +65,7 @@ class Morph_Iterator implements Iterator
     {
 
         $collection = new Morph_Collection();
-        $collection->setPermissableType($this->type);
+        $collection->setPermissableType(get_class($this->type));
         $collection->setTotalCount($this->totalCount());
 
         $this->rewind();

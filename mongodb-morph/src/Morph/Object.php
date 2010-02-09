@@ -239,6 +239,17 @@ class Morph_Object
         return Morph_Storage::instance()->findByQuery($this, $query);
     }
 
+    /**
+     * Finds one object by query
+     *
+     * @param Morph_Query $query
+     * @return Morph_Object
+     */
+    public function findOneByQuery(Morph_Query $query)
+    {
+        return Morph_Storage::instance()->findOneByQuery($this, $query);
+    }
+
 
     // ***************** //
     // UTILITY FUNCTIONS //

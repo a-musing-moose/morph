@@ -209,6 +209,27 @@ class Morph_Storage
     }
 
     /**
+     * Finds one object matching the passed in query
+     *
+     * @param Morph_Object $object
+     * @param Morph_Query $query
+     * @return Morph_Object
+     */
+    public function findOneByQuery(Morph_Object $object, Morph_Query $query = null)
+    {
+        $result = null;
+        $class = get_class($object);
+
+        $query = (is_null($query)) ? new Morph_Query() : $query;
+        $data = $this->Db->selectCollection($object->collection())->findOne($query->getRawQuery());
+        if (!empty($data)) {
+            $result = new $class;
+            $result->__setData($data, Morph_Enum::STATE_CLEAN);
+        }
+        return $result;
+    }
+
+    /**
      * Fetches a object representing a file in MongoDB
      *
      * @param mixed $id
