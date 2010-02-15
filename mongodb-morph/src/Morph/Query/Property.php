@@ -76,6 +76,28 @@ class Morph_Query_Property
         return $this->query->property($propertyName);
     }
 
+    /**
+     * Sets the limit for the result set
+     *
+     * @param int $limit
+     * @return Morph_Query
+     */
+    public function limit($limit)
+    {
+        return $this->query->limit($limit);
+    }
+
+    /**
+     * Skips the first $numberToSkip results that would normally be returned
+     *
+     * @param int $numberToSkip
+     * @return Morph_Query
+     */
+    public function skip($numberToSkip)
+    {
+        return $this->query->skip($numberToSkip);
+    }
+
     //////////////////////////
     // CONSTRAINT FUNCTIONS //
     //////////////////////////
