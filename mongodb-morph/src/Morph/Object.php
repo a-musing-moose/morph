@@ -250,6 +250,15 @@ class Morph_Object
         return Morph_Storage::instance()->findOneByQuery($this, $query);
     }
 
+    /**
+     * Deletes this object from the database
+     * 
+     * @return boolean
+     */
+    public function delete()
+    {
+    	return Morph_Storage::instance()->delete($this);
+    }
 
     // ***************** //
     // UTILITY FUNCTIONS //
