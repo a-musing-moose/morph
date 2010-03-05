@@ -22,7 +22,7 @@ class TestUtils extends PHPUnit_Framework_TestCase
             $this->markTestSkipped("Skipped for PHP Versions lower than 5.3.0");
             return;
         }
-        $object = $this->getMock('Morph_Object', array(), array(), 'user\\Profile');
+        $object = $this->getMock('Morph_Object', array(), 'user\\Profile');
         $collectionName = Morph_Utils::collectionName($object);
         $this->assertEquals('user.Profile', $collectionName);
     }
