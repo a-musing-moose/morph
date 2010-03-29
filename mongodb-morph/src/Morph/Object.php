@@ -225,7 +225,7 @@ class Morph_Object
      */
     public function findByIds(array $ids)
     {
-        return Morph_Storage::instance()->fetchByIds($this, $id);
+        return Morph_Storage::instance()->fetchByIds($this, $ids);
     }
 
     /**
