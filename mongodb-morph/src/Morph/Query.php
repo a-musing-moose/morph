@@ -163,7 +163,7 @@ class Morph_Query
 	    if (count($this->criteria) > 0) {
             foreach ($this->criteria as $propertyName => $criteria) {
                 $constraints = $criteria->getConstraints();
-                if (!empty($constraints)) {
+                if (isset($constraints)) {
                     $query[$propertyName] = $constraints;
                 }
             }

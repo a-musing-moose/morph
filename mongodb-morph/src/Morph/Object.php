@@ -147,7 +147,6 @@ class Morph_Object
         $data['_ns'] = get_class($this);
         foreach($this->propertySet as $property) {
             $data[$property->getName()] = $property->__getRawValue();
-            $data = array_filter($data);
         }
         return $data;
     }

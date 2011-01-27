@@ -28,7 +28,7 @@ class Morph_Property_Date extends Morph_Property_Generic
     public function __construct($name, $default = null)
     {
         $this->Name = $name;
-        $this->Value = (int)$default;
+        $this->Value = $default;
     }
 
     /**
@@ -49,7 +49,11 @@ class Morph_Property_Date extends Morph_Property_Generic
      */
     public function setValue($value)
     {
-        $this->Value = (int)$value;
+        if (isset($value)) {
+            $this->Value = (int)$value;
+        } else {
+            $this->Value = null;
+        }
     }
 
     /**
@@ -59,6 +63,7 @@ class Morph_Property_Date extends Morph_Property_Generic
      */
     public function __getRawValue()
     {
+        if (! isset($this->Value)) return null;
         $rawValue = new MongoDate($this->Value);
         return $rawValue;
     }
@@ -74,7 +79,11 @@ class Morph_Property_Date extends Morph_Property_Generic
         if ($value instanceof MongoDate) {
             $this->Value = (int) $value->sec;
         } else {
-            $this->Value = (int) $value;
+            if (isset($value)) {
+                $this->Value = (int) $value;
+            } else {
+                $this->Value = null;
+            }
         }
 
         return $this;
