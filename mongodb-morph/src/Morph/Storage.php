@@ -90,8 +90,7 @@ class Morph_Storage
 	{
 		$query = array('_id' => $id);
 		$data = $this->Db->selectCollection($object->collection())->findOne($query);
-		$object->__setData($data, Morph_Enum::STATE_CLEAN);
-		return $object;
+        return $this->setData($object, $data);
 	}
 
 	/**
@@ -119,8 +118,7 @@ class Morph_Storage
 	public function fetchByDbRef(Morph_Object $object, array $dbRef)
 	{
 		$data = $this->Db->getDBRef($dbRef);
-		$object->__setData($data, Morph_Enum::STATE_CLEAN);
-		return $object;
+        return $this->setData($object, $data);
 	}
 
 	/**
@@ -237,11 +235,7 @@ class Morph_Storage
 
 		$query = (is_null($query)) ? new Morph_Query() : $query;
 		$data = $this->Db->selectCollection($object->collection())->findOne($query->getRawQuery());
-		if (!empty($data)) {
-			$result = new $class;
-			$result->__setData($data, Morph_Enum::STATE_CLEAN);
-		}
-		return $result;
+        return $this->setData($object, $data);
 	}
 
 	/**
@@ -276,4 +270,18 @@ class Morph_Storage
 		}
 		return $id;
 	}
+
+    /**
+     * @param Morph_Object $object
+     * @param array $data
+     * @return Morph_Object
+     */
+    private function setData(Morph_Object $object, $data)
+    {
+        if (empty($data)) {
+            throw new Morph_Exception_ObjectNotFound();
+        }
+        $object->__setData($data, Morph_Enum::STATE_CLEAN);
+		return $object;
+    }
 }
