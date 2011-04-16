@@ -110,7 +110,12 @@ class  Morph_PropertySet extends ArrayObject
      *
      * @param $object
      */
-    private function checkType($object){
+    private function checkType($object)
+    {
+        if (!is_object($object)) {
+            throw new InvalidArgumentException('value if not and object that extends Morph_Property_Generic');
+        }
+
         if(!($object instanceof Morph_Property_Generic)){
             throw new InvalidArgumentException('object of type' . get_class($object) . ' does not extend Morph_Property_Generic');
         }

@@ -5,13 +5,7 @@
  * @package MongoUnit
  * @subpackage Constraint
  */
-
-require_once 'PHPUnit/Framework.php';
-require_once 'PHPUnit/Util/Filter.php';
 require_once 'PHPUnit/Util/Type.php';
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
-
 /**
  * A PHP Unit constraint that checks to ensure a specific document exists
  *

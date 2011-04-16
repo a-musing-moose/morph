@@ -49,8 +49,8 @@ class TestComposeMany extends MongoUnit_TestCase
         $this->assertDocumentExists('ComposeManyParent', $parent->id());
 
         $expected = array (
-            array('_ns'=>'Child', 'Name'=>'Child1'),
-            array('_ns'=>'Child', 'Name'=>'Child2')
+            array('_ns'=>'Child', 'Name'=>'Child1', 'Age' => null),
+            array('_ns'=>'Child', 'Name'=>'Child2', 'Age' => null)
         );
 
         $this->assertDocumentPropertyEquals($expected, 'ComposeManyParent', 'Children', $parent->id());

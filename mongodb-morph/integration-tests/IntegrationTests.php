@@ -3,7 +3,6 @@
  * @author Jonathan Moss <xirisr@gmail.com>
  * @copyright Jonathan Moss 2010
  */
-require_once 'PHPUnit/Framework.php';
 require_once dirname(__FILE__).'/../Morph.phar';
 require_once dirname(__FILE__).'/TestComposeMany.php';
 require_once dirname(__FILE__).'/TestComposeOne.php';

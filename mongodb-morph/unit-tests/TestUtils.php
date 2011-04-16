@@ -1,8 +1,5 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
-
 require_once dirname(__FILE__).'/../src/Morph/Utils.php';
-
 /**
  * @package Morph
  */
@@ -22,7 +19,9 @@ class TestUtils extends PHPUnit_Framework_TestCase
             $this->markTestSkipped("Skipped for PHP Versions lower than 5.3.0");
             return;
         }
-        $object = $this->getMock('Morph_Object', array(), 'user\\Profile');
+        $mockMorphObject = $this->getMock('Morph_Object');
+        require dirname(__FILE__) . '/namespaced_stub.php';
+        $object = new user\Profile();
         $collectionName = Morph_Utils::collectionName($object);
         $this->assertEquals('user.Profile', $collectionName);
     }
@@ -46,4 +45,3 @@ class TestUtils extends PHPUnit_Framework_TestCase
     }
 
 }
-?>

@@ -44,7 +44,7 @@ class TestComposeOne extends MongoUnit_TestCase
 
         $this->assertDocumentExists('ComposeOneParent', $parent->id());
 
-        $this->assertDocumentPropertyEquals(array('_ns'=>'Child', 'Name'=>'Child'), 'ComposeOneParent', 'Child', $parent->id());
+        $this->assertDocumentPropertyEquals(array('_ns'=>'Child', 'Name'=>'Child', 'Age' => null), 'ComposeOneParent', 'Child', $parent->id());
     }
 
 }
