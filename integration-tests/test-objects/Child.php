@@ -1,12 +1,12 @@
 <?php
-class Child extends Morph_Object
-{
 
+class Child extends \morph\Object
+{
     public function __construct($id = null)
     {
         parent::__construct($id);
-        $this->addProperty(new Morph_Property_String('Name'));
-        $this->addProperty(new Morph_Property_Integer('Age'));
+        $this->addProperty(new \morph\property\String('Name'));
+        $this->addProperty(new \morph\property\Integer('Age'));
     }
 
 }
