@@ -25,6 +25,7 @@ class MorphAutoloader
         'Morph_Compare_Property'            => 'phar://Morph/Compare/Property.php',
         'Morph_PropertySet'                 => 'phar://Morph/PropertySet.php',
         'Morph_Query'                       => 'phar://Morph/Query.php',
+        'Morph_IQuery'                      => 'phar://Morph/IQuery.php',
         'Morph_Object'                      => 'phar://Morph/Object.php',
         'Morph_ICompare'                    => 'phar://Morph/ICompare.php',
         'Morph_Property_HasMany'            => 'phar://Morph/Property/HasMany.php',

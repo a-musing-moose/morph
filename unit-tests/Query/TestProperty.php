@@ -1,6 +1,8 @@
 <?php
 require_once 'PHPUnit/Framework/TestCase.php';
 
+require_once dirname(__FILE__).'/../../src/Morph/Enum.php';
+require_once dirname(__FILE__).'/../../src/Morph/IQuery.php';
 require_once dirname(__FILE__).'/../../src/Morph/Query/Property.php';
 
 /**

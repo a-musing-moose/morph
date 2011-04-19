@@ -191,10 +191,10 @@ class Morph_Storage
 	 * The results come packages up in a Morph_Iterator object
 	 *
 	 * @param Morph_Object $object Required to determine the correct collection query against
-	 * @param Morph_Query $query
+	 * @param Morph_IQuery $query
 	 * @return Morph_Iterator
 	 */
-	public function findByQuery(Morph_Object $object, Morph_Query $query = null)
+	public function findByQuery(Morph_Object $object, Morph_IQuery $query = null)
 	{
 		$class = get_class($object);
 
@@ -225,10 +225,10 @@ class Morph_Storage
 	 * Finds one object matching the passed in query
 	 *
 	 * @param Morph_Object $object
-	 * @param Morph_Query $query
+	 * @param Morph_IQuery $query
 	 * @return Morph_Object
 	 */
-	public function findOneByQuery(Morph_Object $object, Morph_Query $query = null)
+	public function findOneByQuery(Morph_Object $object, Morph_IQuery $query = null)
 	{
 		$result = null;
 		$class = get_class($object);

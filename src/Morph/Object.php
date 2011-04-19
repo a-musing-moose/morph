@@ -230,10 +230,10 @@ class Morph_Object
     /**
      * Find objects by query
      *
-     * @param Morph_Query $query
+     * @param Morph_IQuery $query
      * @return Morph_Iterator
      */
-    public function findByQuery(Morph_Query $query)
+    public function findByQuery(Morph_IQuery $query)
     {
         return Morph_Storage::instance()->findByQuery($this, $query);
     }
@@ -244,7 +244,7 @@ class Morph_Object
      * @param Morph_Query $query
      * @return Morph_Object
      */
-    public function findOneByQuery(Morph_Query $query)
+    public function findOneByQuery(Morph_IQuery $query)
     {
         return Morph_Storage::instance()->findOneByQuery($this, $query);
     }

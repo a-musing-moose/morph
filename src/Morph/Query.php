@@ -3,7 +3,6 @@
  * @package Morph
  * @author Jonathan Moss <xirisr@gmail.com>
  * @copyright 2009 Jonathan Moss
- * @version SVN: $Id$
  */
 
 /**
@@ -41,7 +40,7 @@
  *
  * @package Morph
  */
-class Morph_Query
+class Morph_Query implements Morph_IQuery
 {
 
     /**

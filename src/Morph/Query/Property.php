@@ -14,7 +14,7 @@
  * @package Morph
  * @subpackage Query
  */
-class Morph_Query_Property
+class Morph_Query_Property implements Morph_IQuery
 {
 
     /**
@@ -96,6 +96,32 @@ class Morph_Query_Property
     public function skip($numberToSkip)
     {
         return $this->query->skip($numberToSkip);
+    }
+
+    public function getRawQuery()
+    {
+        return $this->query->getRawQuery();
+    }
+
+    public function getRawSort()
+    {
+        return $this->query->getRawSort();
+    }
+
+    /**
+     * @return int
+     */
+    public function getSkip()
+    {
+        return $this->query->getSkip();
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->getLimit();
     }
 
     //////////////////////////
