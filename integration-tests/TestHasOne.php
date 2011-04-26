@@ -47,4 +47,30 @@ class TestHasOne extends MongoUnit_TestCase
 
     }
 
+        public function testStoresReplacementChild()
+    {
+        $parent = new HasOneParent();
+        $parent->Name = 'Has One Parent';
+
+        $child = new Child();
+        $child->Name = 'Child';
+
+        $parent->Child = $child;
+
+        $parent->save();
+        $this->assertCollectionExists('HasOneParent');
+        $this->assertCollectionExists('Child');
+
+        $this->assertDocumentExists('HasOneParent', $parent->id());
+        $this->assertDocumentExists('Child', $child->id());
+
+        //now for the second child
+        $child2 = new Child();
+        $child2->Name = 'Child2';
+        $parent->Child = $child2;
+        $parent->save();
+        $this->assertDocumentExists('Child', $child2->id());
+
+    }
+
 }
