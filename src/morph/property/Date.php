@@ -34,7 +34,7 @@ class Date extends Generic
      * @param int $Value
      * @return void
      */
-    public function setValue($value)
+    public function setValue($value = null)
     {
         if (isset($value)) {
             $this->value = (int)$value;
@@ -50,7 +50,7 @@ class Date extends Generic
      */
     public function __getRawValue()
     {
-        if (! isset($this->value)) return null;
+        if (!isset($this->value)) return null;
         $rawValue = new \MongoDate($this->value);
         return $rawValue;
     }

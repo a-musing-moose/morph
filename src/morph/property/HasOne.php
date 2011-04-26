@@ -81,7 +81,7 @@ class HasOne extends Generic
      */
     public function __getRawValue()
     {
-        if(!is_null($this->value) && \is_null($this->reference)) {
+        if(!is_null($this->value)) {
             if($this->value->state() != \morph\Enum::STATE_CLEAN) {
                 //save value
                 \morph\Storage::instance()->save($this->value);
