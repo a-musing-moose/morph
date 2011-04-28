@@ -47,6 +47,9 @@ class TestHasOne extends \mongoUnit\TestCase
 
     }
 
+    /**
+     * Test for issue #1 
+     */
     public function testStoresReplacementChild()
     {
         $parent = new HasOneParent();
