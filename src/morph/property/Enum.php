@@ -22,13 +22,11 @@ class Enum extends Generic
     private $choices;
 
     /**
-     *
      * @param string $name
-     * @param mixed $default
      * @param array $enums An array of valid enum values
-     * @return ar_Property_Enum
+     * @param mixed $default
      */
-    public function __construct($name, $default, array $choices)
+    public function __construct($name, array $choices, $default = null)
     {
         $this->choices = $choices;
         parent::__construct($name, $default);
@@ -36,8 +34,6 @@ class Enum extends Generic
 
     /**
      * Overrides parent setValue to add enum value checking
-     *
-     * @see classes/ar/ar_Field#setValue()
      */
     public function setValue($value)
     {

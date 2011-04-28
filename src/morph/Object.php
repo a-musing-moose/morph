@@ -272,13 +272,14 @@ class Object
      */
     public function __toString()
     {
-        $string = "";
-        $string .= "Id: " . $this->id() . "\n";
-        $string .= "State: " . $this->state() . "\n";
-        foreach ($this->propertySet as $property) {
-            $string .= (string)$property . "\n";
+        $data = array(
+            'Id' => $this->id(),
+            'State' => $this->state()
+        );
+        foreach ($this->propertySet as $name => $property) {
+            $data[$name] = (string)$property;
         }
-        return $string;
+        return \json_encode($data);
     }
 
     /**

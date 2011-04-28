@@ -118,8 +118,9 @@ class  HasMany extends Generic
 
             $object = new $this->type;
 
-            //@todo this could get nasty with large collections!
-            $this->value = \morph\Storage::instance()->findByQuery($object, $query)->toCollection();
+            $this->value = \morph\Storage::instance()
+                    ->findByQuery($object, $query)
+                    ->toCollection(); //@todo this could get nasty with large collections!
         } else {
             $this->value = new \morph\Collection();
         }

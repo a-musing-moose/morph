@@ -73,11 +73,10 @@ class TestObject extends \PHPUnit_Framework_TestCase
 
     public function test__toString()
     {
-        $expected = "Id: \nState: New\ntestField: TEST\n";
+        $expected = '{"Id":null,"State":"New","testField":"TEST"}';
         $obj = new ForTesting();
         $obj->testField = 'TEST';
         $this->assertEquals($expected, $obj->__toString());
     }
 
 }
-?>
