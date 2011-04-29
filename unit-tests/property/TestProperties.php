@@ -7,6 +7,7 @@ require_once dirname(__FILE__).'/../../src/morph/property/Integer.php';
 require_once dirname(__FILE__).'/../../src/morph/property/Float.php';
 require_once dirname(__FILE__).'/../../src/morph/property/Enum.php';
 require_once dirname(__FILE__).'/../../src/morph/property/Date.php';
+require_once dirname(__FILE__).'/../../src/morph/property/BinaryData.php';
 
 /**
  * @package Morph
@@ -89,7 +90,7 @@ class TestProperties extends \PHPUnit_Framework_TestCase
         $valid = 'Yes';
         $invalid = 'Bob';
 
-        $property = new Enum('AProperty', $valid, $enums);
+        $property = new Enum('AProperty', $enums, $valid);
 
         $this->assertEquals($enums, $property->getChoices());
 
@@ -116,5 +117,24 @@ class TestProperties extends \PHPUnit_Framework_TestCase
         //check the MorphDate objects content is correct
         $this->assertEquals($time, $property->__getRawValue()->sec);
     }
+    
+    public function testBinaryData()
+    {
+        $property = new BinaryData("AProperty");
+        $data = md5('morph', true);
+        $property->setValue($data);
+        $this->assertEquals($data, $property->getValue());
+
+        //check the output type is correct
+        $this->assertType('\MongoBinData', $property->__getRawValue());
+
+        //check the MorphDate objects content is correct
+        $this->assertEquals($data, $property->__getRawValue()->bin);
+        
+        $property2 = new BinaryData("AProperty");
+        $property2->__setRawValue($property->__getRawValue());
+        $this->assertEquals($data, $property2->getValue());
+        
+        
+    }
 }
-?>
