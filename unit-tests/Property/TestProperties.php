@@ -110,7 +110,7 @@ class TestProperties extends PHPUnit_Framework_TestCase
         $this->assertEquals($time, $property->getValue());
 
         //check the output type is correct
-        $this->assertType('MongoDate', $property->__getRawValue());
+        $this->assertInstanceOf('MongoDate', $property->__getRawValue());
 
         //check the MorphDate objects content is correct
         $this->assertEquals($time, $property->__getRawValue()->sec);
