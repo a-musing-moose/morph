@@ -1,3 +1,6 @@
 nbproject
+.buildpath
+.project
+.settings/
 Morph.phar
 doc/*
