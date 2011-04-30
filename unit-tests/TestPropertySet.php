@@ -90,6 +90,16 @@ class TestPropertySet extends \PHPUnit_Framework_TestCase
         $propertySet['P1'] = $this->getMockPropertyFor__RawSet($expected);
         $propertySet->__setRawPropertyValue('P1', $expected);
     }
+    
+    public function testAliasing()
+    {
+    	$name = 'NAME';
+    	$alias = 'n';
+    	$propertySet = new PropertySet();
+    	$propertySet[$name] = $this->getMockProperty();
+    	$propertySet->setStorageName($name, $alias);
+    	$this->assertSame($alias, $propertySet->getStorageName($name));
+    }
 
     // MOCK OBJECT FUNCTIONS
 

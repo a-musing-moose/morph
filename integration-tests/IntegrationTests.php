@@ -11,6 +11,7 @@ require_once dirname(__FILE__).'/TestHasMany.php';
 require_once dirname(__FILE__).'/TestHasOne.php';
 require_once dirname(__FILE__).'/TestQuery.php';
 require_once dirname(__FILE__).'/TestSingleObject.php';
+require_once dirname(__FILE__).'/TestAliased.php';
 
 /**
  * Bootstraps all integration tests
@@ -27,7 +28,7 @@ class IntegrationTests
         $suite->addTestSuite('TestHasOne');
         $suite->addTestSuite('Testquery');
         $suite->addTestSuite('TestSingleObject');
-
+		$suite->addTestSuite('TestAliased');
         return $suite;
     }
 }

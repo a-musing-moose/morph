@@ -34,7 +34,7 @@ class Object
 
     /**
      * The data associated with this object
-     * @var Morph_PropertySet
+     * @var \morph\PropertySet
      */
     protected $propertySet;
 
@@ -102,11 +102,15 @@ class Object
      * Adds a new property to this object
      *
      * @param Morph_Property_Generic $property
-     * @return Morph_Object
+     * @param string $alias
+     * @return \morph\Object
      */
-    protected function addProperty(\morph\property\Generic $property)
+    protected function addProperty(\morph\property\Generic $property, $alias = null)
     {
         $this->propertySet[$property->getName()] = $property;
+        if (null !== $alias) {
+        	$this->propertySet->setStorageName($property->getName(), $alias);
+        }
         return $this;
     }
 
@@ -146,7 +150,8 @@ class Object
         }
         $data['_ns'] = \get_class($this);
         foreach($this->propertySet as $property) {
-            $data[$property->getName()] = $property->__getRawValue();
+        	$storageName = $this->propertySet->getStorageName($property->getName());
+            $data[$storageName] = $property->__getRawValue();
         }
         return $data;
     }

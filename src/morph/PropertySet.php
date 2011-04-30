@@ -13,6 +13,8 @@ namespace morph;
 class  PropertySet extends \ArrayObject
 {
 
+	protected $aliases = array();
+	
     /**
      * Get the value of the specified property within this set
      *
@@ -69,10 +71,52 @@ class  PropertySet extends \ArrayObject
      */
     public function __setRawPropertyValue($name, $value)
     {
-        if(!isset($this[$name])){
+    	$name = $this->reverseStorageName($name);
+        if(!isset($this[$name])) {
             $this[$name] = new \morph\property\Generic($name);
         }
         $this[$name]->__setRawValue($value);
+    }
+    
+    /**
+     * Sets a storage alias for the named property
+     * 
+     * @param string $name
+     * @param string $alias
+     */
+    public function setStorageName($name, $alias)
+    {
+    	$this->aliases[$name] = $alias;
+    }
+    
+    /**
+     * Returns the storage name that should be used
+     * 
+     * @param string $name
+     * @return string
+     */
+    public function getStorageName($name)
+    {
+    	$storageName = $name;
+    	if (array_key_exists($name, $this->aliases)) {
+    		$storageName = $this->aliases[$name];
+    	}
+    	return $storageName;
+    }
+    
+    /**
+     * Returns the real name for the storage name
+     * 
+     * @param string $storageName
+     * @return string
+     */
+    private function reverseStorageName($storageName)
+    {
+    	$name = array_search($storageName, $this->aliases);
+    	if (false === $name) {
+    		$name = $storageName;
+    	}
+    	return $name;
     }
 
     // ARRAY ACCESS FUNCTIONS
