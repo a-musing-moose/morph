@@ -198,11 +198,12 @@ class Object
     /**
      * Saves this object
      *
+     * @param array $options Support the same options as MongoCollection::save()
      * @return Morph_Object
      */
-    public function save()
+    public function save(array $options = array())
     {
-        return Storage::instance()->save($this);
+        return Storage::instance()->save($this, $options);
     }
 
     /**

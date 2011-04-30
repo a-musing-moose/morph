@@ -23,6 +23,8 @@ class Storage
 	 * @var MongoDB
 	 */
 	private $db;
+	
+	private $useSafe = false;
 
 	/**
 	 * Returns the singleton instance of this class
@@ -66,6 +68,17 @@ class Storage
 	private function __construct(\MongoDB $db)
 	{
 		$this->db = $db;
+	}
+	
+	/**
+	 * If set to true then the 'safe' option for saves is used
+	 * 
+	 * @param boolean $useSafe
+	 */
+	public function useSafe($useSafe)
+	{
+		$this->useSafe = (bool)$useSafe;
+		return $this;
 	}
 
 	/**
@@ -141,21 +154,25 @@ class Storage
 	/**
 	 * Inserts a new object into the database
 	 *
-	 * @param Morph_Object $object
-	 * @return Morph_Object
+	 * @param \morph\Object $object
+	 * @param array $options 
+	 * @return \morph\Object
 	 */
-	private function insert(Object $object)
+	private function insert(Object $object, array $options = array())
 	{
 		$data = $object->__getData();
 
 		//set an id if we do not have one
 		if(!\array_key_exists('_id', $data)){
 			$id = array(
-                '_id' => \md5(\uniqid(\rand(), true))
+                '_id' => new \MongoId()
 			);
 			$data = \array_merge($id, $data);
 		}
-		$savedOk = $this->db->selectCollection($object->collection())->save($data);
+		
+		$options = array_merge(array('safe'=>$this->useSafe), $options);
+		
+		$savedOk = $this->db->selectCollection($object->collection())->save($data, $options);
 		if($savedOk){
 			$object->__setData($data, Enum::STATE_CLEAN);
 		}
