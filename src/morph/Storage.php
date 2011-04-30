@@ -207,7 +207,7 @@ class Storage
 	 *
 	 * The results come packages up in a Morph_Iterator object
 	 *
-	 * @param Morph_Object $object Required to determine the correct collection query against
+	 * @param \morph\Object $object Required to determine the correct collection query against
 	 * @param Morph_IQuery $query
 	 * @return Morph_Iterator
 	 */
@@ -216,7 +216,9 @@ class Storage
 		$class = get_class($object);
 
 		$query = (is_null($query)) ? new Query() : $query;
-		$cursor = $this->db->selectCollection($object->collection())->find($query->getRawQuery());
+		
+		$rawQuery = $this->getRawQuery($object, $query);
+		$cursor = $this->db->selectCollection($object->collection())->find($rawQuery);
 
 		$limit = $query->getLimit();
 		if (!\is_null($limit)) {
@@ -251,8 +253,25 @@ class Storage
 		$class = \get_class($object);
 
 		$query = (is_null($query)) ? new Query() : $query;
-		$data = $this->db->selectCollection($object->collection())->findOne($query->getRawQuery());
+		$rawQuery = $this->getRawQuery($object, $query);
+		$data = $this->db->selectCollection($object->collection())->findOne($rawQuery);
         return $this->setData($object, $data);
+	}
+	
+	/**
+	 * Ensures that aliased properties are correctly converted in query
+	 * 
+	 * @param Object $object
+	 * @param IQuery $query
+	 */
+	private function getRawQuery(Object $object, IQuery $query)
+	{
+		$rawQuery = array();
+		foreach ($query->getRawQuery() as $field => $value) {
+			$storageName = $object->__getPropertySet()->getStorageName($field);
+			$rawQuery[$storageName] = $value;
+		}
+		return $rawQuery;
 	}
 
 	/**

@@ -155,6 +155,14 @@ class Object
         }
         return $data;
     }
+    
+    /**
+     * @return \morph\PropertSet
+     */
+    public function __getPropertySet()
+    {
+    	return $this->propertySet;
+    }
 
     // ********************** //
     // MAGIC ACCESS FUNCTIONS //

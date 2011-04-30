@@ -48,4 +48,30 @@ class TestAliased extends \mongoUnit\TestCase
         $aliased->__setData($data);
         $this->assertSame('Chris', $aliased->Name);
     }
+    
+    public function testSearchingAnAliasedProperty()
+    {
+    	$aliased = new Aliased();
+        $aliased->Name = 'Chris';
+        $aliased->save();
+        
+        $query = \morph\Query::instance()
+        ->property('Name')->equals('Chris');
+        
+        $found = \morph\Storage::instance()->findOneByQuery(new Aliased(), $query);
+        $this->assertEquals($aliased->id(), $found->id());
+    }
+    
+    public function testSearchAnAliasedPropertyWithItsAlias()
+    {
+    	$aliased = new Aliased();
+        $aliased->Name = 'Chris';
+        $aliased->save();
+        
+        $query = \morph\Query::instance()
+        ->property('n')->equals('Chris');
+        
+        $found = \morph\Storage::instance()->findOneByQuery(new Aliased(), $query);
+        $this->assertEquals($aliased->id(), $found->id());
+    }
 }
