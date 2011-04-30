@@ -7,11 +7,11 @@
 	
 	<fileset dir="integration-tests" id="integration-tests">
 	       <include name="**/Test*.php" />
-	       <exclude name="MongoUnit/*" />
+	       <exclude name="mongoUnit/*" />
 		   <exclude name="IntegrationsTests.php" />
 	</fileset>
 	
-	<fileset dir="src/Morph" id="classes">
+	<fileset dir="src/morph" id="classes">
 	   <include name="**/*.php" />
 	</fileset>
 

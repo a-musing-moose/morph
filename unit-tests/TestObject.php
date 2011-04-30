@@ -1,29 +1,29 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+namespace morph;
 
-require_once dirname(__FILE__).'/../src/Morph/Enum.php';
-require_once dirname(__FILE__).'/../src/Morph/Object.php';
-require_once dirname(__FILE__).'/../src/Morph/PropertySet.php';
-require_once dirname(__FILE__).'/../src/Morph/Utils.php';
-require_once dirname(__FILE__).'/../src/Morph/Property/Generic.php';
+require_once dirname(__FILE__).'/../src/morph/Enum.php';
+require_once dirname(__FILE__).'/../src/morph/Object.php';
+require_once dirname(__FILE__).'/../src/morph/PropertySet.php';
+require_once dirname(__FILE__).'/../src/morph/Utils.php';
+require_once dirname(__FILE__).'/../src/morph/property/Generic.php';
 require_once dirname(__FILE__).'/ForTesting.php';
 
 /**
  * @package Morph
  */
-class TestObject extends PHPUnit_Framework_TestCase
+class TestObject extends \PHPUnit_Framework_TestCase
 {
 
 
     public function testGetCollection()
     {
-        $obj = new Morph_ForTesting();
-        $this->assertEquals('Morph.ForTesting', $obj->collection());
+        $obj = new ForTesting();
+        $this->assertEquals('morph.ForTesting', $obj->collection());
     }
 
     public function testCollectionOverride()
     {
-        $obj = new Morph_ForTesting();
+        $obj = new ForTesting();
         $collectionName = "TestCollection";
         $obj->collection($collectionName);
         $this->assertEquals($collectionName, $obj->collection());
@@ -32,52 +32,51 @@ class TestObject extends PHPUnit_Framework_TestCase
     public function testMagicGettersSetter()
     {
         $testValue = 'TestValue';
-        $obj = new Morph_ForTesting();
-        $obj->TestField = $testValue;
-        $this->assertEquals($testValue, $obj->TestField);
+        $obj = new ForTesting();
+        $obj->testField = $testValue;
+        $this->assertEquals($testValue, $obj->testField);
     }
 
     public function testSetData()
     {
-        $data = array('TestField' => 'value1');
-        $obj = new Morph_ForTesting();
+        $data = array('testField' => 'value1');
+        $obj = new ForTesting();
         $obj->__setData($data);
-        $this->assertEquals($data['TestField'], $obj->TestField);
-        $this->assertEquals(Morph_Enum::STATE_DIRTY, $obj->state());
+        $this->assertEquals($data['testField'], $obj->testField);
+        $this->assertEquals(Enum::STATE_DIRTY, $obj->state());
 
     }
 
     public function testGetData()
     {
         $data = array(
-            '_ns'           => 'Morph_ForTesting',
-            'TestField'     => 'value1',
+            '_ns'           => 'morph\ForTesting',
+            'testField'     => 'value1',
             'instanceOf'    => 'Morph_ForTesting'
         );
-        $obj = new Morph_ForTesting();
+        $obj = new ForTesting();
         $obj->__setData($data);
         $this->assertEquals($data, $obj->__getData());
-        $this->assertEquals(Morph_Enum::STATE_DIRTY, $obj->state());
+        $this->assertEquals(Enum::STATE_DIRTY, $obj->state());
     }
 
     public function test__toArray()
     {
         $testValue = 'TestValue';
         $expectedArray = array(
-        'TestField' => 'TestValue'
+            'testField' => 'TestValue'
         );
-        $obj = new Morph_ForTesting();
-        $obj->TestField = $testValue;
+        $obj = new ForTesting();
+        $obj->testField = $testValue;
         $this->assertEquals($expectedArray, $obj->__toArray());
     }
 
     public function test__toString()
     {
-        $expected = "Id: \nState: New\nTestField: TEST\n";
-        $obj = new Morph_ForTesting();
-        $obj->TestField = 'TEST';
+        $expected = '{"Id":null,"State":"New","testField":"TEST"}';
+        $obj = new ForTesting();
+        $obj->testField = 'TEST';
         $this->assertEquals($expected, $obj->__toString());
     }
 
 }
-?>

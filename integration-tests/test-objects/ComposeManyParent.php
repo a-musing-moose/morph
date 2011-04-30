@@ -1,12 +1,12 @@
 <?php
-class ComposeManyParent extends Morph_Object
+class ComposeManyParent extends \morph\Object
 {
 
     public function __construct($id = null)
     {
         parent::__construct($id);
-        $this->addProperty(new Morph_Property_ComposeMany('Children', 'Child'));
-        $this->addProperty(new Morph_Property_String('Name'));
+        $this->addProperty(new \morph\property\ComposeMany('Children', 'Child'));
+        $this->addProperty(new \morph\property\String('Name'));
     }
 
 }

@@ -6,26 +6,26 @@
  */
 
 require_once dirname(__FILE__).'/../Morph.phar';
-require_once dirname(__FILE__).'/MongoUnit/TestCase.php';
+require_once dirname(__FILE__).'/mongoUnit/TestCase.php';
 require_once dirname(__FILE__).'/test-objects/ComposeManyParent.php';
 require_once dirname(__FILE__).'/test-objects/Child.php';
 
 /**
  * @package Morph
  */
-class TestComposeMany extends MongoUnit_TestCase
+class TestComposeMany extends \mongoUnit\TestCase
 {
 
     public function setup()
     {
         parent::setUp();
-        Morph_Storage::init($this->getDatabase());
+        \morph\Storage::init($this->getDatabase());
     }
 
     public function tearDown()
     {
         parent::tearDown();
-        Morph_Storage::deInit();
+        \morph\Storage::deInit();
     }
 
     public function testStoresParentAndChild()

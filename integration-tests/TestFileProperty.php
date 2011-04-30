@@ -6,25 +6,25 @@
  */
 
 require_once dirname(__FILE__).'/../Morph.phar';
-require_once dirname(__FILE__).'/MongoUnit/TestCase.php';
+require_once dirname(__FILE__).'/mongoUnit/TestCase.php';
 require_once dirname(__FILE__).'/test-objects/User.php';
 
 /**
  * @package Morph
  */
-class TestFileProperty extends MongoUnit_TestCase
+class TestFileProperty extends \mongoUnit\TestCase
 {
 
      public function setup()
     {
         parent::setup();
-        Morph_Storage::init($this->getDatabase());
+        \morph\Storage::init($this->getDatabase());
     }
 
     public function tearDown()
     {
         parent::tearDown();
-        Morph_Storage::deInit();
+        \morph\Storage::deInit();
         unlink('test.png');
     }
 
@@ -38,8 +38,8 @@ class TestFileProperty extends MongoUnit_TestCase
         $this->assertDocumentExists('User', $user->id());
         $user->Avatar->write("test.png");
         $this->assertFileExists('test.png');
-        $originalFileHash = md5_file(dirname(__FILE__).'/fixtures/flask.png');
-        $retrievedFileHash = md5_file('test.png');
+        $originalFileHash = \md5_file(dirname(__FILE__).'/fixtures/flask.png');
+        $retrievedFileHash = \md5_file('test.png');
         $this->assertEquals($originalFileHash, $retrievedFileHash);
     }
 

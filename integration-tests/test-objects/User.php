@@ -1,12 +1,12 @@
 <?php
-class User extends Morph_Object
+class User extends \morph\Object
 {
 
     public function __construct($id = null)
     {
         parent::__construct($id);
-        $this->addProperty(new Morph_Property_String('Username'))
-             ->addProperty(new Morph_Property_File('Avatar'));
+        $this->addProperty(new \morph\property\String('Username'))
+             ->addProperty(new \morph\property\File('Avatar'));
     }
 
 }

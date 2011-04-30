@@ -1,12 +1,12 @@
 <?php
-class HasOneParent extends Morph_Object
+class HasOneParent extends \morph\Object
 {
 
     public function __construct($id = null)
     {
         parent::__construct($id);
-        $this->addProperty(new Morph_Property_HasOne('Child', 'Child'));
-        $this->addProperty(new Morph_Property_String('Name'));
+        $this->addProperty(new \morph\property\HasOne('Child', 'Child'));
+        $this->addProperty(new \morph\property\String('Name'));
     }
 
 }
