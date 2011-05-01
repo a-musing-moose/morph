@@ -198,7 +198,7 @@ class Object
                 $this->state = Enum::STATE_DIRTY;
             }
         }else{
-            $this->addProperty(new \morph\property_Generic($propertyName, $propertyValue));
+            $this->addProperty(new \morph\property\Generic($propertyName, $propertyValue));
             \trigger_error("The property $propertyName was not found in object of class " . \get_class($this) . ' but I have added it as a generic property type', E_USER_WARNING);
         }
         return $this;
