@@ -3,5 +3,7 @@ nbproject
 .project
 .settings/
 Morph.phar
-doc/*
-
+doc/api
+doc/test_report
+doc/integration_report
+doc/manual/build/*
