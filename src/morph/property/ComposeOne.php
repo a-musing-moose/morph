@@ -62,7 +62,9 @@ class ComposeOne extends Generic
     public function __setRawValue($value)
     {
         $this->value = new $this->type;
-        $this->value->__setData($value, \morph\Enum::STATE_CLEAN);
+        if (null !== $value) {
+        	$this->value->__setData($value, \morph\Enum::STATE_CLEAN);
+        }
     }
 
     /**

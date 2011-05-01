@@ -30,7 +30,7 @@ class Collection extends \ArrayObject
      * The classname of the class this collection should allow
      * @var String
      */
-    private $permissableType = 'Morph\\Object';
+    private $permissableType = '\morph\Object';
 
     /**
      * Sets the classname of the class this collection should allow
@@ -215,7 +215,7 @@ class Collection extends \ArrayObject
      */
     private function checkType($object){
         if(!($object instanceof $this->permissableType)){
-            throw new \RuntimeException('object of type' . \get_class($object) . ' does not extend ' . $this->permissableType);
+            throw new \RuntimeException('object of type ' . \get_class($object) . ' does not extend ' . $this->permissableType);
         }
     }
 
@@ -223,6 +223,6 @@ class Collection extends \ArrayObject
     {
         $class = $this->permissableType;
         $count = $this->count();
-        return "\\Morph\\Collection($class) Count: $count";
+        return "\morph\Collection($class) Count: $count";
     }
 }
