@@ -340,6 +340,16 @@ class Morph_Query_Property implements Morph_IQuery
         return $this->sortDirection;
     }
 
+    /**
+     * Returns the mode of this property
+     *
+     * @return string
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
+
     //////////////////////////////////////////
     // INTERNAL CONSTRAINT HELPER FUNCTIONS //
     //////////////////////////////////////////

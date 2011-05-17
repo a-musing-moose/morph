@@ -76,5 +76,15 @@ class TestQuery extends PHPUnit_Framework_TestCase
         $this->assertEquals(12, $query->getSkip());
         $this->assertEquals(array('bob'=>1), $query->getRawSort());
     }
+
+    public function testSort()
+    {
+        $query = new Morph_Query();
+        $query->property('id')
+            ->equals(12)
+            ->property('added')
+            ->sort(Morph_Enum::DIRECTION_DESC);
+
+        $this->assertArrayNotHasKey('added', $query->getRawQuery());
+    }
 }
-?>
