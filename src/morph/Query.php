@@ -162,7 +162,7 @@ class Query implements IQuery
 	    if (count($this->criteria) > 0) {
             foreach ($this->criteria as $propertyName => $criteria) {
                 $constraints = $criteria->getConstraints();
-                if (isset($constraints)) {
+                if (isset($constraints) && null !== $criteria->getMode()) {
                     $query[$propertyName] = $constraints;
                 }
             }

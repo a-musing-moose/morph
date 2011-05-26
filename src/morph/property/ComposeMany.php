@@ -51,7 +51,7 @@ class  ComposeMany extends Generic
      * (non-PHPdoc)
      * @see tao/classes/Morph/property/Morph_Property_Generic#setValue()
      */
-    public function setValue(\morph\Collection $value){
+    public function setValue($value){
         if ($value->count() > 0) {
             foreach ($value as $object) {
                 $this->isPermissableType($object);

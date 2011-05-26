@@ -315,7 +315,7 @@ class Storage
     private function setData(Object $object, $data)
     {
         if (empty($data)) {
-            throw new morph\exception\ObjectNotFound();
+            throw new \morph\exception\ObjectNotFound();
         }
         $object->__setData($data, Enum::STATE_CLEAN);
 		return $object;

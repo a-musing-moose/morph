@@ -100,10 +100,13 @@ class TestProperty  extends \PHPUnit_Framework_TestCase
 
     public function testSort()
     {
-        $property = new Property($this->getMockQuery(false));
-        $property->sort(1);
-        $this->assertEquals(1, $property->getSort());
+        $query = new \morph\Query();
+        $query->property('id')
+            ->equals(12)
+            ->property('added')
+            ->sort(\morph\Enum::DIRECTION_DESC);
 
+        $this->assertArrayNotHasKey('added', $query->getRawQuery());
     }
 
     private function getMockQuery($willCallField = false)
@@ -116,5 +119,4 @@ class TestProperty  extends \PHPUnit_Framework_TestCase
         }
         return $query;
     }
-
 }
