@@ -126,4 +126,16 @@ class  HasMany extends Generic
         }
         $this->loaded = true;
     }
+    
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $segments = array();
+        foreach ($this->getValue() as $object) {
+            $segments[] = $object->__toString();
+        }
+        return implode("\n", $segments);
+    }
 }

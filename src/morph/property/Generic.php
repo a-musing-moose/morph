@@ -104,6 +104,6 @@ class Generic
      */
     public function __toString()
     {
-        return $this->getValue();
+        return (string)$this->getValue();
     }
 }

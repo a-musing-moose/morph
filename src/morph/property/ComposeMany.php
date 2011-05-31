@@ -92,6 +92,18 @@ class  ComposeMany extends Generic
         }
         return $rawValue;
     }
+    
+	/**
+     * @return string
+     */
+    public function __toString()
+    {
+        $segments = array();
+        foreach ($this->getValue() as $object) {
+            $segments[] = $object->__toString();
+        }
+        return implode("\n", $segments);
+    }
 
     /**
      *
