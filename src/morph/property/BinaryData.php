@@ -86,4 +86,19 @@ class BinaryData extends Generic
         return $this;
     }
 
+
+   /**
+    * Returns the base64 encoding of the binary data
+    *
+    * @return String
+    */
+    public function __toString() 
+    {
+
+        // we return the base64 encoding of the binary data because
+        // json does not have a native way to represent binary data
+        return base64_encode($this->value);
+
+    }
+
 }
