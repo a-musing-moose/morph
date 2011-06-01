@@ -94,6 +94,7 @@ class Storage
 	/**
 	 * Retrieves the contents of the specified $id
 	 * and assigns them into $object
+	 * This shoudld be used if the _id is not necessarily a ObjectId() (or the php version, MongoId() )
 	 *
 	 * @param Morph\\Object $object
 	 * @param mixed $id
@@ -104,6 +105,25 @@ class Storage
 		$query = array('_id' => $id);
 		$data = $this->db->selectCollection($object->collection())->findOne($query);
         return $this->setData($object, $data);
+	}
+	
+	/**
+	 * Retrieves the contents of the specified $id
+	 * and assigns them into $object
+	 * This function is meant for if the _id is a ObjectId (the default)
+	 *
+	 * @param Morph\\Object $object
+	 * @param mixed $id
+	 * @return Morph\\Object
+	 */
+	public function fetchByObjectId(Object $object, $id) {
+	
+		$objId = new \MongoId($id);
+	
+		$query = array('_id' => $objId);
+		$data = $this->db->selectCollection($object->collection())->findOne($query);
+        return $this->setData($object, $data);
+	
 	}
 
 	/**
