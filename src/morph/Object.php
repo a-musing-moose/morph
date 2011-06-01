@@ -286,13 +286,19 @@ class Object
      */
     public function __toString()
     {
+	// create the array that we will be encoding and returning
+	// also put inside the array the mongodb ID and the 'state'
         $data = array(
             'Id' => $this->id(),
             'State' => $this->state()
         );
+
+	// iterate through all the properties this object has and print them out
         foreach ($this->propertySet as $name => $property) {
+
             $data[$name] = (string)$property;
-        }
+	}
+
         return \json_encode($data);
     }
 
