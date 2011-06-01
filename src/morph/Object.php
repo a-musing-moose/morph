@@ -295,7 +295,6 @@ class Object
 
 	// iterate through all the properties this object has and print them out
         foreach ($this->propertySet as $name => $property) {
-
             $data[$name] = (string)$property;
 	}
 
