@@ -221,6 +221,7 @@ class Object
 
     /**
      * Attempts to load the current object with data from the document id specified
+     * this is meant for if the _id is not necessarily an ObjectId
      *
      * @param mixed $id
      * @return Morph_Object
@@ -229,6 +230,18 @@ class Object
     {
         return Storage::instance()->fetchById($this, $id);
     }
+	
+    /**
+     * Attempts to load the current object with data from the document id specified
+     * This is meant for if the _id is a ObjectId 
+     *
+     * @param mixed $id
+     * @return Morph_Object
+     */
+	public function loadByObjectId($id) 
+	{
+	    return Storage::instance()->fetchByObjectId($this, $id);
+	}
 
     /**
      * Fetch multiple objects by their ids
