@@ -110,7 +110,7 @@ class Morph_Storage
 	/**
 	 * Retrieves the contents of the specified $dbRef
 	 * and assigns them into $object
-	 * 
+	 *
 	 * @param Morph_Object $object
 	 * @param array $dbRef
 	 * @return Morph_Object
@@ -196,10 +196,11 @@ class Morph_Storage
 	 */
 	public function findByQuery(Morph_Object $object, Morph_IQuery $query = null)
 	{
-		$class = get_class($object);
-
 		$query = (is_null($query)) ? new Morph_Query() : $query;
-		$cursor = $this->Db->selectCollection($object->collection())->find($query->getRawQuery());
+
+        $cursor = $this->Db
+            ->selectCollection($object->collection())
+            ->find($query->getRawQuery());
 
 		$limit = $query->getLimit();
 		if (!is_null($limit)) {
@@ -216,9 +217,7 @@ class Morph_Storage
 			$cursor->sort($sort);
 		}
 
-		$iterator = new Morph_Iterator($object, $cursor);
-
-		return $iterator;
+		return new Morph_Iterator($object, $cursor);
 	}
 
 	/**
@@ -230,12 +229,13 @@ class Morph_Storage
 	 */
 	public function findOneByQuery(Morph_Object $object, Morph_IQuery $query = null)
 	{
-		$result = null;
-		$class = get_class($object);
-
 		$query = (is_null($query)) ? new Morph_Query() : $query;
-		$data = $this->Db->selectCollection($object->collection())->findOne($query->getRawQuery());
-        return $this->setData($object, $data);
+
+        $data = $this->Db
+            ->selectCollection($object->collection())
+            ->findOne($query->getRawQuery());
+
+        return (count($data) ? $this->setData($object, $data) : array());
 	}
 
 	/**
@@ -279,7 +279,8 @@ class Morph_Storage
     private function setData(Morph_Object $object, $data)
     {
         if (empty($data)) {
-            throw new Morph_Exception_ObjectNotFound();
+            echo '!empty!';
+            #throw new Morph_Exception_ObjectNotFound();
         }
         $object->__setData($data, Morph_Enum::STATE_CLEAN);
 		return $object;

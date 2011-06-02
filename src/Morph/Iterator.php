@@ -3,7 +3,6 @@
  * @package Morph
  * @author Jonathan Moss <xirisr@gmail.com>
  * @copyright 2009 Jonathan Moss
- * @version SVN: $Id$
  */
 
 /**
@@ -11,7 +10,7 @@
  *
  * @package Morph
  */
-class Morph_Iterator implements Iterator
+class Morph_Iterator implements Iterator, Countable
 {
 
     /**
@@ -47,10 +46,11 @@ class Morph_Iterator implements Iterator
      * Returns the total count of result irrevelent of the value of limit
      *
      * @return int
+     * @deprecated you should use count() instead
      */
     public function totalCount()
     {
-        return $this->cursor->count();
+        return $this->count();
     }
 
     /**
@@ -130,6 +130,16 @@ class Morph_Iterator implements Iterator
     public function rewind()
     {
         return $this->cursor->rewind();
+    }
+
+    /**
+     * Returns the total count of result irrevelent of the value of limit
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return $this->cursor->count();
     }
 
     /**
