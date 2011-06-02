@@ -11,22 +11,12 @@ require_once dirname(__FILE__).'/../src/Morph/Enum.php';
 require_once dirname(__FILE__).'/../src/Morph/IQuery.php';
 require_once dirname(__FILE__).'/../src/Morph/Query/Property.php';
 require_once dirname(__FILE__).'/../src/Morph/Query.php';
-require_once dirname(__FILE__).'/../src/Morph/Storage.php';
-require_once dirname(__FILE__).'/../src/Morph/Object.php';
-require_once dirname(__FILE__).'/ForTesting.php';
 
 /**
  * @package Morph
  */
 class TestQuery extends PHPUnit_Framework_TestCase
 {
-
-    protected $_testDb;
-
-    public function setUp()
-    {
-        $this->_testDb = new Morph_ForTesting();
-    }
 
     public function testLimit()
     {
@@ -85,17 +75,6 @@ class TestQuery extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $query->getLimit());
         $this->assertEquals(12, $query->getSkip());
         $this->assertEquals(array('bob'=>1), $query->getRawSort());
-    }
-
-    public function testNotFoundMulti()
-    {
-        $query = new Morph_Query();
-        $query->property('TestField')->equals('example');
-
-        $result = $this->_testDb->findByQuery($query);
-
-        $this->markTestIncomplete();
-        #$this->assertArrayNotHasKey('added', $query->getRawQuery());
     }
 
     public function testSort()

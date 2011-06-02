@@ -42,8 +42,7 @@ class MorphAutoloader
         'Morph_Query_Property'              => 'phar://Morph/Query/Property.php',
         'Morph_Storage'                     => 'phar://Morph/Storage.php',
         'Morph_Format_Collection'           => 'phar://Morph/Format/Collection.php',
-        'Morph_Enum'                        => 'phar://Morph/Enum.php',
-        'Morph_Exception_ObjectNotFound'    => 'phar://Morph/Exception/ObjectNotFound.php',
+        'Morph_Enum'                        => 'phar://Morph/Enum.php'
     );
 
     /**

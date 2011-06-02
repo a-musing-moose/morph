@@ -278,10 +278,6 @@ class Morph_Storage
      */
     private function setData(Morph_Object $object, $data)
     {
-        if (empty($data)) {
-            echo '!empty!';
-            #throw new Morph_Exception_ObjectNotFound();
-        }
         $object->__setData($data, Morph_Enum::STATE_CLEAN);
 		return $object;
     }
