@@ -46,6 +46,8 @@ class MorphAutoloader
         'morph\\property\\Integer32'         => 'phar://Morph/property/Integer32.php',
         'morph\\property\\Integer64'         => 'phar://Morph/property/Integer64.php',
         'morph\\property\\Regex'             => 'phar://Morph/property/Regex.php',
+    	'morph\\property\\Complex'           => 'phar://Morph/property/Complex.php',
+    	'morph\\property\\StatefulCollection'=> 'phar://Morph/property/StatefulCollection.php',
         'morph\\query\\Property'             => 'phar://Morph/query/Property.php',
         'morph\\format\\Collection'          => 'phar://Morph/format/Collection.php',
         'morph\\exception\\ObjectNotFound'   => 'phar://Morph/exception/ObjectNotFound.php',

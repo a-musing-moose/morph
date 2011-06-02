@@ -32,6 +32,14 @@ class Generic
      * @var mixed
      */
     protected $value;
+    
+    /**
+     * The current state of this property
+     * 
+     * @see Morph_Enum::STATE_*
+     * @var string
+     */
+    protected $state = \morph\Enum::STATE_NEW;
 
     /**
      *
@@ -43,6 +51,14 @@ class Generic
     {
         $this->name = $name;
         $this->value = $default;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 
     /**
@@ -62,6 +78,9 @@ class Generic
      */
     public function setValue($value)
     {
+        if ($this->state == \morph\Enum::STATE_CLEAN) {
+            $this->state = \morph\Enum::STATE_DIRTY;
+        }
         $this->__setRawValue($value);
     }
 
@@ -83,9 +102,12 @@ class Generic
      * @param $value
      * @return Morph_Property_Generic
      */
-    public function __setRawValue($value)
+    public function __setRawValue($value, $state = null)
     {
         $this->value = $value;
+        if (null != $state) {
+            $this->state = $state;
+        }
         return $this;
     }
 

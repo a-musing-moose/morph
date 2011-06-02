@@ -52,5 +52,31 @@ class TestHasMany extends \mongoUnit\TestCase
         $this->assertDocumentExists('Child', $child2->id());
 
     }
+    
+    public function testStoresAddChild()
+    {
+        $parent = new HasManyParent();
+        $parent->Name = 'Has Many Parent';
+
+        $child1 = new Child();
+        $child1->Name = 'Child1';
+
+        $parent->Children[] = $child1;
+
+        $parent->save();
+        $this->assertCollectionExists('HasManyParent');
+        $this->assertCollectionExists('Child');
+
+        $this->assertDocumentExists('HasManyParent', $parent->id());
+        $this->assertDocumentExists('Child', $child1->id());
+        
+        $child2 = new Child();
+        $child2->Name = 'Child2';
+        
+        $parent->Children[] = $child2;
+        $parent->save();
+        $this->assertDocumentExists('Child', $child2->id());
+
+    }
 
 }

@@ -69,13 +69,28 @@ class  PropertySet extends \ArrayObject
      * @param $name
      * @param $value
      */
-    public function __setRawPropertyValue($name, $value)
+    public function __setRawPropertyValue($name, $value, $state = null)
     {
     	$name = $this->reverseStorageName($name);
         if(!isset($this[$name])) {
             $this[$name] = new \morph\property\Generic($name);
         }
-        $this[$name]->__setRawValue($value);
+        $this[$name]->__setRawValue($value, $state);
+    }
+    
+    public function getState()
+    {
+        $state = \morph\Enum::STATE_NEW;
+        foreach ($this as $n => $property) {
+            $propertyState = $property->getState();
+            if ( \morph\Enum::STATE_DIRTY == $propertyState) {
+                $state = $propertyState;
+                break;
+            } elseif ( \morph\Enum::STATE_CLEAN == $propertyState) {
+                $state = $propertyState;
+            }
+        } 
+        return $state;
     }
     
     /**

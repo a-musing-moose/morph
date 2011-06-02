@@ -16,7 +16,7 @@ namespace morph\property;
  * @package Morph
  * @subpackage Property
  */
-class  ComposeMany extends Generic
+class ComposeMany extends Complex
 {
 
     /**
@@ -33,7 +33,7 @@ class  ComposeMany extends Generic
     public function __construct($name, $type)
     {
         $this->type = $type;
-        $default = new \morph\Collection();
+        $default = new \morph\property\StatefulCollection($this);
         $default->setPermissableType($type);
         parent::__construct($name, $default);
     }
@@ -64,9 +64,9 @@ class  ComposeMany extends Generic
      * (non-PHPdoc)
      * @see tao/classes/Morph/property/Morph_Property_Generic#__setRawValue()
      */
-    public function __setRawValue($value)
+    public function __setRawValue($value, $state = null)
     {
-        $collection = new \morph\collection();
+        $collection = new \morph\Collection(); 
         if (count($value) > 0) {
             foreach ($value as $item) {
                 $object = new $this->type;
@@ -74,7 +74,10 @@ class  ComposeMany extends Generic
                 $collection->append($object);
             }
         }
-        $this->value = $collection;
+        $this->value = new \morph\property\StatefulCollection($this, $collection);
+        if (null != $state) {
+            $this->state = $state;
+        }
     }
 
     /**
@@ -85,7 +88,6 @@ class  ComposeMany extends Generic
     {
         $rawValue = array();
         if($this->value->count() > 0){
-            //$rawValue = $this->Value->getArrayCopy();
             foreach ($this->value as $value) {
                 $rawValue[] = $value->__getData();
             }

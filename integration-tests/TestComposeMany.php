@@ -55,5 +55,42 @@ class TestComposeMany extends \mongoUnit\TestCase
 
         $this->assertDocumentPropertyEquals($expected, 'ComposeManyParent', 'Children', $parent->id());
     }
+    
+    public function testStoresAddedChild()
+    {
+        $parent = new ComposeManyParent();
+        $parent->Name = 'Compose Many Parent';
+
+        $child1 = new Child();
+        $child1->Name = 'Child1';
+        $parent->Children[] = $child1;
+
+        $parent->save();
+        $this->assertCollectionExists('ComposeManyParent');
+        $this->assertCollectionDoesNotExist('Child');
+
+        $this->assertDocumentExists('ComposeManyParent', $parent->id());
+        
+        $expected = array (
+            array('_ns'=>'Child', 'Name'=>'Child1', 'Age' => null),
+        );
+
+        $this->assertDocumentPropertyEquals($expected, 'ComposeManyParent', 'Children', $parent->id());
+        
+
+        $child2 = new Child();
+        $child2->Name = 'Child2';
+        $parent->Children[] = $child2;
+        
+        $parent->save();
+        
+        $expected = array (
+            array('_ns'=>'Child', 'Name'=>'Child1', 'Age' => null),
+            array('_ns'=>'Child', 'Name'=>'Child2', 'Age' => null)
+        );
+
+        $this->assertDocumentPropertyEquals($expected, 'ComposeManyParent', 'Children', $parent->id());
+    }
+    
 
 }

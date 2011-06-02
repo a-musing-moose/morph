@@ -59,6 +59,9 @@ class HasOne extends Generic
     public function setValue($value)
     {
         $this->isPermissableType($value);
+        if ($this->state == \morph\Enum::STATE_CLEAN) {
+            $this->state = \morph\Enum::STATE_DIRTY;
+        }
         $this->value = $value;
         return $this;
     }
@@ -95,9 +98,12 @@ class HasOne extends Generic
      * (non-PHPdoc)
      * @see tao/classes/Morph/property/Morph_Property_Generic#__setRawValue()
      */
-    public function __setRawValue($value)
+    public function __setRawValue($value, $state = null)
     {
         $this->reference = $value;
+        if (null !== $state) {
+            $this->state = $state;
+        }
     }
 
     /**

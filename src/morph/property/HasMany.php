@@ -15,7 +15,7 @@ namespace morph\property;
  * @package Morph
  * @subpackage Property
  */
-class  HasMany extends Generic
+class  HasMany extends Complex
 {
 
     /**
@@ -43,7 +43,7 @@ class  HasMany extends Generic
     public function __construct($name, $type)
     {
         $this->type = $type;
-        $default = new \morph\Collection();
+        $default = new \morph\property\StatefulCollection($this);
         $default->setPermissableType($type);
         parent::__construct($name, $default);
     }
@@ -52,9 +52,13 @@ class  HasMany extends Generic
      * (non-PHPdoc)
      * @see tao/classes/Morph/property/Morph_Property_Generic#__setRawValue()
      */
-    public function __setRawValue($value)
+    public function __setRawValue($value, $state = null)
     {
         $this->references = $value;
+        $this->loaded = false;
+        if (null != $state) {
+            $this->state = $state;
+        }
     }
 
     /**
@@ -94,7 +98,8 @@ class  HasMany extends Generic
      */
     public function setValue($value)
     {
-        if($value instanceof \morph\Collection) {
+        if($value instanceof \morph\property\StatefulCollection) {
+            $value->setOwner($this);
             $this->value = $value;
             $this->references = array();
         }
@@ -108,6 +113,7 @@ class  HasMany extends Generic
     private function loadFromReferences()
     {
         $ids = array();
+        $collection = null;
         if (count($this->references) > 0) {
             foreach ($this->references as $reference){
                 $ids[] = $reference['$id'];
@@ -118,12 +124,13 @@ class  HasMany extends Generic
 
             $object = new $this->type;
 
-            $this->value = \morph\Storage::instance()
+            $collection = \morph\Storage::instance()
                     ->findByQuery($object, $query)
                     ->toCollection(); //@todo this could get nasty with large collections!
-        } else {
-            $this->value = new \morph\Collection();
+            
         }
+        
+        $this->value =  new \morph\property\StatefulCollection($this, $collection);
         $this->loaded = true;
     }
     

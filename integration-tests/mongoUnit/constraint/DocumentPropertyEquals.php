@@ -84,7 +84,7 @@ class DocumentPropertyEquals extends \PHPUnit_Framework_Constraint
            $this->property,
            $other,
            $this->toString(),
-           \print_r($this->found)
+           \print_r($this->found, true)
         );
     }
 }
