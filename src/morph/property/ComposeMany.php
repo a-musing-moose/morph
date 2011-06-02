@@ -87,7 +87,7 @@ class ComposeMany extends Complex
     public function __getRawValue()
     {
         $rawValue = array();
-        if($this->value->count() > 0){
+        if(count($this->value) > 0){
             foreach ($this->value as $value) {
                 $rawValue[] = $value->__getData();
             }
