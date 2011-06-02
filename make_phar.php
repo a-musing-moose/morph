@@ -27,4 +27,4 @@ $phar->buildFromDirectory($src_dir);
 $phar->setStub(file_get_contents($src_dir . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php'));
 $phar->setMetadata($metadata);
 $phar->compressFiles(Phar::GZ);
-echo "All done!";
+echo "All done!\n";
