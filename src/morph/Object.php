@@ -216,6 +216,17 @@ class Object
     {
         return Storage::instance()->fetchById($this, $id);
     }
+    
+	/**
+     * Attempts to load the current object with data from the document id specified
+     *
+     * @param mixed $id
+     * @return Morph_Object
+     */
+    public function loadByObjectId($id)
+    {
+        return Storage::instance()->fetchByObjectId($this, $id);
+    }
 
     /**
      * Fetch multiple objects by their ids
@@ -226,6 +237,17 @@ class Object
     public function findByIds(array $ids)
     {
         return Storage::instance()->fetchByIds($this, $ids);
+    }
+    
+	/**
+     * Fetch multiple objects by their ids
+     *
+     * @param array $ids
+     * @return Morph_Iterator
+     */
+    public function findByObjectIds(array $ids)
+    {
+        return Storage::instance()->fetchByObjectIds($this, $ids);
     }
 
     /**
