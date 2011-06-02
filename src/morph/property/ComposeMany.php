@@ -52,7 +52,7 @@ class  ComposeMany extends Generic
      * @see tao/classes/Morph/property/Morph_Property_Generic#setValue()
      */
     public function setValue($value){
-        if ($value->count() > 0) {
+        if (count($value) > 0) {
             foreach ($value as $object) {
                 $this->isPermissableType($object);
             }
@@ -84,7 +84,7 @@ class  ComposeMany extends Generic
     public function __getRawValue()
     {
         $rawValue = array();
-        if($this->value->count() > 0){
+        if(count($this->value) > 0){
             //$rawValue = $this->Value->getArrayCopy();
             foreach ($this->value as $value) {
                 $rawValue[] = $value->__getData();
@@ -92,8 +92,8 @@ class  ComposeMany extends Generic
         }
         return $rawValue;
     }
-    
-	/**
+
+    /**
      * @return string
      */
     public function __toString()
