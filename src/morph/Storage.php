@@ -95,9 +95,8 @@ class Storage
 	 * Retrieves the contents of the specified $id
 	 * and assigns them into $object
 	 * 
-	 * This shoudld be used if the _id is not necessarily a ObjectId()
-	 * (or the php version, MongoId() ). You can always just wrap the id string
-	 * in new \MongoId() as well
+     * By default Morph sets the id to be an instance of MongoId().  When searching you need
+     * to ensure you do the same by wrapping your id string in a MongoId object
 	 *
 	 * @param Morph\\Object $object
 	 * @param mixed $id
@@ -109,28 +108,12 @@ class Storage
 		$data = $this->db->selectCollection($object->collection())->findOne($query);
         return $this->setData($object, $data);
 	}
-	
-	/**
-    * Retrieves the contents of the specified $id
-    * and assigns them into $object
-    * This function is meant for if the _id is a ObjectId (the default)
-    *
-    * @param Morph\\Object $object
-    * @param mixed $id
-    * @return Morph\\Object
-    */
-	public function fetchByObjectId(Object $object, $id)
-	{
-	    if (is_string($id)) {
-	        $id = new \MongoId($id);
-	    }
-		$query = array('_id' => $id);
-		$data = $this->db->selectCollection($object->collection())->findOne($query);
-        return $this->setData($object, $data);
-	}
 
 	/**
 	 * Returns all objects with an _id in $ids
+	 * 
+     * By default Morph sets the id to be an instance of MongoId().  When searching you need
+     * to ensure you do the same by wrapping your id string in a MongoId object
 	 *
 	 * @param Morph\\Object $object
 	 * @param array $Ids
@@ -139,29 +122,6 @@ class Storage
 	public function fetchByIds(Object $object, array $ids)
 	{
 		$query = new Query();
-		$query->property('_id')->in($ids);
-		return $this->findByQuery($object, $query);
-	}
-	
-	/**
-	 * Returns all objects with an _id in $ids
-	 *
-	 * @param Morph\\Object $object
-	 * @param array $Ids
-	 * @return Morph\\Iterator
-	 */
-	public function fetchObjectByIds(Object $object, array $ids)
-	{
-		$query = new Query();
-		$wrappedIds = array();
-		foreach ($ids as $id) {
-		    if (is_string($id)) {
-		        $wrappedIds[] = new \MongoId($id);
-		    } else {
-		        $wrappedIds[] = $id;
-		    }
-		}
-		
 		$query->property('_id')->in($ids);
 		return $this->findByQuery($object, $query);
 	}
