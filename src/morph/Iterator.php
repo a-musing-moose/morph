@@ -3,9 +3,10 @@
  * @package Morph
  * @author Jonathan Moss <xirisr@gmail.com>
  * @copyright 2009 Jonathan Moss
- * @version SVN: $Id$
  */
+
 namespace morph;
+
 /**
  * An iterator to hold results of a query
  *
@@ -86,7 +87,8 @@ class Iterator implements \Iterator
     {
         $class = \get_class($this->type);
         $object = new $class;
-        $object->__setData($item, Enum::STATE_CLEAN);
+        $object->__setData($item, Enum::STATE_CLEAN)
+            ->collection($this->type->collection());
         return $object;
     }
 
