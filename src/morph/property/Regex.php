@@ -6,6 +6,7 @@
  * @copyright Jonathan Moss 2009
  */
 namespace morph\property;
+
 /**
  * Class to represent an integer property
  *
@@ -14,10 +15,10 @@ namespace morph\property;
  */
 class Regex extends Generic
 {
-
-
 	/**
 	 * @param string $name
+     *
+     * @return void
 	 */
 	public function __construct($name)
 	{
@@ -37,7 +38,7 @@ class Regex extends Generic
 	/**
 	 * Returns this attributes value
 	 *
-	 * @return integer
+	 * @return string
 	 */
 	public function getValue()
 	{

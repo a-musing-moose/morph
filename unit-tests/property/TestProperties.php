@@ -40,13 +40,19 @@ class TestProperties extends \PHPUnit_Framework_TestCase
 
     public function testStringProperty()
     {
-        $validString = 'ABCDEFGHIJKLMNOP';
-        $invalidString = 'ABCDEFGHIJKLMNOPQR';
-        $property = new String('Name', null, 16);
-        $property->setValue($validString);
-        $this->assertEquals($validString, $property->getValue());
-        $property->setValue($invalidString);
-        $this->assertEquals(16, strlen($property->getValue()));
+        $string = 'ABCDEFGHIJKLMNOPмамамылаРАМУЫДВЭР';
+        $stringLength = iconv_strlen($string);
+
+        $property = new String('Name', null, $stringLength);
+
+        $property->setValue($string);
+        $this->assertEquals($string, $property->getValue());
+
+        $property->setValue($string);
+        $this->assertEquals($stringLength, iconv_strlen($property->getValue()));
+
+        $property->setValue($string . $string);
+        $this->assertEquals($stringLength, iconv_strlen($property->getValue()));
     }
 
     public function testIntegerProperty()
@@ -120,7 +126,7 @@ class TestProperties extends \PHPUnit_Framework_TestCase
         //check the MorphDate objects content is correct
         $this->assertEquals($time, $property->__getRawValue()->sec);
     }
-    
+
     public function testBinaryData()
     {
         $property = new BinaryData("AProperty");
@@ -133,12 +139,12 @@ class TestProperties extends \PHPUnit_Framework_TestCase
 
         //check the MorphDate objects content is correct
         $this->assertEquals($data, $property->__getRawValue()->bin);
-        
+
         $property2 = new BinaryData("AProperty");
         $property2->__setRawValue($property->__getRawValue());
         $this->assertEquals($data, $property2->getValue());
     }
-    
+
 	public function testInteger32Property()
     {
         $min = 1;
@@ -156,10 +162,10 @@ class TestProperties extends \PHPUnit_Framework_TestCase
 
         $property->setValue($toSmall);
         $this->assertEquals($min, $property->getValue());
-        
+
         $this->assertInstanceOf('\MongoInt32', $property->__getRawValue());
     }
-    
+
 	public function testInteger64Property()
     {
         $min = 1;
@@ -177,18 +183,18 @@ class TestProperties extends \PHPUnit_Framework_TestCase
 
         $property->setValue($toSmall);
         $this->assertEquals($min, $property->getValue());
-        
+
         $this->assertInstanceOf('\MongoInt64', $property->__getRawValue());
     }
-    
+
     public function testRegex()
     {
         $property = new Regex("AProperty");
-        $data = '/bob/';
+        $data = '/bobМамаМоёт/';
         $property->setValue($data);
         $this->assertEquals($data, $property->getValue());
         $this->assertInstanceOf('\MongoRegex', $property->__getRawValue());
         $this->assertEquals($data, '/' . $property->__getRawValue()->regex . '/');
     }
-    
+
 }
