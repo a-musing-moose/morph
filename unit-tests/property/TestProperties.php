@@ -53,6 +53,13 @@ class TestProperties extends \PHPUnit_Framework_TestCase
 
         $property->setValue($string . $string);
         $this->assertEquals($stringLength, iconv_strlen($property->getValue()));
+
+        $property->setValue(null);
+        $this->assertNull($property->getValue());
+
+        $default = 'ABCАБВ';
+        $propertyWithDefault = new String('NameSecond', $default);
+        $this->assertEquals($default, $propertyWithDefault->getValue());
     }
 
     public function testIntegerProperty()

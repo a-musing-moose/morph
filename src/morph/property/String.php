@@ -37,6 +37,10 @@ class String extends Generic
      * @param integer $Value
      */
     public function setValue($value){
+        if (null === $value) {
+            return parent::setValue($value);
+        }
+
         $cleanValue = (string)$value;
         if(!empty($this->maximumLength)
             && ($this->_getUnicodeValue('strlen', $cleanValue) > $this->maximumLength) ){
@@ -53,7 +57,7 @@ class String extends Generic
      * @return string
      */
     public function getValue(){
-        return (string)parent::getValue();
+        return (null === parent::getValue()) ? null : (string)parent::getValue();
     }
 
     /**
