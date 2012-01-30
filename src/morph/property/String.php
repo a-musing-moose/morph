@@ -6,6 +6,7 @@
  * @copyright Jonathan Moss 2009
  */
 namespace morph\property;
+
 /**
  * Class to represent a string property
  *
@@ -14,7 +15,6 @@ namespace morph\property;
  */
 class String extends Generic
 {
-
     /**
      * The maximum string length permitted
      * @var integer
@@ -28,7 +28,7 @@ class String extends Generic
      */
     public function __construct($name, $default = null, $maximumLength = null){
         parent::__construct($name, $default);
-        $this->maximumLength = (\is_null($maximumLength)) ? null : (int)$maximumLength;
+        $this->maximumLength = (is_null($maximumLength)) ? null : (int)$maximumLength;
     }
 
     /**
@@ -37,10 +37,16 @@ class String extends Generic
      * @param integer $Value
      */
     public function setValue($value){
+        if (null === $value) {
+            return parent::setValue($value);
+        }
+
         $cleanValue = (string)$value;
-        if(!empty($this->maximumLength) && (strlen($cleanValue) > $this->maximumLength) ){
-            //throw validation exception
-            $cleanValue = substr($cleanValue, 0, $this->maximumLength);
+        if(!empty($this->maximumLength)
+            && ($this->_getUnicodeValue('strlen', $cleanValue) > $this->maximumLength) ){
+            $cleanValue = $this->_getUnicodeValue(
+                'substr', array($cleanValue, 0, $this->maximumLength)
+            );
         }
         parent::setValue($cleanValue);
     }
@@ -51,7 +57,22 @@ class String extends Generic
      * @return string
      */
     public function getValue(){
-        return (string)parent::getValue();
+        return (null === parent::getValue()) ? null : (string)parent::getValue();
     }
 
+    /**
+    * Gets unicode value according function name
+    *
+    * @param  string $fncName
+    * @param  mixed  $value
+    * @return string
+    */
+    protected function _getUnicodeValue($fncName, $value)
+    {
+        $prefix = 'iconv';
+        if (extension_loaded('mbstring')) {
+            $prefix = 'mb';
+        }
+        return call_user_func_array($prefix . '_' . $fncName, (array)$value);
+    }
 }
