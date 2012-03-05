@@ -211,11 +211,11 @@ class Storage
 	/**
 	 * Runs query against the database
 	 *
-	 * The results come packages up in a Morph_Iterator object
+	 * The results come packages up in a \morph\Iterator object
 	 *
-	 * @param \morph\Object $object Required to determine the correct collection query against
-	 * @param Morph_IQuery $query
-	 * @return Morph_Iterator
+	 * @param  Object $object Required to determine the correct collection query against
+	 * @param  IQuery $query
+	 * @return \morph\Iterator
 	 */
 	public function findByQuery(Object $object, IQuery $query = null)
 	{

@@ -145,7 +145,7 @@ class Object
         }
         return $data;
     }
-    
+
     /**
      * @return \morph\PropertSet
      */
@@ -222,7 +222,7 @@ class Object
 
     /**
      * Fetch multiple objects by their ids
-     * 
+     *
      * By default Morph sets the id to be an instance of MongoId().  When searching you need
      * to ensure you do the same by wrapping your id string in a MongoId object
      *
@@ -233,12 +233,12 @@ class Object
     {
         return Storage::instance()->fetchByIds($this, $ids);
     }
-   
+
     /**
      * Find objects by query
      *
-     * @param Morph_IQuery $query
-     * @return Morph_Iterator
+     * @param  IQuery $query
+     * @return \morph\Iterator
      */
     public function findByQuery(IQuery $query)
     {
@@ -248,8 +248,8 @@ class Object
     /**
      * Finds one object by query
      *
-     * @param Morph_Query $query
-     * @return Morph_Object
+     * @param  IQuery $query
+     * @return Object
      */
     public function findOneByQuery(IQuery $query)
     {
@@ -257,8 +257,18 @@ class Object
     }
 
     /**
+     * Returns all entries for the current document
+     *
+     * @return \morph\Iterator
+     */
+    public function fetchAll()
+    {
+        return Storage::instance()->findByQuery($this);
+    }
+
+    /**
      * Deletes this object from the database
-     * 
+     *
      * @return boolean
      */
     public function delete()
