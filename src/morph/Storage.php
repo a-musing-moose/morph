@@ -23,7 +23,7 @@ class Storage
 	 * @var MongoDB
 	 */
 	private $db;
-	
+
 	private $useSafe = false;
 
 	/**
@@ -69,10 +69,10 @@ class Storage
 	{
 		$this->db = $db;
 	}
-	
+
 	/**
 	 * If set to true then the 'safe' option for saves is used
-	 * 
+	 *
 	 * @param boolean $useSafe
 	 */
 	public function useSafe($useSafe)
@@ -94,7 +94,7 @@ class Storage
 	/**
 	 * Retrieves the contents of the specified $id
 	 * and assigns them into $object
-	 * 
+	 *
      * By default Morph sets the id to be an instance of MongoId().  When searching you need
      * to ensure you do the same by wrapping your id string in a MongoId object
 	 *
@@ -111,7 +111,7 @@ class Storage
 
 	/**
 	 * Returns all objects with an _id in $ids
-	 * 
+	 *
      * By default Morph sets the id to be an instance of MongoId().  When searching you need
      * to ensure you do the same by wrapping your id string in a MongoId object
 	 *
@@ -129,7 +129,7 @@ class Storage
 	/**
 	 * Retrieves the contents of the specified $dbRef
 	 * and assigns them into $object
-	 * 
+	 *
 	 * @param Morph_Object $object
 	 * @param array $dbRef
 	 * @return Morph_Object
@@ -161,7 +161,7 @@ class Storage
 	 * Inserts a new object into the database
 	 *
 	 * @param \morph\Object $object
-	 * @param array $options 
+	 * @param array $options
 	 * @return \morph\Object
 	 */
 	private function insert(Object $object, array $options = array())
@@ -175,9 +175,9 @@ class Storage
 			);
 			$data = \array_merge($id, $data);
 		}
-		
+
 		$options = array_merge(array('safe'=>$this->useSafe), $options);
-		
+
 		$savedOk = $this->db->selectCollection($object->collection())->save($data, $options);
 		if($savedOk){
 			$object->__setData($data, Enum::STATE_CLEAN);
@@ -222,7 +222,7 @@ class Storage
 		$class = get_class($object);
 
 		$query = (is_null($query)) ? new Query() : $query;
-		
+
 		$rawQuery = $this->getRawQuery($object, $query);
 		$cursor = $this->db->selectCollection($object->collection())->find($rawQuery);
 
@@ -263,10 +263,10 @@ class Storage
 		$data = $this->db->selectCollection($object->collection())->findOne($rawQuery);
         return $this->setData($object, $data);
 	}
-	
+
 	/**
 	 * Ensures that aliased properties are correctly converted in query
-	 * 
+	 *
 	 * @param Object $object
 	 * @param IQuery $query
 	 */
@@ -314,9 +314,12 @@ class Storage
 	}
 
     /**
-     * @param Morph_Object $object
-     * @param array $data
-     * @return Morph_Object
+     * Sets data to the morph object
+     *
+     * @param  Object $object
+     * @param  mixed  $data
+     * @return Object
+     * @throw  ObjectNotFound if data is empty
      */
     private function setData(Object $object, $data)
     {
