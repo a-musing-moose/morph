@@ -22,11 +22,12 @@ class String extends Generic
     protected $maximumLength;
 
     /**
-     * @param string $Name
-     * @param string $Default
-     * @param integer $MaximumLength
+     * @param string  $name
+     * @param string  $default
+     * @param integer $maximumLength
      */
-    public function __construct($name, $default = null, $maximumLength = null){
+    public function __construct($name, $default = null, $maximumLength = null)
+    {
         parent::__construct($name, $default);
         $this->maximumLength = (is_null($maximumLength)) ? null : (int)$maximumLength;
     }
@@ -34,11 +35,13 @@ class String extends Generic
     /**
      * Sets the value of this attribute
      *
-     * @param integer $Value
+     * @param  mixed $value
+     * @return void
      */
-    public function setValue($value){
+    public function setValue($value)
+    {
         if (null === $value) {
-            return parent::setValue($value);
+            return parent::setValue(null);
         }
 
         $cleanValue = (string)$value;
@@ -48,6 +51,7 @@ class String extends Generic
                 'substr', array($cleanValue, 0, $this->maximumLength)
             );
         }
+
         parent::setValue($cleanValue);
     }
 
@@ -56,7 +60,8 @@ class String extends Generic
      *
      * @return string
      */
-    public function getValue(){
+    public function getValue()
+    {
         return (null === parent::getValue()) ? null : (string)parent::getValue();
     }
 
@@ -69,10 +74,17 @@ class String extends Generic
     */
     protected function _getUnicodeValue($fncName, $value)
     {
+        // PHP 5.4 has native support of unicode chars
+        if (version_compare(PHP_VERSION, '5.4', '>=')) {
+            return call_user_func_array($fncName, (array)$value);
+        }
+
+        // iconv or mbstring
         $prefix = 'iconv';
         if (extension_loaded('mbstring')) {
             $prefix = 'mb';
         }
+
         return call_user_func_array($prefix . '_' . $fncName, (array)$value);
     }
 }
