@@ -37,8 +37,7 @@ class Object
     protected $validators;
 
     /**
-     * @param string $id If supplied this will be the id used to reference this object
-     * @return Morph_Object
+     * @param  string $id If supplied this will be the id used to reference this object
      */
     public function __construct($id = null)
     {
@@ -92,8 +91,8 @@ class Object
     /**
      * Adds a new property to this object
      *
-     * @param Morph_Property_Generic $property
-     * @param string $alias
+     * @param  \morph\property\Generic $property
+     * @param  string $alias (Default: null)
      * @return \morph\Object
      */
     protected function addProperty(\morph\property\Generic $property, $alias = null)
@@ -108,9 +107,9 @@ class Object
     /**
      * Sets the property data for this object
      *
-     * @param $data
-     * @param $state
-     * @return Morph_Object
+     * @param  array  $data
+     * @param  string $state (Default: Enum::STATE_DIRTY)
+     * @return \morph\Object
      */
     public function __setData(array $data, $state = Enum::STATE_DIRTY)
     {
@@ -145,7 +144,7 @@ class Object
         }
         return $data;
     }
-    
+
     /**
      * @return \morph\PropertSet
      */
@@ -159,7 +158,6 @@ class Object
     // ********************** //
 
     /**
-     *
      * @param $propertyName
      * @return mixed
      */
@@ -175,10 +173,9 @@ class Object
     }
 
     /**
-     *
-     * @param $propertyName
-     * @param $propertyValue
-     * @return Morph_Object
+     * @param  string $propertyName
+     * @param  string $propertyValue
+     * @return \morph\Object
      */
     public function __set($propertyName, $propertyValue)
     {
@@ -191,6 +188,14 @@ class Object
         return $this;
     }
 
+    /**
+     * Clones the current object
+     */
+    public function __clone()
+    {
+        $this->id = null;
+    }
+
     // ********************* //
     // PERSISTANCE FUNCTIONS //
     // ********************* //
@@ -198,8 +203,8 @@ class Object
     /**
      * Saves this object
      *
-     * @param array $options Support the same options as MongoCollection::save()
-     * @return Morph_Object
+     * @param  array $options Support the same options as MongoCollection::save()
+     * @return \morph\Object
      */
     public function save(array $options = array())
     {
@@ -222,7 +227,7 @@ class Object
 
     /**
      * Fetch multiple objects by their ids
-     * 
+     *
      * By default Morph sets the id to be an instance of MongoId().  When searching you need
      * to ensure you do the same by wrapping your id string in a MongoId object
      *
@@ -233,12 +238,12 @@ class Object
     {
         return Storage::instance()->fetchByIds($this, $ids);
     }
-   
+
     /**
      * Find objects by query
      *
-     * @param Morph_IQuery $query
-     * @return Morph_Iterator
+     * @param  IQuery $query
+     * @return \morph\Iterator
      */
     public function findByQuery(IQuery $query)
     {
@@ -248,8 +253,8 @@ class Object
     /**
      * Finds one object by query
      *
-     * @param Morph_Query $query
-     * @return Morph_Object
+     * @param  IQuery $query
+     * @return Object
      */
     public function findOneByQuery(IQuery $query)
     {
@@ -257,8 +262,18 @@ class Object
     }
 
     /**
+     * Returns all entries for the current document
+     *
+     * @return \morph\Iterator
+     */
+    public function fetchAll()
+    {
+        return Storage::instance()->findByQuery($this);
+    }
+
+    /**
      * Deletes this object from the database
-     * 
+     *
      * @return boolean
      */
     public function delete()
@@ -279,17 +294,17 @@ class Object
      */
     public function __toString()
     {
-	// create the array that we will be encoding and returning
-	// also put inside the array the mongodb ID and the 'state'
+        // create the array that we will be encoding and returning
+        // also put inside the array the mongodb ID and the 'state'
         $data = array(
             'Id' => $this->id(),
             'State' => $this->state()
         );
 
-	// iterate through all the properties this object has and print them out
+        // iterate through all the properties this object has and print them out
         foreach ($this->propertySet as $name => $property) {
             $data[$name] = (string)$property;
-	}
+        }
 
         return \json_encode($data);
     }
