@@ -99,8 +99,26 @@ class Object
     {
         $this->propertySet[$property->getName()] = $property;
         if (null !== $alias) {
-        	$this->propertySet->setStorageName($property->getName(), $alias);
+            $this->propertySet->setStorageName($property->getName(), $alias);
         }
+        return $this;
+    }
+
+    /**
+     * Sets properties from the array list
+     *
+     * @param  array $set
+     * @return \morph\Object
+     */
+    public function setFromArray(array $set)
+    {
+        foreach ($this->__getPropertySet() as $property) {
+            $propName = $property->getName();
+            if (array_key_exists($propName, $set)) {
+                $this->{$propName} = $set[$propName];
+            }
+        }
+
         return $this;
     }
 
@@ -139,7 +157,7 @@ class Object
         }
         $data['_ns'] = \get_class($this);
         foreach($this->propertySet as $property) {
-        	$storageName = $this->propertySet->getStorageName($property->getName());
+            $storageName = $this->propertySet->getStorageName($property->getName());
             $data[$storageName] = $property->__getRawValue();
         }
         return $data;
@@ -150,7 +168,7 @@ class Object
      */
     public function __getPropertySet()
     {
-    	return $this->propertySet;
+        return $this->propertySet;
     }
 
     // ********************** //
@@ -278,7 +296,7 @@ class Object
      */
     public function delete()
     {
-    	return Storage::instance()->delete($this);
+        return Storage::instance()->delete($this);
     }
 
     // ***************** //
@@ -303,7 +321,7 @@ class Object
 
         // iterate through all the properties this object has and print them out
         foreach ($this->propertySet as $name => $property) {
-            $data[$name] = (string)$property;
+            $data[$name] = $property->__toString();
         }
 
         return \json_encode($data);
