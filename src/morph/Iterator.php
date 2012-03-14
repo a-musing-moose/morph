@@ -4,7 +4,6 @@
  * @author Jonathan Moss <xirisr@gmail.com>
  * @copyright 2009 Jonathan Moss
  */
-
 namespace morph;
 
 /**
@@ -14,34 +13,41 @@ namespace morph;
  */
 class Iterator implements \Iterator
 {
-
     /**
-     * @var Morph_Object
+     * @var \morph\Object
      */
     private $type;
 
     /**
-     * @var MongoCursor
+     * @var \MongoCursor
      */
     private $cursor;
 
     /**
-     *
-     * @var Morph_Storage
+     * @var \morph\Storage
      */
     private $storage;
 
     /**
-     * Creates a new Morph_Iterator from the passed in cursor
+     * Creates a new \morph\Iterator from the passed in cursor
      *
-     * @param Morph_Object $object
-     * @param MongoCursor $cursor
-     * @return Morph_Iterator
+     * @param Object $object
+     * @param \MongoCursor $cursor
      */
     public function __construct(Object $object, \MongoCursor $cursor)
     {
         $this->type = $object;
         $this->cursor = $cursor;
+    }
+
+    /**
+     * Returns the cursor object
+     *
+     * @return \MongoCursor
+     */
+    public function getCursor()
+    {
+        return $this->cursor;
     }
 
     /**
@@ -60,13 +66,12 @@ class Iterator implements \Iterator
      * Note that this means all objects will be held in memory so
      * you need to be a bit careful not to exceed memory limits
      *
-     * @return Morph_Collection
+     * @return \morph\Collection
      */
     public function toCollection()
     {
-
         $collection = new Collection();
-        $collection->setPermissableType(\get_class($this->type));
+        $collection->setPermissableType(get_class($this->type));
         $collection->setTotalCount($this->totalCount());
 
         $this->rewind();
@@ -80,23 +85,22 @@ class Iterator implements \Iterator
     /**
      * Converts a single mongo document into the appropriate Morph_Object
      *
-     * @param array $item
-     * @return Morph_Object
+     * @param  array $item
+     * @return Object
      */
     private function createObject(array $item)
     {
-        $class = \get_class($this->type);
+        $class = get_class($this->type);
         $object = new $class;
-        $object->__setData($item, Enum::STATE_CLEAN)
-            ->collection($this->type->collection());
+        $object->__setData($item, Enum::STATE_CLEAN);
         return $object;
     }
 
     // TRAVERSALABLE INTERFACE FUNCTIONS
 
     /**
-     * Returns the current Morph_Object
-     * @return Morph_Object
+     * Returns the current \morph\Object
+     * @return Object
      */
     public function current()
     {
@@ -107,7 +111,7 @@ class Iterator implements \Iterator
     /**
      * Returns the key of the current position in the Iterator
      *
-     * @return int
+     * @return string
      */
     public function key()
     {
@@ -143,5 +147,4 @@ class Iterator implements \Iterator
     {
         return $this->cursor->valid();
     }
-
 }
