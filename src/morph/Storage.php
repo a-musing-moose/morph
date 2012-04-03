@@ -205,7 +205,7 @@ class Storage
 	public function delete(Object $object)
 	{
 		$query = array('_id' => $object->id());
-		return $this->db->selectCollection($object->collection())->remove($query, true);
+		return $this->db->selectCollection($object->collection())->remove($query, array('justOne' => true));
 	}
 
 	/**
