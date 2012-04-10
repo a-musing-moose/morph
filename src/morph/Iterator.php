@@ -92,7 +92,8 @@ class Iterator implements \Iterator
     {
         $class = get_class($this->type);
         $object = new $class;
-        $object->__setData($item, Enum::STATE_CLEAN);
+        $object->__setData($item, Enum::STATE_CLEAN)
+            ->collection($this->type->collection());
         return $object;
     }
 
