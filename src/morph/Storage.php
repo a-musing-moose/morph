@@ -207,6 +207,32 @@ class Storage
 		$query = array('_id' => $object->id());
 		return $this->db->selectCollection($object->collection())->remove($query, array('justOne' => true));
 	}
+	
+	/**
+	 * Deletes documents based on query
+	 *
+	 * The results come packages up in a \morph\Iterator object
+	 *
+	 * @param  Object $object Required to determine the correct collection query against
+	 * @param  IQuery $query
+	 * @param  bool $safe
+	 * @return bool
+	 */
+	public function deleteByQuery(Object $object, IQuery $query = null, $safe = null)
+	{
+		$class = get_class($object);
+
+		$query = (is_null($query)) ? new Query() : $query;
+		
+		$options = array();
+		if (!is_null($safe))
+		{
+			$options[] = array('safe' => $safe);
+		}
+
+		$rawQuery = $this->getRawQuery($object, $query);
+		return $this->db->selectCollection($object->collection())->remove($rawQuery, $options);
+	}
 
 	/**
 	 * Runs query against the database

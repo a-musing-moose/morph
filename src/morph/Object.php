@@ -249,6 +249,18 @@ class Object
     {
         return Storage::instance()->findByQuery($this, $query);
     }
+    
+    /**
+     * Deletes objects by query
+     *
+     * @param  IQuery $query
+     * @param  bool $safe
+     * @return \morph\Iterator
+     */
+    public function deleteByQuery(IQuery $query, $safe = null)
+    {
+        return Storage::instance()->findByQuery($this, $query, $safe);
+    }
 
     /**
      * Finds one object by query
