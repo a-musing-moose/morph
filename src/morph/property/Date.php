@@ -61,7 +61,7 @@ class Date extends Generic
      * @param $value
      * @return Morph_Property_Generic
      */
-    public function __setRawValue($value)
+    public function __setRawValue($value, $state = null)
     {
         if ($value instanceof \MongoDate) {
             $this->value = (int) $value->sec;
@@ -71,6 +71,10 @@ class Date extends Generic
             } else {
                 $this->value = null;
             }
+        }
+
+        if (null != $state) {
+            $this->state = $state;
         }
         return $this;
     }
