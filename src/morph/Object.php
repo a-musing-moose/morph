@@ -254,8 +254,8 @@ class Object
      * Deletes objects by query
      *
      * @param  IQuery $query
-     * @param  bool $safe
-     * @return \morph\Iterator
+     * @param  boolean $safe
+     * @return boolean
      */
     public function deleteByQuery(IQuery $query, $safe = null)
     {
