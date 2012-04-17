@@ -32,27 +32,25 @@ class Generic
      * @var mixed
      */
     protected $value;
-    
+
     /**
      * The current state of this property
-     * 
+     *
      * @see Morph_Enum::STATE_*
      * @var string
      */
     protected $state = \morph\Enum::STATE_NEW;
 
     /**
-     *
-     * @param $name
-     * @param $default
-     * @return ar_Field
+     * @param string $name
+     * @param mixed  $default
      */
     public function __construct($name, $default = null)
     {
         $this->name = $name;
         $this->value = $default;
     }
-    
+
     /**
      * @return string
      */
@@ -126,6 +124,6 @@ class Generic
      */
     public function __toString()
     {
-        return (string)$this->getValue();
+        return $this->getValue();
     }
 }
