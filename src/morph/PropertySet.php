@@ -81,6 +81,9 @@ class  PropertySet extends \ArrayObject
     public function getState()
     {
         $state = \morph\Enum::STATE_NEW;
+        $hasCleanProperty = false;
+        $hasNewProperty = false;
+
         foreach ($this as $n => $property) {
             $propertyState = $property->getState();
             if ( \morph\Enum::STATE_DIRTY == $propertyState) {
@@ -88,8 +91,17 @@ class  PropertySet extends \ArrayObject
                 break;
             } elseif ( \morph\Enum::STATE_CLEAN == $propertyState) {
                 $state = $propertyState;
+                $hasCleanProperty = true;
+            } elseif ( \morph\Enum::STATE_NEW == $propertyState) {
+                $state = $propertyState;
+                $hasNewProperty = true;
             }
-        } 
+        }
+
+        if ($hasCleanProperty && $hasNewProperty) {
+            return \morph\Enum::STATE_DIRTY;
+        }
+
         return $state;
     }
     
