@@ -160,8 +160,8 @@ class Storage
 	/**
 	 * Inserts a new object into the database
 	 *
-	 * @param \morph\Object $object
-	 * @param array $options
+	 * @param  \morph\Object $object
+	 * @param  array $options
 	 * @return \morph\Object
 	 */
 	private function insert(Object $object, array $options = array())
@@ -188,18 +188,43 @@ class Storage
 	/**
 	 * Updates object in the database
 	 *
-	 * @param Morph_Object $object
-	 * @return Morph_Object
+	 * @param  morph\Object   $object
+     * @param  array          $options
+	 * @return morph\Object
 	 */
-	private function update(Object $object)
+	private function update(Object $object, array $options = array())
 	{
-		return $this->insert($object);
+        // get changed data (\morph\Enum::STATE_DIRTY || \morph\Enum::STATE_NEW)
+        $data = $object->__getData(TRUE);
+
+        //set an id if we do not have one
+        if(!\array_key_exists('_id', $data)){
+            throw new \Exception('Can\'t call update on an object that hasn\'t been saved');
+        } else {
+            // now that we know it had an id to begin with, 
+            // we need to remove it - we can't make changes to an id property.
+            unset($data['_id']);
+        }
+
+        // criteria can generally be the id of the document
+        $query = array('_id' => $object->id());
+
+        $options = array_merge(array('safe' => true, 'multiple' => false), $options);
+
+        $data = array('$set' => $data);
+        var_dump($data);
+
+        $savedOk = $this->db->selectCollection($object->collection())->update($query, $data, $options);
+        if($savedOk) {
+            $object->__setData($data, Enum::STATE_CLEAN);
+        }
+        return $object;
 	}
 
 
 	/**
 	 * Deletes the object passed in from the database
-	 * @param Morph_Object $object
+	 * @param  morph\Object $object
 	 * @return boolean
 	 */
 	public function delete(Object $object)
@@ -215,7 +240,7 @@ class Storage
 	 *
 	 * @param  Object $object Required to determine the correct collection query against
 	 * @param  IQuery $query
-	 * @param  bool $safe
+	 * @param  bool   $safe
 	 * @return bool
 	 */
 	public function deleteByQuery(Object $object, IQuery $query = null, $safe = null)

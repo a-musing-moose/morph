@@ -131,22 +131,34 @@ class Object
      *
      * @return array
      */
-    public function __getData()
+    public function __getData($whereNew = false)
     {
         $data = array();
         if (!is_null($this->id)) {
             $data['_id'] = $this->id;
         }
         $data['_ns'] = \get_class($this);
-        foreach($this->propertySet as $property) {
-        	$storageName = $this->propertySet->getStorageName($property->getName());
-            $data[$storageName] = $property->__getRawValue();
+        foreach ($this->propertySet as $property) {
+            $storageName = $this->propertySet->getStorageName($property->getName());
+
+            if (!$whereNew) {
+                $data[$storageName] = $property->__getRawValue();
+            } else {
+                $state = $property->getState();
+
+                if ($state === \morph\Enum::STATE_DIRTY || $state === \morph\Enum::STATE_NEW) {
+                    $data[$storageName] = $property->__getRawValue();
+                }
+            }
         }
+        var_dump($data);
         return $data;
     }
 
     /**
-     * @return \morph\PropertSet
+     * Returns the PropertySet for this object
+     * 
+     * @return \morph\PropertySet
      */
     public function __getPropertySet()
     {
@@ -158,6 +170,8 @@ class Object
     // ********************** //
 
     /**
+     * Gets a property by name if it exists. Issues an E_USER_WARNING if it does not exist.
+     * 
      * @param $propertyName
      * @return mixed
      */
@@ -173,6 +187,8 @@ class Object
     }
 
     /**
+     * Sets a property by name and value
+     * 
      * @param  string $propertyName
      * @param  string $propertyValue
      * @return \morph\Object
