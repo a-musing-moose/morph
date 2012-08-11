@@ -174,7 +174,9 @@ class Storage
                 '_id' => new \MongoId()
 			);
 			$data = \array_merge($id, $data);
-		}
+		} else {
+            throw new \InvalidArgumentException('Cannot insert an object with an id already');
+        }
 
 		$options = array_merge(array('safe'=>$this->useSafe), $options);
 
@@ -194,25 +196,23 @@ class Storage
 	 */
 	private function update(Object $object, array $options = array())
 	{
-        // get changed data (\morph\Enum::STATE_DIRTY || \morph\Enum::STATE_NEW)
+        // get "dirty" or "new" data
         $data = $object->__getData(TRUE);
 
-        //set an id if we do not have one
-        if(!\array_key_exists('_id', $data)){
-            throw new \Exception('Can\'t call update on an object that hasn\'t been saved');
+        // make sure we have an id
+        if(is_null($object->id())) {
+            throw new \InvalidArgumentException("Cannot update an object that has yet to be inserted");
         } else {
-            // now that we know it had an id to begin with, 
-            // we need to remove it - we can't make changes to an id property.
+            // remove the id from the $set process
             unset($data['_id']);
         }
 
         // criteria can generally be the id of the document
         $query = array('_id' => $object->id());
 
-        $options = array_merge(array('safe' => true, 'multiple' => false), $options);
+        $options = array_merge(array('safe' => $this->useSafe, 'multiple' => false), $options);
 
         $data = array('$set' => $data);
-        var_dump($data);
 
         $savedOk = $this->db->selectCollection($object->collection())->update($query, $data, $options);
         if($savedOk) {

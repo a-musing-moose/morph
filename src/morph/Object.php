@@ -129,6 +129,7 @@ class Object
     /**
      * Gets the property data for this object
      *
+     * @param  boolean  $whereNew  Whether or not to only get dirty/new properties.
      * @return array
      */
     public function __getData($whereNew = false)
@@ -151,7 +152,7 @@ class Object
                 }
             }
         }
-        var_dump($data);
+
         return $data;
     }
 
