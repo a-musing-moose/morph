@@ -77,7 +77,12 @@ class  PropertySet extends \ArrayObject
         }
         $this[$name]->__setRawValue($value, $state);
     }
-    
+
+    /**
+     * Gets the current state for the entire property set
+     * 
+     * @return string   A string that matches to a constant in \Morph\Enum
+     */
     public function getState()
     {
         $state = \morph\Enum::STATE_NEW;
@@ -104,7 +109,7 @@ class  PropertySet extends \ArrayObject
 
         return $state;
     }
-    
+
     /**
      * Sets a storage alias for the named property
      * 
@@ -156,7 +161,7 @@ class  PropertySet extends \ArrayObject
      */
     public function append($object)
     {
-        throw new \RuntimeException("Appending to PropertySet is not supported");
+        throw new \RuntimeException("Appending to morph\\PropertySet is not supported");
     }
 
     /**
@@ -184,7 +189,7 @@ class  PropertySet extends \ArrayObject
     private function checkType($object)
     {
         if (!\is_object($object)) {
-            throw new \InvalidArgumentException('value if not and object that extends Morph_Property_Generic');
+            throw new \InvalidArgumentException('value if not and object that extends morph\\property\\Generic');
         }
 
         if(!($object instanceof \morph\property\Generic)){

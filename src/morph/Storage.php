@@ -160,8 +160,8 @@ class Storage
 	/**
 	 * Inserts a new object into the database
 	 *
-	 * @param \morph\Object $object
-	 * @param array $options
+	 * @param  \morph\Object $object
+	 * @param  array $options
 	 * @return \morph\Object
 	 */
 	private function insert(Object $object, array $options = array())
@@ -174,7 +174,9 @@ class Storage
                 '_id' => new \MongoId()
 			);
 			$data = \array_merge($id, $data);
-		}
+		} else {
+            throw new \InvalidArgumentException('Cannot insert an object with an id already');
+        }
 
 		$options = array_merge(array('safe'=>$this->useSafe), $options);
 
@@ -188,18 +190,41 @@ class Storage
 	/**
 	 * Updates object in the database
 	 *
-	 * @param Morph_Object $object
-	 * @return Morph_Object
+	 * @param  morph\Object   $object
+     * @param  array          $options
+	 * @return morph\Object
 	 */
-	private function update(Object $object)
+	private function update(Object $object, array $options = array())
 	{
-		return $this->insert($object);
+        // get "dirty" or "new" data
+        $data = $object->__getData(TRUE);
+
+        // make sure we have an id
+        if(is_null($object->id())) {
+            throw new \InvalidArgumentException("Cannot update an object that has yet to be inserted");
+        } else {
+            // remove the id from the $set process
+            unset($data['_id']);
+        }
+
+        // criteria can generally be the id of the document
+        $query = array('_id' => $object->id());
+
+        $options = array_merge(array('safe' => $this->useSafe, 'multiple' => false), $options);
+
+        $data = array('$set' => $data);
+
+        $savedOk = $this->db->selectCollection($object->collection())->update($query, $data, $options);
+        if($savedOk) {
+            $object->__setData($data, Enum::STATE_CLEAN);
+        }
+        return $object;
 	}
 
 
 	/**
 	 * Deletes the object passed in from the database
-	 * @param Morph_Object $object
+	 * @param  morph\Object $object
 	 * @return boolean
 	 */
 	public function delete(Object $object)
@@ -215,7 +240,7 @@ class Storage
 	 *
 	 * @param  Object $object Required to determine the correct collection query against
 	 * @param  IQuery $query
-	 * @param  bool $safe
+	 * @param  bool   $safe
 	 * @return bool
 	 */
 	public function deleteByQuery(Object $object, IQuery $query = null, $safe = null)
