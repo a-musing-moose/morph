@@ -47,6 +47,11 @@ class Query implements IQuery
      * @var array
      */
 	private $criteria;
+	
+        /**
+        * @var array
+        */
+        private $operator;	
 
 	/**
 	 * @var int
@@ -167,6 +172,12 @@ class Query implements IQuery
                 }
             }
 	    }
+	    
+        if (count($this->operator) > 0) {
+            foreach ($this->operator as $operatorName => $operator) {
+                $query[$operatorName] = $operator;
+            }
+        }
 
 	    return $query;
 	}
@@ -192,4 +203,8 @@ class Query implements IQuery
         }
 	    return $sort;
 	}
+	
+        public function operator($operator, IQuery $query1, IQuery $query2) {
+            $this->operator[$operator] = array($query1->getRawQuery(), $query2->getRawQuery());
+        }
 }
