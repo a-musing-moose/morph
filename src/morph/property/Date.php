@@ -36,11 +36,10 @@ class Date extends Generic
      */
     public function setValue($value = null)
     {
-        if (isset($value)) {
-            $this->value = (int)$value;
-        } else {
-            $this->value = null;
-        }
+		if (null === $value) {
+			return parent::setValue(null);
+		}
+		parent::setValue((int)$value);
     }
 
     /**
